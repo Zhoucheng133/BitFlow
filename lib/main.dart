@@ -2,7 +2,6 @@ import 'package:bit_flow/getx/theme_get.dart';
 import 'package:bit_flow/main_window.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:window_manager/window_manager.dart';
 
