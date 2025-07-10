@@ -54,7 +54,7 @@ class _MainWindowState extends State<MainWindow> with WindowListener {
           child: Row(
             children: [
               Expanded(child: DragToMoveArea(child: Container())),
-              if(Platform.isMacOS) Obx(()=>
+              if(Platform.isWindows) Obx(()=>
                 Row(
                   children: [
                     WindowCaptionButton.minimize(
