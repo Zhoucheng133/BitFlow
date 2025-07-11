@@ -5,27 +5,38 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 class AriaService extends GetxController{
+
+  Future<Map> httpRequest(Map data, String aria) async {
+    final url = Uri.parse(aria);
+    final body = json.encode(data);
+    final response = await http.post(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: body,
+    );
+    if (response.statusCode == 200) {
+      return json.decode(utf8.decode(response.bodyBytes));
+    } else {
+      return {};
+    }
+  }
+
+
   Future<String?> getVersion(StoreItem item) async {
     if(item.type!=StoreType.aria){
       return null;
     }
     try {
-      final response=await http.post(
-        Uri.parse(item.url), 
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: jsonEncode({
-          "jsonrpc":"2.0",
-          "method":"aria2.getVersion",
-          "id":"ariaui",
-          "params":["token:${item.password}"]
-        })
-      );
-      final version=json.decode(utf8.decode(response.bodyBytes))['result']['version'];
-      return version;
-    } catch (_) {}
-
-    return null;
+      return (await httpRequest({
+        "jsonrpc":"2.0",
+        "method":"aria2.getVersion",
+        "id":"ariaui",
+        "params":["token:${item.password}"]
+      }, item.url))['result']['version'];
+    } catch (_) {
+      return null;
+    }
   }
 }
