@@ -31,7 +31,8 @@ class _AddItemState extends State<AddItem> {
 }
 
 class AddStore extends StatefulWidget {
-  const AddStore({super.key});
+  final ValueChanged<StoreItem> valCallback;
+  const AddStore({super.key, required this.valCallback});
 
   @override
   State<AddStore> createState() => _AddStoreState();
@@ -40,18 +41,30 @@ class AddStore extends StatefulWidget {
 class _AddStoreState extends State<AddStore> {
 
   String type="Aria";
-    TextEditingController url=TextEditingController();
-    TextEditingController username=TextEditingController();
-    TextEditingController password=TextEditingController();
+  TextEditingController url=TextEditingController();
+  TextEditingController username=TextEditingController();
+  TextEditingController password=TextEditingController();
 
-    String convertType(StoreType type){
-      if(type==StoreType.aria){
-        return "Aria";
-      }else if(type==StoreType.qbit){
-        return "qBittorrent";
-      }
-      return "";
+  StoreItem item=StoreItem(StoreType.aria, "", "", "");
+
+  String convertType(StoreType type){
+    if(type==StoreType.aria){
+      return "Aria";
+    }else if(type==StoreType.qbit){
+      return "qBittorrent";
     }
+    return "";
+  }
+
+  void reverseType(String? type){
+    switch (type) {
+      case "Aria":
+        item.type=StoreType.aria;
+        break;
+      case "qBittorrent":
+        item.type=StoreType.qbit;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,6 +97,8 @@ class _AddStoreState extends State<AddStore> {
                   setState((){
                     type=val!;
                   });
+                  reverseType(val);
+                  widget.valCallback(item);
                 },
               ),
             ),
@@ -108,6 +123,10 @@ class _AddStoreState extends State<AddStore> {
             ),
             autocorrect: false,
             enableSuggestions: false,
+            onChanged: (val){
+              item.url=val;
+              widget.valCallback(item);
+            },
           )
         ),
         if(type=='qBittorrent') const SizedBox(height: 10,),
@@ -128,6 +147,10 @@ class _AddStoreState extends State<AddStore> {
             ),
             autocorrect: false,
             enableSuggestions: false,
+            onChanged: (val){
+              item.username=val;
+              widget.valCallback(item);
+            },
           )
         ),
         const SizedBox(height: 10,),
@@ -149,6 +172,10 @@ class _AddStoreState extends State<AddStore> {
             ),
             autocorrect: false,
             enableSuggestions: false,
+            onChanged: (val){
+              item.password=val;
+              widget.valCallback(item);
+            },
           )
         ),
       ],

@@ -2,6 +2,8 @@ import 'package:bit_flow/getx/status_get.dart';
 import 'package:bit_flow/getx/store_get.dart';
 import 'package:bit_flow/getx/theme_get.dart';
 import 'package:bit_flow/main_window.dart';
+import 'package:bit_flow/service/aria.dart';
+import 'package:bit_flow/service/qbit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -24,6 +26,8 @@ Future<void> main() async {
   });
   Get.put(ThemeGet());
   Get.put(StatusGet());
+  Get.put(AriaService());
+  Get.put(QbitService());
   Get.put(StoreGet());
   runApp(const MainApp());
 }
