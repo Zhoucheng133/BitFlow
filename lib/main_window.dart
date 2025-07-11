@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:bit_flow/getx/store_get.dart';
 import 'package:bit_flow/getx/theme_get.dart';
 import 'package:bit_flow/service/init.dart';
 import 'package:flutter/material.dart';
@@ -49,6 +50,7 @@ class _MainWindowState extends State<MainWindow> with WindowListener {
   }
 
   final ThemeGet themeGet=Get.find();
+  final StoreGet storeGet=Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +85,13 @@ class _MainWindowState extends State<MainWindow> with WindowListener {
             ],
           ),
         ),
-        // TODO
+        // TODO 测试内容
+        Center(
+          child: TextButton(onPressed: (){
+            print(storeGet.servers.length);
+            print(storeGet.servers.map((item)=>item.toMap()).toList());
+          }, child: const Text("测试")),
+        )
       ],
     );
   }
