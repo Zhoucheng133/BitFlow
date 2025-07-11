@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:bit_flow/getx/theme_get.dart';
+import 'package:bit_flow/service/init.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:window_manager/window_manager.dart';
@@ -13,10 +14,16 @@ class MainWindow extends StatefulWidget {
 }
 
 class _MainWindowState extends State<MainWindow> with WindowListener {
+  bool isMax=false;
+  final InitServivce initServivce=InitServivce();
+
   @override
   void initState() {
     super.initState();
     windowManager.addListener(this);
+    WidgetsBinding.instance.addPostFrameCallback((_){
+      initServivce.init(context);
+    });
   }
 
   @override
@@ -24,8 +31,6 @@ class _MainWindowState extends State<MainWindow> with WindowListener {
     windowManager.removeListener(this);
     super.dispose();
   }
-
-  bool isMax=false;
 
   @override
   void onWindowMaximize() {
