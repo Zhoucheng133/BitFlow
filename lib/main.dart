@@ -1,3 +1,5 @@
+import 'package:bit_flow/getx/status_get.dart';
+import 'package:bit_flow/getx/store_get.dart';
 import 'package:bit_flow/getx/theme_get.dart';
 import 'package:bit_flow/main_window.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +23,8 @@ Future<void> main() async {
     await windowManager.focus();
   });
   Get.put(ThemeGet());
+  Get.put(StatusGet());
+  Get.put(StoreGet());
   runApp(const MainApp());
 }
 
