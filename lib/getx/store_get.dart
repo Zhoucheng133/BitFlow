@@ -17,13 +17,14 @@ class StoreGet extends GetxController{
   Future<void> saveStore() async {
     final prefs=await SharedPreferences.getInstance();
     prefs.setString("store", jsonEncode(servers.map((item)=>item.toMap()).toList()));
+    // print(servers.map((item)=>item.toMap()).toList());
   }
 
   void addStore(BuildContext context, {init=false}){
-    StoreItem item=StoreItem(StoreType.aria, "", null, "");
+    StoreItem item=StoreItem("", StoreType.aria, "", null, "");
     bool load=false;
     void setVal(StoreItem val){
-      item = StoreItem(val.type, val.url, val.type==StoreType.aria ? null : val.username, val.password);
+      item = StoreItem(val.name, val.type, val.url, val.type==StoreType.aria ? null : val.username, val.password);
     }
 
     showDialog(

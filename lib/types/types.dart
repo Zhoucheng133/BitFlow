@@ -9,12 +9,13 @@ enum StoreType{
 }
 
 class StoreItem{
+  late String name;
   late StoreType type;
   late String url;
   // Aria中没有username参数
   late String? username;
   late String password;
-  StoreItem(this.type, this.url, this.username, this.password);
+  StoreItem(this.name, this.type, this.url, this.username, this.password);
 
   final AriaService ariaService=Get.find();
   final QbitService qbitService=Get.find();
@@ -22,6 +23,7 @@ class StoreItem{
 
   Map toMap(){
     return {
+      "name": name,
       "type": type.index,
       "url": url,
       "username": username??"",

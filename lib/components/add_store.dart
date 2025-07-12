@@ -41,11 +41,12 @@ class AddStore extends StatefulWidget {
 class _AddStoreState extends State<AddStore> {
 
   String type="Aria";
+  TextEditingController name=TextEditingController();
   TextEditingController url=TextEditingController();
   TextEditingController username=TextEditingController();
   TextEditingController password=TextEditingController();
 
-  StoreItem item=StoreItem(StoreType.aria, "", "", "");
+  StoreItem item=StoreItem("", StoreType.aria, "", "", "");
 
   String convertType(StoreType type){
     if(type==StoreType.aria){
@@ -103,6 +104,31 @@ class _AddStoreState extends State<AddStore> {
               ),
             ),
           ),
+        ),
+        const SizedBox(height: 10,),
+        AddItem(
+          label: '名称', 
+          content: TextField(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              hintText: '随意取一个',
+              hintStyle: GoogleFonts.notoSansSc(
+                color: Colors.grey
+              ),
+              isCollapsed: true,
+              contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12)
+            ),
+            controller: name,
+            style: GoogleFonts.notoSansSc(
+              fontSize: 14
+            ),
+            autocorrect: false,
+            enableSuggestions: false,
+            onChanged: (val){
+              item.name=val;
+              widget.valCallback(item);
+            },
+          )
         ),
         const SizedBox(height: 10,),
         AddItem(

@@ -16,7 +16,7 @@ class InitServivce extends GetxController{
     final storePrefs=prefs.getString('store');
     if(storePrefs!=null){
       try {
-        List<StoreItem> store=(jsonDecode(storePrefs) as List).map((item)=>StoreItem(StoreType.values[item['type']], item['url'], item['username'], item['password'])).toList();
+        List<StoreItem> store=(jsonDecode(storePrefs) as List).map((item)=>StoreItem(item['name'], StoreType.values[item['type']], item['url'], item['username'], item['password'])).toList();
         storeGet.servers.value=store;
         statusGet.initOk.value=true;
         return;
