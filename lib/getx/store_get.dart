@@ -45,6 +45,10 @@ class StoreGet extends GetxController{
               ),
               ElevatedButton(
                 onPressed: load ? null : () async {
+                  if(servers.any((element) => element.name==item.name)){
+                    showErrWarnDialog(context, "添加失败", "这个下载器名称已存在");
+                    return;
+                  }
                   setState((){
                     load=true;
                   });
