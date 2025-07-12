@@ -79,6 +79,22 @@ class _AddStoreState extends State<AddStore> {
             alignment: Alignment.centerLeft,
             child: DropdownButtonHideUnderline(
               child: DropdownButton2<String>(
+                buttonStyleData: ButtonStyleData(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5)
+                  )
+                ),
+                menuItemStyleData: const MenuItemStyleData(
+                  height: 40,
+                  padding: EdgeInsets.only(left: 10, right: 10),
+                ),
+                dropdownStyleData: DropdownStyleData(
+                  padding: const EdgeInsets.symmetric(vertical: 0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    color: Theme.of(context).cardColor
+                  )
+                ),
                 isExpanded: false,
                 value: type,
                 items: StoreType.values.map((StoreType type) {
