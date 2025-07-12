@@ -68,7 +68,7 @@ class _SidebarState extends State<Sidebar> {
             const SizedBox(height: 10,),
             Row(
               children: [
-                Expanded(child: SidebarSmallButton(icon: Icons.star_rounded, func: () {  },)),
+                Expanded(child: SidebarSmallButton(icon: Icons.star_rounded, func: ()=>storeGet.setStar(statusGet.sevrerIndex.value), star: storeGet.starIndex.value==statusGet.sevrerIndex.value,)),
                 const SizedBox(width: 10,),
                 Expanded(child: SidebarSmallButton(icon: Icons.add_rounded, func: ()=>storeGet.addStore(context),))
               ],

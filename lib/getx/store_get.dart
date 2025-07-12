@@ -13,11 +13,26 @@ class StoreGet extends GetxController{
   final AriaService ariaService=Get.find();
   final QbitService qbitService=Get.find();
   RxList<StoreItem> servers = <StoreItem>[].obs;
+  RxInt starIndex=0.obs;
+
+  late SharedPreferences prefs;
+
+
+  init() async {
+    prefs=await SharedPreferences.getInstance();
+  }
+  StoreGet(){
+    init();
+  }
 
   Future<void> saveStore() async {
-    final prefs=await SharedPreferences.getInstance();
     prefs.setString("store", jsonEncode(servers.map((item)=>item.toMap()).toList()));
     // print(servers.map((item)=>item.toMap()).toList());
+  }
+
+  void setStar(int index){
+    starIndex.value=index;
+    prefs.setInt("star", index);
   }
 
   void addStore(BuildContext context, {init=false}){

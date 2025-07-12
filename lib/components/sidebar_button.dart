@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 class SidebarSmallButton extends StatefulWidget {
   final IconData icon;
   final VoidCallback func;
+  final bool? star;
 
-  const SidebarSmallButton({super.key, required this.icon, required this.func});
+  const SidebarSmallButton({super.key, required this.icon, required this.func, this.star});
 
   @override
   State<SidebarSmallButton> createState() => _SidebarSmallButtonState();
@@ -37,6 +38,7 @@ class _SidebarSmallButtonState extends State<SidebarSmallButton> {
             child: Icon(
               widget.icon,
               size: 20,
+              color: widget.star==true ? Colors.orange : Colors.black,
             ),
           ),
         ),

@@ -19,10 +19,17 @@ class InitServivce extends GetxController{
         List<StoreItem> store=(jsonDecode(storePrefs) as List).map((item)=>StoreItem(item['name'], StoreType.values[item['type']], item['url'], item['username'], item['password'])).toList();
         storeGet.servers.value=store;
         statusGet.initOk.value=true;
-        return;
-      } catch (_) {}
+      } catch (_) {
+        storeGet.addStore(context, init: true);
+      }
+    }else{
+      storeGet.addStore(context, init: true);
     }
-    storeGet.addStore(context, init: true);
+    final starPrefs=prefs.getInt("star");
+    if(starPrefs!=null && starPrefs<storeGet.servers.length){
+      storeGet.starIndex.value=starPrefs;
+      statusGet.sevrerIndex.value=starPrefs;
+    }
   }
 
   Future<void> init(BuildContext context) async {
