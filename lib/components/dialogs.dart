@@ -15,3 +15,28 @@ Future<void> showErrWarnDialog(BuildContext context, String title, String conten
     )
   );
 }
+
+showComfirmDialog(BuildContext context, String title, String content) async {
+  bool ok=false;
+  await showDialog(
+    context: context, 
+    builder: (context)=>AlertDialog(
+      title: Text(title),
+      content: Text(content),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context), 
+          child: const Text("取消")
+        ),
+        ElevatedButton(
+          onPressed: (){
+            ok=true;
+            Navigator.pop(context);
+          }, 
+          child: const Text("好的")
+        )
+      ],
+    )
+  );
+  return ok;
+}

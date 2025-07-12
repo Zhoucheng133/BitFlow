@@ -65,14 +65,16 @@ class _SidebarState extends State<Sidebar> {
                 },
               ),
             ),
-            const SizedBox(height: 10,),
+            // const SizedBox(height: 5,),
+            // SidebarButton(label: "添加下载器", icon: Icons.add_rounded, func: ()=>storeGet.addStore(context)),
+            const SizedBox(height: 5,),
             Row(
               children: [
-                Expanded(child: SidebarSmallButton(icon: Icons.star_rounded, func: ()=>storeGet.setStar(statusGet.sevrerIndex.value), star: storeGet.starIndex.value==statusGet.sevrerIndex.value,)),
+                Expanded(child: SidebarSmallButton(icon: Icons.star_rounded, func: ()=>storeGet.setStar(statusGet.sevrerIndex.value), star: storeGet.starIndex.value==statusGet.sevrerIndex.value, size: 18,)),
                 const SizedBox(width: 10,),
-                Expanded(child: SidebarSmallButton(icon: Icons.add_rounded, func: ()=>storeGet.addStore(context),))
+                Expanded(child: SidebarSmallButton(icon: Icons.delete_rounded, func: ()=>storeGet.delStore(context, statusGet.sevrerIndex.value), disable: storeGet.servers.length==1,))
               ],
-            )
+            ),
           ],
         ),
       ),

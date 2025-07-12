@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:bit_flow/components/add_store.dart';
 import 'package:bit_flow/components/dialogs.dart';
+import 'package:bit_flow/getx/status_get.dart';
 import 'package:bit_flow/service/aria.dart';
 import 'package:bit_flow/service/qbit.dart';
 import 'package:bit_flow/types/types.dart';
@@ -12,6 +13,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class StoreGet extends GetxController{
   final AriaService ariaService=Get.find();
   final QbitService qbitService=Get.find();
+  final StatusGet statusGet=Get.find();
   RxList<StoreItem> servers = <StoreItem>[].obs;
   RxInt starIndex=0.obs;
 
@@ -27,7 +29,18 @@ class StoreGet extends GetxController{
 
   Future<void> saveStore() async {
     prefs.setString("store", jsonEncode(servers.map((item)=>item.toMap()).toList()));
-    // print(servers.map((item)=>item.toMap()).toList());
+  }
+
+  Future<void> delStore(BuildContext context, int delIndex) async {
+    final ok=await showComfirmDialog(context, "删除下载服务器", "你确定要删除下载服务器: ${servers[delIndex].name} 吗？");
+    if(ok){
+      statusGet.sevrerIndex.value=0;
+      servers.removeAt(delIndex);
+      if(starIndex>=servers.length){
+        setStar(0);
+      }
+      saveStore();
+    }
   }
 
   void setStar(int index){
