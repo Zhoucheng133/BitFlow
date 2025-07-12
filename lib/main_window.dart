@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:bit_flow/components/sidebar.dart';
 import 'package:bit_flow/getx/store_get.dart';
 import 'package:bit_flow/getx/theme_get.dart';
 import 'package:bit_flow/service/init.dart';
@@ -85,12 +86,26 @@ class _MainWindowState extends State<MainWindow> with WindowListener {
             ],
           ),
         ),
-        // TODO 测试内容
-        Center(
-          child: TextButton(onPressed: (){
-            print(storeGet.servers.length);
-            print(storeGet.servers.map((item)=>item.toMap()).toList());
-          }, child: const Text("测试")),
+        Expanded(
+          child: Row(
+            children: [
+              SizedBox(
+                width: 150,
+                child: Sidebar(),
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 10, bottom: 10, top: 5),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10)
+                    ),
+                  ),
+                )
+              )
+            ],
+          ),
         )
       ],
     );
