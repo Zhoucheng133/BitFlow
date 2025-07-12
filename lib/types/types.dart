@@ -40,8 +40,8 @@ class StoreItem{
         }
         return false;
       case StoreType.qbit:
-        final version=await qbitService.getVersion(this);
-        if(version!=null){
+        final check=await qbitService.check(this);
+        if(check){
           return true;
         }
         return false;
