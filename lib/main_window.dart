@@ -7,7 +7,7 @@ import 'package:bit_flow/getx/theme_get.dart';
 import 'package:bit_flow/pages/download.dart';
 import 'package:bit_flow/pages/finish.dart';
 import 'package:bit_flow/pages/settings.dart';
-import 'package:bit_flow/service/init.dart';
+import 'package:bit_flow/service/funcs.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:window_manager/window_manager.dart';
@@ -21,14 +21,14 @@ class MainWindow extends StatefulWidget {
 
 class _MainWindowState extends State<MainWindow> with WindowListener {
   bool isMax=false;
-  final InitServivce initServivce=InitServivce();
+  final FuncsService funcsService=FuncsService();
 
   @override
   void initState() {
     super.initState();
     windowManager.addListener(this);
     WidgetsBinding.instance.addPostFrameCallback((_){
-      initServivce.init(context);
+      funcsService.init(context);
     });
   }
 

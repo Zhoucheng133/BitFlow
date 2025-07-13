@@ -1,14 +1,16 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:bit_flow/getx/status_get.dart';
 import 'package:bit_flow/getx/store_get.dart';
-import 'package:bit_flow/types/types.dart';
+import 'package:bit_flow/types/store_item.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class InitServivce extends GetxController{
+class FuncsService extends GetxController{
   late SharedPreferences prefs;
+  late Timer interval;
   final StoreGet storeGet=Get.find();
   final StatusGet statusGet=Get.find();
 
@@ -32,10 +34,19 @@ class InitServivce extends GetxController{
     }
   }
 
+  void getTasks(){
+
+  }
+  
   Future<void> init(BuildContext context) async {
     prefs=await SharedPreferences.getInstance();
     if(context.mounted){
       parseStore(context);
+    }
+    if(storeGet.servers.isNotEmpty){
+      // interval= Timer.periodic(const Duration(seconds: 1), (Timer time){
+      //   getTasks();
+      // });
     }
   }
 }
