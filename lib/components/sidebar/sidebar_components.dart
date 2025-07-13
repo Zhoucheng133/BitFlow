@@ -92,10 +92,11 @@ class _SidebarSmallButtonState extends State<SidebarSmallButton> {
         onExit: (_)=>setState(() {
           hover=false;
         }),
-        child: Container(
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
           height: 35,
           decoration: BoxDecoration(
-            color: hover ? Theme.of(context).hoverColor : Theme.of(context).scaffoldBackgroundColor,
+            color: hover ? Theme.of(context).hoverColor : Theme.of(context).hoverColor.withAlpha(0),
             borderRadius: BorderRadius.circular(10),
           ),
           child: Center(
@@ -140,10 +141,11 @@ class _SidebarButtonState extends State<SidebarButton> {
           hover=false;
         }),
         cursor: SystemMouseCursors.click,
-        child: Container(
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
           height: 35,
           decoration: BoxDecoration(
-            color: widget.selected ? Theme.of(context).splashColor : hover ? Theme.of(context).hoverColor : Theme.of(context).scaffoldBackgroundColor,
+            color: widget.selected ? Theme.of(context).hoverColor : hover ? Theme.of(context).hoverColor : Theme.of(context).hoverColor.withAlpha(0),
             borderRadius: BorderRadius.circular(10),
           ),
           child: Padding(
