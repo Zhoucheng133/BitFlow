@@ -19,6 +19,8 @@ class _SidebarState extends State<Sidebar> {
   final StatusGet statusGet=Get.find();
   final StoreGet storeGet=Get.find();
 
+  bool hover=false;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -30,9 +32,7 @@ class _SidebarState extends State<Sidebar> {
             if(storeGet.servers.isNotEmpty) DropdownButtonHideUnderline(
               child: DropdownButton2<String>(
                 buttonStyleData: ButtonStyleData(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10)
-                  )
+                  overlayColor: WidgetStateProperty.all(Colors.transparent)
                 ),
                 menuItemStyleData: const MenuItemStyleData(
                   height: 40,
@@ -46,6 +46,39 @@ class _SidebarState extends State<Sidebar> {
                   )
                 ),
                 isExpanded: true,
+                customButton: MouseRegion(
+                  onEnter: (_) => setState(() => hover = true),
+                  onExit: (_) => setState(() => hover = false),
+                  child: AnimatedContainer(
+                    width: double.infinity,
+                    height: 35,
+                    duration: const Duration(milliseconds: 200),
+                    decoration: BoxDecoration(
+                      color: hover ? Theme.of(context).hoverColor : Theme.of(context).hoverColor.withAlpha(0),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              storeGet.servers[statusGet.sevrerIndex.value].name,
+                              style: GoogleFonts.notoSansSc(
+                                fontSize: 14
+                              ),
+                            )
+                          ),
+                          const Icon(
+                            Icons.arrow_drop_down,
+                            size: 22,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
                 value: storeGet.servers[statusGet.sevrerIndex.value].name,
                 items: storeGet.servers.map((StoreItem item) {
                   final name=item.name;
