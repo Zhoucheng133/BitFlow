@@ -1,7 +1,7 @@
 import 'package:bit_flow/components/sidebar_components.dart';
 import 'package:bit_flow/getx/status_get.dart';
 import 'package:bit_flow/getx/store_get.dart';
-import 'package:bit_flow/types/types.dart';
+import 'package:bit_flow/types/store_item.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

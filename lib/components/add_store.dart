@@ -1,4 +1,4 @@
-import 'package:bit_flow/types/types.dart';
+import 'package:bit_flow/types/store_item.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

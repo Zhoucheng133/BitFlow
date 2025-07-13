@@ -1,4 +1,4 @@
-import 'package:bit_flow/types/types.dart';
+import 'package:bit_flow/types/store_item.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 

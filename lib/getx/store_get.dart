@@ -5,7 +5,7 @@ import 'package:bit_flow/components/dialogs.dart';
 import 'package:bit_flow/getx/status_get.dart';
 import 'package:bit_flow/service/aria.dart';
 import 'package:bit_flow/service/qbit.dart';
-import 'package:bit_flow/types/types.dart';
+import 'package:bit_flow/types/store_item.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
