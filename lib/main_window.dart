@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:bit_flow/components/sidebar.dart';
+import 'package:bit_flow/components/sidebar/sidebar.dart';
 import 'package:bit_flow/getx/status_get.dart';
 import 'package:bit_flow/getx/store_get.dart';
 import 'package:bit_flow/getx/theme_get.dart';
@@ -107,7 +107,7 @@ class _MainWindowState extends State<MainWindow> with WindowListener {
                       borderRadius: BorderRadius.circular(10)
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(15),
                       child: Obx(()=>
                         IndexedStack(
                           index: statusGet.page.value.index,

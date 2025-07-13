@@ -1,3 +1,4 @@
+import 'package:bit_flow/components/header.dart';
 import 'package:flutter/material.dart';
 
 class FinishPage extends StatefulWidget {
@@ -10,8 +11,10 @@ class FinishPage extends StatefulWidget {
 class _FinishPageState extends State<FinishPage> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text("Finish"),
+    return Column(
+      children: [
+        Header(name: '已完成')
+      ],
     );
   }
 }
