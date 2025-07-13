@@ -1,4 +1,4 @@
-import 'package:bit_flow/components/sidebar_components.dart';
+import 'package:bit_flow/components/sidebar/sidebar_components.dart';
 import 'package:bit_flow/getx/status_get.dart';
 import 'package:bit_flow/getx/store_get.dart';
 import 'package:bit_flow/types/store_item.dart';
