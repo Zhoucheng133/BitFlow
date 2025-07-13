@@ -1,4 +1,4 @@
-import 'package:bit_flow/components/sidebar_button.dart';
+import 'package:bit_flow/components/sidebar_components.dart';
 import 'package:bit_flow/getx/status_get.dart';
 import 'package:bit_flow/getx/store_get.dart';
 import 'package:bit_flow/types/types.dart';
@@ -22,10 +22,11 @@ class _SidebarState extends State<Sidebar> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 5, right: 10, left: 10),
+      padding: const EdgeInsets.only(top: 10, right: 10, left: 10, bottom: 20),
       child: Obx(
         ()=> Column(
           children: [
+            SidebarDivider(func: ()=>storeGet.addStore(context), label: '下载服务器', useAdd: true, addHint: "添加一个下载服务器",),
             if(storeGet.servers.isNotEmpty) DropdownButtonHideUnderline(
               child: DropdownButton2<String>(
                 buttonStyleData: ButtonStyleData(
@@ -75,6 +76,13 @@ class _SidebarState extends State<Sidebar> {
                 Expanded(child: SidebarSmallButton(icon: Icons.delete_rounded, func: ()=>storeGet.delStore(context, statusGet.sevrerIndex.value), disable: storeGet.servers.length==1,))
               ],
             ),
+            const SizedBox(height: 10,),
+            SidebarDivider(label: "页面"),
+            SidebarButton(label: "下载中", icon: Icons.download_rounded, func: ()=>statusGet.page.value=Pages.active, selected: statusGet.page.value==Pages.active,),
+            const SizedBox(height: 5,),
+            SidebarButton(label: "已完成", icon: Icons.download_done_rounded, func: ()=>statusGet.page.value=Pages.finish, selected: statusGet.page.value==Pages.finish,),
+            Expanded(child: Container()),
+            SidebarButton(label: "设置", icon: Icons.settings_rounded, func: ()=>statusGet.page.value=Pages.settings, selected: statusGet.page.value==Pages.settings,),
           ],
         ),
       ),

@@ -1,8 +1,12 @@
 import 'dart:io';
 
 import 'package:bit_flow/components/sidebar.dart';
+import 'package:bit_flow/getx/status_get.dart';
 import 'package:bit_flow/getx/store_get.dart';
 import 'package:bit_flow/getx/theme_get.dart';
+import 'package:bit_flow/pages/download.dart';
+import 'package:bit_flow/pages/finish.dart';
+import 'package:bit_flow/pages/settings.dart';
 import 'package:bit_flow/service/init.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -52,6 +56,7 @@ class _MainWindowState extends State<MainWindow> with WindowListener {
 
   final ThemeGet themeGet=Get.find();
   final StoreGet storeGet=Get.find();
+  final StatusGet statusGet=Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -100,6 +105,19 @@ class _MainWindowState extends State<MainWindow> with WindowListener {
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10)
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Obx(()=>
+                        IndexedStack(
+                          index: statusGet.page.value.index,
+                          children: [
+                            DownloadPage(),
+                            FinishPage(),
+                            SettingsPage()
+                          ],
+                        ),
+                      )
                     ),
                   ),
                 )
