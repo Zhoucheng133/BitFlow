@@ -3,6 +3,8 @@ import 'dart:convert';
 
 import 'package:bit_flow/getx/status_get.dart';
 import 'package:bit_flow/getx/store_get.dart';
+import 'package:bit_flow/service/aria.dart';
+import 'package:bit_flow/service/qbit.dart';
 import 'package:bit_flow/types/store_item.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,6 +15,8 @@ class FuncsService extends GetxController{
   late Timer interval;
   final StoreGet storeGet=Get.find();
   final StatusGet statusGet=Get.find();
+  final AriaService ariaService=Get.find();
+  final QbitService qbitService=Get.find();
 
   void parseStore(BuildContext context){
     final storePrefs=prefs.getString('store');
@@ -34,8 +38,16 @@ class FuncsService extends GetxController{
     }
   }
 
-  void getTasks(){
-
+  Future<void> getTasks() async {
+    switch (storeGet.servers[statusGet.sevrerIndex.value].type) {
+      case StoreType.aria:
+        if(statusGet.page.value==Pages.active){
+          statusGet.tasks.value = await ariaService.getActive(storeGet.servers[statusGet.sevrerIndex.value]) ?? [];
+        }
+        break;
+      case StoreType.qbit:
+        break;
+    }
   }
   
   Future<void> init(BuildContext context) async {
@@ -44,6 +56,8 @@ class FuncsService extends GetxController{
       parseStore(context);
     }
     if(storeGet.servers.isNotEmpty){
+      // TODO 测试代码
+      getTasks();
       // interval= Timer.periodic(const Duration(seconds: 1), (Timer time){
       //   getTasks();
       // });

@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:bit_flow/types/store_item.dart';
+import 'package:bit_flow/types/task_item.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:path/path.dart' as p;
 
 class AriaService extends GetxController{
 
@@ -21,6 +23,46 @@ class AriaService extends GetxController{
     } else {
       return {};
     }
+  }
+
+  Future<List<TaskItem>?> getActive(StoreItem item) async {
+    try {
+      final data = (await httpRequest({
+        "jsonrpc":"2.0",
+        "method":"aria2.tellActive",
+        "id":"ariaui",
+        "params":["token:${item.password}"]
+      }, item.url))['result'];
+      List<TaskItem> ls=[];
+      for (var task in data) {
+        String name="";
+        try {
+          name=task['bittorrent']['info']['name'];
+        } catch (_) {
+          name=p.basename(task['files'][0]['path']);
+        }
+        String link="";
+        try {
+          link=task['infoHash'];
+        } catch (_) {
+          link=task['files'][0]['uris'][0]['uri'];
+        }
+        int completeBytes=int.parse(task['completedLength']);
+        int downloadSpeed=int.parse(task['downloadSpeed']);
+        int uploadSpeed=int.parse(task['uploadSpeed']);
+        int size=int.parse(task['totalLength']);
+        String path=task['dir'];
+        String gid=task['gid'];
+        List<FileItem> files=[];
+        for (var file in task['files']) {
+          files.add(FileItem(p.basename(file['path']), int.parse(file['length']), file['path'], int.parse(file['completedLength'])));
+        }
+
+        ls.add(TaskItem(name, size, files, TaskStatus.download, link, path, downloadSpeed, uploadSpeed, completeBytes, gid));
+      }
+      return ls;
+    } catch (_) {}
+    return null;
   }
 
 
