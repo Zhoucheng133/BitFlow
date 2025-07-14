@@ -92,7 +92,7 @@ class _AddStoreState extends State<AddStore> {
                   padding: const EdgeInsets.symmetric(vertical: 0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
-                    color: Theme.of(context).colorScheme.onSurface
+                    color: Theme.of(context).colorScheme.surface
                   )
                 ),
                 isExpanded: false,
