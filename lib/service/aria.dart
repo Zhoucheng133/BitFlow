@@ -55,11 +55,14 @@ class AriaService extends GetxController{
         String path=task['dir'];
         String gid=task['gid'];
         List<FileItem> files=[];
+        TaskStatus status=TaskStatus.download;
         for (var file in task['files']) {
           files.add(FileItem(p.basename(file['path']), int.parse(file['length']), file['path'], int.parse(file['completedLength'])));
         }
-
-        ls.add(TaskItem(name, size, files, TaskStatus.download, link, path, downloadSpeed, uploadSpeed, completeBytes, gid));
+        if(task['completedLength']==task['totalLength'] && task['status']=='active'){
+          status=TaskStatus.seeding;
+        }
+        ls.add(TaskItem(name, size, files, status, link, path, downloadSpeed, uploadSpeed, completeBytes, gid));
       }
       return ls;
     } catch (_) {}
@@ -98,8 +101,8 @@ class AriaService extends GetxController{
         for (var file in task['files']) {
           files.add(FileItem(p.basename(file['path']), int.parse(file['length']), file['path'], int.parse(file['completedLength'])));
         }
-
-        ls.add(TaskItem(name, size, files, TaskStatus.wait, link, path, downloadSpeed, uploadSpeed, completeBytes, gid));
+        TaskStatus status=task['status']=='paused' ? TaskStatus.pause : TaskStatus.wait;
+        ls.add(TaskItem(name, size, files, status, link, path, downloadSpeed, uploadSpeed, completeBytes, gid));
       }
       return ls;
     } catch (_) {}
