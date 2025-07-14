@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:bit_flow/getx/status_get.dart';
 import 'package:bit_flow/types/store_item.dart';
 import 'package:bit_flow/types/task_item.dart';
 import 'package:get/get.dart';
@@ -65,6 +66,12 @@ class AriaService extends GetxController{
     return null;
   }
 
+  Future<List<TaskItem>> getTasks(Pages page, StoreItem item) async {
+    if(page==Pages.active){
+      return (await getActive(item))??[];
+    }
+    return [];
+  }
 
   Future<String?> getVersion(StoreItem item) async {
     if(item.type!=StoreType.aria){

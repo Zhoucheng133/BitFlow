@@ -41,9 +41,7 @@ class FuncsService extends GetxController{
   Future<void> getTasks() async {
     switch (storeGet.servers[statusGet.sevrerIndex.value].type) {
       case StoreType.aria:
-        if(statusGet.page.value==Pages.active){
-          statusGet.tasks.value = await ariaService.getActive(storeGet.servers[statusGet.sevrerIndex.value]) ?? [];
-        }
+        statusGet.tasks.value = await ariaService.getTasks(statusGet.page.value ,storeGet.servers[statusGet.sevrerIndex.value]);
         break;
       case StoreType.qbit:
         break;
@@ -56,11 +54,9 @@ class FuncsService extends GetxController{
       parseStore(context);
     }
     if(storeGet.servers.isNotEmpty){
-      // TODO 测试代码
-      getTasks();
-      // interval= Timer.periodic(const Duration(seconds: 1), (Timer time){
-      //   getTasks();
-      // });
+      interval= Timer.periodic(const Duration(seconds: 1), (Timer time){
+        getTasks();
+      });
     }
   }
 }
