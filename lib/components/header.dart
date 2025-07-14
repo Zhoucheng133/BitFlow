@@ -28,7 +28,7 @@ class _HeaderState extends State<Header> {
             ),
           ),
         ),
-        const SizedBox(height: 5,),
+        const SizedBox(height: 10,),
         Container(
           height: 2,
           decoration: BoxDecoration(
