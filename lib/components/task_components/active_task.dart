@@ -63,7 +63,7 @@ class _ActiveTaskState extends State<ActiveTask> {
                   AnimatedContainer(
                     duration: const Duration(milliseconds: 200),
                     width: 10,
-                    color: widget.item.status==TaskStatus.download ? Theme.of(context).colorScheme.primary : widget.item.status==TaskStatus.pause ? Colors.grey : Colors.green,
+                    color: widget.item.status==TaskStatus.download ? Theme.of(context).colorScheme.primary : widget.item.status==TaskStatus.pause ? Colors.grey[300] : Colors.green,
                   ),
                   Expanded(
                     child: Padding(
@@ -94,20 +94,46 @@ class _ActiveTaskState extends State<ActiveTask> {
                             )
                           ),
                           SizedBox(
-                            width: 100,
+                            width: 150,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.end,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(
-                                  widget.item.sizeString(widget.item.uploadSpeed, useSpeed: true),
-                                  style: GoogleFonts.notoSansSc(
-                                    fontSize: 12,
-                                    color: Colors.grey
-                                  ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 3),
+                                      child: Icon(
+                                        Icons.arrow_upward_rounded,
+                                        size: 16,
+                                      ),
+                                    ),
+                                    Text(
+                                      widget.item.sizeString(widget.item.uploadSpeed, useSpeed: true),
+                                      style: GoogleFonts.notoSansSc(
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 10,),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 3),
+                                      child: Icon(
+                                        Icons.arrow_downward_rounded,
+                                        size: 16,
+                                      ),
+                                    ),
+                                    Text(
+                                      widget.item.sizeString(widget.item.downloadSpeed, useSpeed: true),
+                                      style: GoogleFonts.notoSansSc(
+                                        fontSize: 12,
+                                      ),
+                                    )
+                                  ],
                                 ),
                                 Text(
-                                  widget.item.sizeString(widget.item.downloadSpeed, useSpeed: true),
+                                  widget.item.calTime(),
                                   style: GoogleFonts.notoSansSc(
                                     fontSize: 12,
                                     color: Colors.grey

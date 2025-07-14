@@ -56,5 +56,27 @@ class TaskItem{
     }
   }
 
+  String formatDuration(int seconds) {
+    int hours = seconds ~/ 3600;
+    int minutes = (seconds % 3600) ~/ 60;
+    int remainingSeconds = seconds % 60;
+
+    String formattedMinutes = minutes.toString().padLeft(2, '0');
+    String formattedSeconds = remainingSeconds.toString().padLeft(2, '0');
+
+    // 如果有小时数，则显示小时部分
+    if (hours > 0) {
+      String formattedHours = hours.toString();
+      return '$formattedHours:$formattedMinutes:$formattedSeconds';
+    } else {
+      return '$formattedMinutes:$formattedSeconds';
+    }
+  }
+
+  String calTime(){
+    int sec=((size-completeBytes)/downloadSpeed).round();
+    return formatDuration(sec);
+  }
+
   TaskItem(this.name, this.size, this.files, this.status, this.link, this.path, this.downloadSpeed, this.uploadSpeed, this.completeBytes, this.id);
 }
