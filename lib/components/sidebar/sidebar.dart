@@ -114,7 +114,7 @@ class _SidebarState extends State<Sidebar> {
             ),
             const SizedBox(height: 10,),
             SidebarDivider(label: "页面"),
-            SidebarButton(label: "下载中", icon: Icons.download_rounded, func: ()=>statusGet.page.value=Pages.active, selected: statusGet.page.value==Pages.active,),
+            SidebarButton(label: "活跃中", icon: Icons.download_rounded, func: ()=>statusGet.page.value=Pages.active, selected: statusGet.page.value==Pages.active,),
             const SizedBox(height: 5,),
             SidebarButton(label: "已完成", icon: Icons.download_done_rounded, func: ()=>statusGet.page.value=Pages.finish, selected: statusGet.page.value==Pages.finish,),
             Expanded(child: Container()),
