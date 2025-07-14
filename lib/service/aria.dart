@@ -66,9 +66,51 @@ class AriaService extends GetxController{
     return null;
   }
 
+  Future<List<TaskItem>?> getWait(StoreItem item) async {
+    try {
+      final data = (await httpRequest({
+        "jsonrpc":"2.0",
+        "method":"aria2.tellWaiting",
+        "id":"ariaui",
+        "params":["token:${item.password}", 0, 1000]
+      }, item.url))['result'];
+      List<TaskItem> ls=[];
+      for (var task in data) {
+        String name="";
+        try {
+          name=task['bittorrent']['info']['name'];
+        } catch (_) {
+          name=p.basename(task['files'][0]['path']);
+        }
+        String link="";
+        try {
+          link=task['infoHash'];
+        } catch (_) {
+          link=task['files'][0]['uris'][0]['uri'];
+        }
+        int completeBytes=int.parse(task['completedLength']);
+        int downloadSpeed=int.parse(task['downloadSpeed']);
+        int uploadSpeed=int.parse(task['uploadSpeed']);
+        int size=int.parse(task['totalLength']);
+        String path=task['dir'];
+        String gid=task['gid'];
+        List<FileItem> files=[];
+        for (var file in task['files']) {
+          files.add(FileItem(p.basename(file['path']), int.parse(file['length']), file['path'], int.parse(file['completedLength'])));
+        }
+
+        ls.add(TaskItem(name, size, files, TaskStatus.wait, link, path, downloadSpeed, uploadSpeed, completeBytes, gid));
+      }
+      return ls;
+    } catch (_) {}
+    return null;
+  }
+
   Future<List<TaskItem>> getTasks(Pages page, StoreItem item) async {
     if(page==Pages.active){
-      return (await getActive(item))??[];
+      List active = (await getActive(item))??[];
+      List wait = (await getWait(item))??[];
+      return [...active, ...wait];
     }
     return [];
   }
