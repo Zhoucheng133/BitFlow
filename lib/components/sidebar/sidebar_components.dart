@@ -103,7 +103,7 @@ class _SidebarSmallButtonState extends State<SidebarSmallButton> {
             child: Icon(
               widget.icon,
               size: widget.size ?? 16,
-              color: widget.disable ? Colors.grey : widget.star ? Colors.orange : Colors.black,
+              color: widget.disable ? Theme.of(context).disabledColor : widget.star ? Colors.orange : Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black,
             ),
           ),
         ),
@@ -157,7 +157,12 @@ class _SidebarButtonState extends State<SidebarButton> {
                   size: 16,
                 ),
                 const SizedBox(width: 5,),
-                Text(widget.label)
+                Text(
+                  widget.label,
+                  style: GoogleFonts.notoSansSc(
+                    color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
+                  ),
+                )
               ],
             ),
           ),

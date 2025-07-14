@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:bit_flow/components/sidebar/sidebar.dart';
 import 'package:bit_flow/getx/status_get.dart';
 import 'package:bit_flow/getx/store_get.dart';
-import 'package:bit_flow/getx/theme_get.dart';
 import 'package:bit_flow/pages/download.dart';
 import 'package:bit_flow/pages/finish.dart';
 import 'package:bit_flow/pages/settings.dart';
@@ -54,7 +53,6 @@ class _MainWindowState extends State<MainWindow> with WindowListener {
     });
   }
 
-  final ThemeGet themeGet=Get.find();
   final StoreGet storeGet=Get.find();
   final StatusGet statusGet=Get.find();
 
@@ -67,26 +65,24 @@ class _MainWindowState extends State<MainWindow> with WindowListener {
           child: Row(
             children: [
               Expanded(child: DragToMoveArea(child: Container())),
-              if(Platform.isWindows) Obx(()=>
-                Row(
-                  children: [
-                    WindowCaptionButton.minimize(
-                      onPressed: windowManager.minimize,
-                      brightness: themeGet.darkMode.value ? Brightness.dark : Brightness.light,
-                    ),
-                    isMax ? WindowCaptionButton.unmaximize(
-                      onPressed: windowManager.unmaximize,
-                      brightness: themeGet.darkMode.value ? Brightness.dark : Brightness.light,
-                    ) : WindowCaptionButton.maximize(
-                      onPressed: windowManager.maximize,
-                      brightness: themeGet.darkMode.value ? Brightness.dark : Brightness.light,
-                    ),
-                    WindowCaptionButton.close(
-                      onPressed: windowManager.close,
-                      brightness: themeGet.darkMode.value ? Brightness.dark : Brightness.light,
-                    ),
-                  ]
-                )
+              if(Platform.isWindows) Row(
+                children: [
+                  WindowCaptionButton.minimize(
+                    onPressed: windowManager.minimize,
+                    brightness: Theme.of(context).brightness==Brightness.dark ? Brightness.dark : Brightness.light,
+                  ),
+                  isMax ? WindowCaptionButton.unmaximize(
+                    onPressed: windowManager.unmaximize,
+                    brightness: Theme.of(context).brightness==Brightness.dark ? Brightness.dark : Brightness.light,
+                  ) : WindowCaptionButton.maximize(
+                    onPressed: windowManager.maximize,
+                    brightness: Theme.of(context).brightness==Brightness.dark ? Brightness.dark : Brightness.light,
+                  ),
+                  WindowCaptionButton.close(
+                    onPressed: windowManager.close,
+                    brightness: Theme.of(context).brightness==Brightness.dark ? Brightness.dark : Brightness.light,
+                  ),
+                ]
               )
             ],
           ),
@@ -103,7 +99,7 @@ class _MainWindowState extends State<MainWindow> with WindowListener {
                   padding: const EdgeInsets.only(right: 10, bottom: 10, top: 5),
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: Theme.of(context).brightness==Brightness.dark ? Colors.grey[800] : Colors.white,
                       borderRadius: BorderRadius.circular(10)
                     ),
                     child: Padding(

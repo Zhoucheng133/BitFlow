@@ -66,13 +66,15 @@ class _SidebarState extends State<Sidebar> {
                             child: Text(
                               storeGet.servers[statusGet.sevrerIndex.value].name,
                               style: GoogleFonts.notoSansSc(
-                                fontSize: 14
+                                fontSize: 14,
+                                color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
                               ),
                             )
                           ),
-                          const Icon(
+                          Icon(
                             Icons.arrow_drop_down,
                             size: 22,
+                            color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
                           ),
                         ],
                       ),
@@ -88,6 +90,7 @@ class _SidebarState extends State<Sidebar> {
                       name,
                       style: GoogleFonts.notoSansSc(
                         fontSize: 14,
+                        color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
                       ),
                       overflow: TextOverflow.ellipsis,
                     ),

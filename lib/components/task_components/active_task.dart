@@ -70,6 +70,7 @@ class _ActiveTaskState extends State<ActiveTask> {
                           overflow: TextOverflow.ellipsis,
                           style: GoogleFonts.notoSansSc(
                             fontWeight: FontWeight.bold,
+                            color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
                           ),
                         ),
                         Text(
