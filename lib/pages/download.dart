@@ -1,4 +1,5 @@
 import 'package:bit_flow/components/header.dart';
+import 'package:bit_flow/components/task_components/active_task.dart';
 import 'package:bit_flow/getx/status_get.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -23,7 +24,7 @@ class _DownloadPageState extends State<DownloadPage> {
           Expanded(
             child: ListView.builder(
               itemCount: statusGet.tasks.length,
-              itemBuilder: (BuildContext context, int index)=>Text(statusGet.tasks[index].name)
+              itemBuilder: (BuildContext context, int index)=>ActiveTask(item: statusGet.tasks[index])
             ),
           )
         )
