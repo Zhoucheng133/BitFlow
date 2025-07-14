@@ -1,4 +1,6 @@
+import 'package:bit_flow/getx/theme_get.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SidebarDivider extends StatefulWidget {
@@ -128,6 +130,7 @@ class SidebarButton extends StatefulWidget {
 class _SidebarButtonState extends State<SidebarButton> {
 
   bool hover=false;
+  final ThemeGet themeGet=Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -145,7 +148,8 @@ class _SidebarButtonState extends State<SidebarButton> {
           duration: const Duration(milliseconds: 200),
           height: 35,
           decoration: BoxDecoration(
-            color: widget.selected ? Theme.of(context).colorScheme.primary.withAlpha(18) : hover ? Theme.of(context).colorScheme.primary.withAlpha(12) : Theme.of(context).colorScheme.primary.withAlpha(0),
+            // color: widget.selected ? Theme.of(context).colorScheme.primary.withAlpha(18) : hover ? Theme.of(context).colorScheme.primary.withAlpha(12) : Theme.of(context).colorScheme.primary.withAlpha(0),
+            color: themeGet.buttonColor(context, hover, widget.selected),
             borderRadius: BorderRadius.circular(10),
           ),
           child: Padding(

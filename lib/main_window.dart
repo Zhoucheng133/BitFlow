@@ -99,7 +99,7 @@ class _MainWindowState extends State<MainWindow> with WindowListener {
                   padding: const EdgeInsets.only(right: 10, bottom: 10, top: 5),
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Theme.of(context).brightness==Brightness.dark ? Colors.grey[800] : Colors.white,
+                      color: Theme.of(context).brightness==Brightness.dark ? Colors.grey[850] : Colors.white,
                       borderRadius: BorderRadius.circular(10)
                     ),
                     child: Padding(

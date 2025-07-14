@@ -1,5 +1,7 @@
+import 'package:bit_flow/getx/theme_get.dart';
 import 'package:bit_flow/types/task_item.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ActiveTask extends StatefulWidget {
@@ -15,6 +17,7 @@ class ActiveTask extends StatefulWidget {
 class _ActiveTaskState extends State<ActiveTask> {
 
   bool onHover=false;
+  final ThemeGet themeGet=Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -25,13 +28,9 @@ class _ActiveTaskState extends State<ActiveTask> {
       onExit: (_)=>setState(() {
         onHover=false;
       }),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
+      child: SizedBox(
         width: double.infinity,
         height: 50,
-        decoration: BoxDecoration(
-          color: onHover ? Theme.of(context).colorScheme.primary.withAlpha(12) : Theme.of(context).colorScheme.primary.withAlpha(0),
-        ),
         child: Stack(
           children: [
             Positioned(
@@ -48,7 +47,7 @@ class _ActiveTaskState extends State<ActiveTask> {
                     color: Theme.of(context).colorScheme.surface,
                     border: Border(
                       bottom: BorderSide(
-                        color: Theme.of(context).colorScheme.primary.withAlpha(50),
+                        color: Theme.of(context).brightness==Brightness.light ? Theme.of(context).colorScheme.primary.withAlpha(50) : Color.fromARGB(255, 100, 100, 100),
                         width: 2
                       ),
                     )
@@ -56,56 +55,71 @@ class _ActiveTaskState extends State<ActiveTask> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              color: themeGet.taskItemColor(context, onHover),
               child: Row(
                 children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          widget.item.name,
-                          overflow: TextOverflow.ellipsis,
-                          style: GoogleFonts.notoSansSc(
-                            fontWeight: FontWeight.bold,
-                            color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
-                          ),
-                        ),
-                        Text(
-                          widget.item.sizeString(widget.item.size),
-                          style: GoogleFonts.notoSansSc(
-                            fontSize: 12,
-                            color: Colors.grey
-                          ),
-                        )
-                      ],
-                    )
+                  AnimatedContainer(
+                    duration: const Duration(milliseconds: 200),
+                    width: 10,
+                    color: widget.item.status==TaskStatus.download ? Theme.of(context).colorScheme.primary : widget.item.status==TaskStatus.pause ? Colors.grey : Colors.green,
                   ),
-                  SizedBox(
-                    width: 100,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          widget.item.sizeString(widget.item.uploadSpeed, useSpeed: true),
-                          style: GoogleFonts.notoSansSc(
-                            fontSize: 12,
-                            color: Colors.grey
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  widget.item.name,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: GoogleFonts.notoSansSc(
+                                    fontWeight: FontWeight.bold,
+                                    color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
+                                  ),
+                                ),
+                                Text(
+                                  widget.item.sizeString(widget.item.size),
+                                  style: GoogleFonts.notoSansSc(
+                                    fontSize: 12,
+                                    color: Colors.grey
+                                  ),
+                                )
+                              ],
+                            )
                           ),
-                        ),
-                        Text(
-                          widget.item.sizeString(widget.item.downloadSpeed, useSpeed: true),
-                          style: GoogleFonts.notoSansSc(
-                            fontSize: 12,
-                            color: Colors.grey
-                          ),
-                        )
-                      ],
+                          SizedBox(
+                            width: 100,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  widget.item.sizeString(widget.item.uploadSpeed, useSpeed: true),
+                                  style: GoogleFonts.notoSansSc(
+                                    fontSize: 12,
+                                    color: Colors.grey
+                                  ),
+                                ),
+                                Text(
+                                  widget.item.sizeString(widget.item.downloadSpeed, useSpeed: true),
+                                  style: GoogleFonts.notoSansSc(
+                                    fontSize: 12,
+                                    color: Colors.grey
+                                  ),
+                                )
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
