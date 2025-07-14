@@ -42,7 +42,7 @@ class _SidebarState extends State<Sidebar> {
                   padding: const EdgeInsets.all(0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: Theme.of(context).cardColor
+                    color: Theme.of(context).colorScheme.surface
                   )
                 ),
                 isExpanded: true,
@@ -54,7 +54,7 @@ class _SidebarState extends State<Sidebar> {
                     height: 35,
                     duration: const Duration(milliseconds: 200),
                     decoration: BoxDecoration(
-                      color: hover ? Theme.of(context).hoverColor : Theme.of(context).hoverColor.withAlpha(0),
+                      color: hover ? Theme.of(context).colorScheme.primary.withAlpha(12) : Theme.of(context).colorScheme.primary.withAlpha(0),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Padding(

@@ -30,7 +30,7 @@ class _ActiveTaskState extends State<ActiveTask> {
         width: double.infinity,
         height: 50,
         decoration: BoxDecoration(
-          color: onHover ? Theme.of(context).hoverColor : Theme.of(context).hoverColor.withAlpha(0),
+          color: onHover ? Theme.of(context).colorScheme.primary.withAlpha(12) : Theme.of(context).colorScheme.primary.withAlpha(0),
         ),
         child: Stack(
           children: [
@@ -45,10 +45,10 @@ class _ActiveTaskState extends State<ActiveTask> {
                   duration: const Duration(milliseconds: 200),
                   height: 50,
                   decoration: BoxDecoration(
-                    color: Theme.of(context).scaffoldBackgroundColor,
+                    color: Theme.of(context).colorScheme.surface,
                     border: Border(
                       bottom: BorderSide(
-                        color: Theme.of(context).disabledColor,
+                        color: Theme.of(context).colorScheme.primary.withAlpha(50),
                         width: 2
                       ),
                     )

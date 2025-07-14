@@ -24,7 +24,7 @@ class _HeaderState extends State<Header> {
             style: GoogleFonts.notoSansSc(
               fontSize: 18,
               fontWeight: FontWeight.bold,
-              color: Theme.of(context).primaryColor
+              color: Theme.of(context).colorScheme.primary
             ),
           ),
         ),
@@ -33,7 +33,7 @@ class _HeaderState extends State<Header> {
           height: 2,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(2),
-            color: Theme.of(context).hoverColor
+            color: Theme.of(context).colorScheme.primary
           ),
         )
       ],

@@ -29,7 +29,7 @@ class _SidebarDividerState extends State<SidebarDivider> {
                   widget.label,
                   style: GoogleFonts.notoSansSc(
                     fontSize: 13,
-                    color: Theme.of(context).primaryColor
+                    color: Theme.of(context).colorScheme.primary
                   ),
                 ),
               ),
@@ -54,7 +54,7 @@ class _SidebarDividerState extends State<SidebarDivider> {
           height: 2,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(2),
-            color: Theme.of(context).hoverColor
+            color: Theme.of(context).colorScheme.primary.withAlpha(20)
           ),
         ),
         const SizedBox(height: 5,),
@@ -96,7 +96,7 @@ class _SidebarSmallButtonState extends State<SidebarSmallButton> {
           duration: const Duration(milliseconds: 200),
           height: 35,
           decoration: BoxDecoration(
-            color: hover ? Theme.of(context).hoverColor : Theme.of(context).hoverColor.withAlpha(0),
+            color: hover ? Theme.of(context).colorScheme.primary.withAlpha(12) : Theme.of(context).colorScheme.primary.withAlpha(0),
             borderRadius: BorderRadius.circular(10),
           ),
           child: Center(
@@ -145,7 +145,7 @@ class _SidebarButtonState extends State<SidebarButton> {
           duration: const Duration(milliseconds: 200),
           height: 35,
           decoration: BoxDecoration(
-            color: widget.selected ? Theme.of(context).hoverColor : hover ? Theme.of(context).hoverColor : Theme.of(context).hoverColor.withAlpha(0),
+            color: widget.selected ? Theme.of(context).colorScheme.primary.withAlpha(18) : hover ? Theme.of(context).colorScheme.primary.withAlpha(12) : Theme.of(context).colorScheme.primary.withAlpha(0),
             borderRadius: BorderRadius.circular(10),
           ),
           child: Padding(
