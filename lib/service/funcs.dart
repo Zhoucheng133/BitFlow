@@ -18,6 +18,16 @@ class FuncsService extends GetxController{
   final AriaService ariaService=Get.find();
   final QbitService qbitService=Get.find();
 
+  FuncsService(){
+    ever(statusGet.page, (_){
+      getTasks();
+    });
+
+    ever(statusGet.sevrerIndex, (_){
+      getTasks();
+    });
+  }
+
   void parseStore(BuildContext context){
     final storePrefs=prefs.getString('store');
     if(storePrefs!=null){
@@ -44,6 +54,7 @@ class FuncsService extends GetxController{
         statusGet.tasks.value = await ariaService.getTasks(statusGet.page.value ,storeGet.servers[statusGet.sevrerIndex.value]);
         break;
       case StoreType.qbit:
+        statusGet.tasks.value = await qbitService.getTasks(statusGet.page.value ,storeGet.servers[statusGet.sevrerIndex.value]);
         break;
     }
   }
@@ -54,7 +65,7 @@ class FuncsService extends GetxController{
       parseStore(context);
     }
     if(storeGet.servers.isNotEmpty){
-      interval= Timer.periodic(const Duration(seconds: 1), (Timer time){
+      interval= Timer.periodic(const Duration(milliseconds: 1050), (Timer time){
         getTasks();
       });
     }
