@@ -59,7 +59,7 @@ class AriaService extends GetxController{
         for (var file in task['files']) {
           files.add(FileItem(p.basename(file['path']), int.parse(file['length']), file['path'], int.parse(file['completedLength'])));
         }
-        if(task['completedLength']==task['totalLength'] && task['status']=='active'){
+        if(task['completedLength']==task['totalLength'] && task['status']=='active' && size!=0){
           status=TaskStatus.seeding;
         }
         ls.add(TaskItem(name, size, files, status, link, path, downloadSpeed, uploadSpeed, completeBytes, gid));

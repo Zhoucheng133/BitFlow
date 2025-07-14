@@ -33,13 +33,13 @@ class _ActiveTaskState extends State<ActiveTask> {
         height: 50,
         child: Stack(
           children: [
-            Positioned(
+            if(widget.item.status!=TaskStatus.seeding) Positioned(
               top: 0,
-              left: 0,
+              left: 10,
               right: 0,
               child: FractionallySizedBox(
                 alignment: Alignment.centerLeft,
-                widthFactor: widget.item.completeBytes / widget.item.size > 1 ? 1 : widget.item.completeBytes / widget.item.size,
+                widthFactor: widget.item.calPercent(),
                 child: AnimatedContainer(
                   duration: const Duration(milliseconds: 200),
                   height: 50,
@@ -93,55 +93,52 @@ class _ActiveTaskState extends State<ActiveTask> {
                               ],
                             )
                           ),
-                          SizedBox(
-                            width: 150,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 3),
-                                      child: Icon(
-                                        Icons.arrow_upward_rounded,
-                                        size: 16,
-                                      ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  if(widget.item.uploadSpeed!=0) Padding(
+                                    padding: const EdgeInsets.only(top: 3),
+                                    child: Icon(
+                                      Icons.arrow_upward_rounded,
+                                      size: 16,
                                     ),
-                                    Text(
-                                      widget.item.sizeString(widget.item.uploadSpeed, useSpeed: true),
-                                      style: GoogleFonts.notoSansSc(
-                                        fontSize: 12,
-                                      ),
-                                    ),
-                                    const SizedBox(width: 10,),
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 3),
-                                      child: Icon(
-                                        Icons.arrow_downward_rounded,
-                                        size: 16,
-                                      ),
-                                    ),
-                                    Text(
-                                      widget.item.sizeString(widget.item.downloadSpeed, useSpeed: true),
-                                      style: GoogleFonts.notoSansSc(
-                                        fontSize: 12,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                Text(
-                                  widget.item.calTime(),
-                                  style: GoogleFonts.notoSansSc(
-                                    fontSize: 12,
-                                    color: Colors.grey
                                   ),
-                                )
-                              ],
-                            ),
-                          )
+                                  if(widget.item.uploadSpeed!=0) Text(
+                                    widget.item.sizeString(widget.item.uploadSpeed, useSpeed: true),
+                                    style: GoogleFonts.notoSansSc(
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                  if(widget.item.downloadSpeed!=0) const SizedBox(width: 10,),
+                                  if(widget.item.downloadSpeed!=0) Padding(
+                                    padding: const EdgeInsets.only(top: 3),
+                                    child: Icon(
+                                      Icons.arrow_downward_rounded,
+                                      size: 16,
+                                    ),
+                                  ),
+                                  if(widget.item.downloadSpeed!=0) Text(
+                                    widget.item.sizeString(widget.item.downloadSpeed, useSpeed: true),
+                                    style: GoogleFonts.notoSansSc(
+                                      fontSize: 12,
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Text(
+                                widget.item.calTime(),
+                                style: GoogleFonts.notoSansSc(
+                                  fontSize: 12,
+                                  color: Colors.grey
+                                ),
+                              )
+                            ],
+                          ),
                         ],
                       ),
                     ),
