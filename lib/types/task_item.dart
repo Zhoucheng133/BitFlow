@@ -74,8 +74,22 @@ class TaskItem{
   }
 
   String calTime(){
-    int sec=((size-completeBytes)/downloadSpeed).round();
-    return formatDuration(sec);
+    if(status==TaskStatus.seeding){
+      return "做种中";
+    }
+    try {
+      int sec=((size-completeBytes)/downloadSpeed).round();
+      return formatDuration(sec);
+    } catch (_) {
+      return "/";
+    }
+  }
+
+  double calPercent() {
+    if (size == 0) return 0;
+    double percent = completeBytes / size;
+    if (percent.isNaN || percent.isInfinite) return 0;
+    return percent.clamp(0.0, 1.0);
   }
 
   TaskItem(this.name, this.size, this.files, this.status, this.link, this.path, this.downloadSpeed, this.uploadSpeed, this.completeBytes, this.id);
