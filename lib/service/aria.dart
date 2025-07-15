@@ -161,13 +161,13 @@ class AriaService extends GetxController{
     return [];
   }
 
-  Future<void> addTask(String url, StoreItem item) async {
+  Future<void> addTask(String downloadUrl, StoreItem item) async {
     try {
       await httpRequest({
         "jsonrpc":"2.0",
         "method":"aria2.addUri",
         "id":"ariaui",
-        "params":["token:${item.password}", [url], {}]
+        "params":["token:${item.password}", [downloadUrl], {}]
       }, item.url);
     } catch (_) {}
   }

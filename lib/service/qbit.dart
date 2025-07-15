@@ -104,8 +104,24 @@ class QbitService extends GetxController {
     return [];
   }
 
-  void addTask(String url, StoreItem item){
-
+  Future<void> addTask(String downloadUrl, StoreItem item) async {
+    if(cookie.isEmpty){
+      final temp=await getCookie(item);
+      if(temp==null){
+        return;
+      }
+      cookie.value=temp;
+    }
+    try {
+      final url = Uri.parse("${item.url}/api/v2/torrents/add");
+      final request = http.MultipartRequest('POST', url);
+      request.headers['Cookie'] = cookie.value;
+      request.fields['urls'] = downloadUrl;
+      await request.send();
+      // print(await response.stream.bytesToString());
+    } catch (_) {
+      return;
+    }
   }
   
   Future<bool> check(StoreItem item) async {
