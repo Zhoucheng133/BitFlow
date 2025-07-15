@@ -43,6 +43,8 @@ class TaskItem{
   // Aria => gid
   late String id;
 
+  bool selected=false;
+
   String sizeString(int val, {bool useSpeed=false}){
     try {
       if (val < 0) return 'Invalid value';

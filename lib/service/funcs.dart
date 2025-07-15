@@ -21,9 +21,10 @@ class FuncsService extends GetxController{
   FuncsService(){
     ever(statusGet.page, (_) async {
       statusGet.loading.value=true;
-      statusGet.tasks.value=[];
       await getTasks();
-      statusGet.loading.value=false;
+      await Future.delayed(const Duration(seconds: 1), (){
+        statusGet.loading.value=false;
+      });
     });
 
     ever(statusGet.sevrerIndex, (_){
@@ -54,10 +55,10 @@ class FuncsService extends GetxController{
   Future<void> getTasks() async {
     switch (storeGet.servers[statusGet.sevrerIndex.value].type) {
       case StoreType.aria:
-        statusGet.tasks.value = await ariaService.getTasks(statusGet.page.value ,storeGet.servers[statusGet.sevrerIndex.value]);
+        statusGet.makeTasks(await ariaService.getTasks(statusGet.page.value ,storeGet.servers[statusGet.sevrerIndex.value]));
         break;
       case StoreType.qbit:
-        statusGet.tasks.value = await qbitService.getTasks(statusGet.page.value ,storeGet.servers[statusGet.sevrerIndex.value]);
+       statusGet.makeTasks(await qbitService.getTasks(statusGet.page.value ,storeGet.servers[statusGet.sevrerIndex.value]));
         break;
     }
   }

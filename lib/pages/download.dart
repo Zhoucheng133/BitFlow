@@ -1,4 +1,4 @@
-import 'package:bit_flow/components/header.dart';
+import 'package:bit_flow/components/header/header.dart';
 import 'package:bit_flow/components/task_components/active_task.dart';
 import 'package:bit_flow/getx/status_get.dart';
 import 'package:flutter/material.dart';
@@ -19,12 +19,12 @@ class _DownloadPageState extends State<DownloadPage> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Header(name: "下载中"),
+        Header(name: "活跃中"),
         Obx(()=>
           Expanded(
             child: ListView.builder(
-              itemCount: statusGet.tasks.length,
-              itemBuilder: (BuildContext context, int index)=>ActiveTask(item: statusGet.tasks[index])
+              itemCount: statusGet.activeTasks.length,
+              itemBuilder: (BuildContext context, int index)=>ActiveTask(item: statusGet.activeTasks[index])
             ),
           )
         )

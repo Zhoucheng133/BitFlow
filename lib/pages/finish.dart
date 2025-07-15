@@ -1,4 +1,4 @@
-import 'package:bit_flow/components/header.dart';
+import 'package:bit_flow/components/header/header.dart';
 import 'package:bit_flow/components/task_components/finish_task.dart';
 import 'package:bit_flow/getx/status_get.dart';
 import 'package:flutter/material.dart';
@@ -19,12 +19,12 @@ class _FinishPageState extends State<FinishPage> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Header(name: "下载中"),
+        Header(name: "已完成"),
         Obx(()=>
           Expanded(
             child: ListView.builder(
-              itemCount: statusGet.tasks.length,
-              itemBuilder: (BuildContext context, int index)=>FinishTask(item: statusGet.tasks[index])
+              itemCount: statusGet.finishedTask.length,
+              itemBuilder: (BuildContext context, int index)=>FinishTask(item: statusGet.finishedTask[index])
             ),
           )
         )

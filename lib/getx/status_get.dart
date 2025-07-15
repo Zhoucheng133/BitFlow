@@ -14,5 +14,14 @@ class StatusGet extends GetxController{
   Rx<Pages> page=Pages.active.obs;
   RxBool loading=false.obs;
 
-  RxList<TaskItem> tasks=<TaskItem>[].obs;
+  RxList<TaskItem> activeTasks=<TaskItem>[].obs;
+  RxList<TaskItem> finishedTask=<TaskItem>[].obs;
+
+  void makeTasks(List<TaskItem> tasks){
+    if(page.value==Pages.active){
+      activeTasks.value=tasks;
+    }else if(page.value==Pages.finish){
+      finishedTask.value=tasks;
+    }
+  }
 }
