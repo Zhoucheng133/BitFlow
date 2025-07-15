@@ -161,6 +161,17 @@ class AriaService extends GetxController{
     return [];
   }
 
+  Future<void> addTask(String url, StoreItem item) async {
+    try {
+      await httpRequest({
+        "jsonrpc":"2.0",
+        "method":"aria2.addUri",
+        "id":"ariaui",
+        "params":["token:${item.password}", [url], {}]
+      }, item.url);
+    } catch (_) {}
+  }
+
   Future<String?> getVersion(StoreItem item) async {
     if(item.type!=StoreType.aria){
       return null;

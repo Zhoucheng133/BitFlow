@@ -20,7 +20,7 @@ class MainWindow extends StatefulWidget {
 
 class _MainWindowState extends State<MainWindow> with WindowListener {
   bool isMax=false;
-  final FuncsService funcsService=FuncsService();
+  final FuncsService funcsService=Get.put(FuncsService());
 
   @override
   void initState() {

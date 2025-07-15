@@ -58,13 +58,24 @@ class FuncsService extends GetxController{
     }
   }
 
+  void addTaskHandler(String url){
+    switch (storeGet.servers[statusGet.sevrerIndex.value].type) {
+      case StoreType.aria:
+        ariaService.addTask(url, storeGet.servers[statusGet.sevrerIndex.value]);
+        break;
+      case StoreType.qbit:
+        qbitService.addTask(url, storeGet.servers[statusGet.sevrerIndex.value]);
+        break;
+    }
+  }
+
   Future<void> getTasks() async {
     switch (storeGet.servers[statusGet.sevrerIndex.value].type) {
       case StoreType.aria:
         statusGet.makeTasks(await ariaService.getTasks(statusGet.page.value ,storeGet.servers[statusGet.sevrerIndex.value]));
         break;
       case StoreType.qbit:
-       statusGet.makeTasks(await qbitService.getTasks(statusGet.page.value ,storeGet.servers[statusGet.sevrerIndex.value]));
+        statusGet.makeTasks(await qbitService.getTasks(statusGet.page.value ,storeGet.servers[statusGet.sevrerIndex.value]));
         break;
     }
   }

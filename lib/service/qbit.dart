@@ -103,6 +103,10 @@ class QbitService extends GetxController {
     }
     return [];
   }
+
+  void addTask(String url, StoreItem item){
+
+  }
   
   Future<bool> check(StoreItem item) async {
     if(item.type!=StoreType.qbit){

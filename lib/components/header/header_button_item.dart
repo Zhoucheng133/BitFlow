@@ -35,7 +35,7 @@ class _HeaderButtonItemState extends State<HeaderButtonItem> {
         ),
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       ),
-      onPressed: (){},
+      onPressed: widget.func,
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
