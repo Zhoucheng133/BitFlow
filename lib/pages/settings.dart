@@ -1,4 +1,4 @@
-import 'package:bit_flow/components/header.dart';
+import 'package:bit_flow/components/header/header.dart';
 import 'package:flutter/material.dart';
 
 class SettingsPage extends StatefulWidget {
