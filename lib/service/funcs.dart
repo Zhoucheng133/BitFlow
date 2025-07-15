@@ -27,8 +27,14 @@ class FuncsService extends GetxController{
       });
     });
 
-    ever(statusGet.sevrerIndex, (_){
-      getTasks();
+    ever(statusGet.sevrerIndex, (_) async {
+      statusGet.loading.value=true;
+      statusGet.activeTasks.value=[];
+      statusGet.finishedTask.value=[];
+      await getTasks();
+      await Future.delayed(const Duration(seconds: 1), (){
+        statusGet.loading.value=false;
+      });
     });
   }
 
