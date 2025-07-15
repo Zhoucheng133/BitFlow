@@ -70,7 +70,7 @@ class _ActiveTaskState extends State<ActiveTask> {
                   AnimatedContainer(
                     duration: const Duration(milliseconds: 200),
                     width: 10,
-                    color: widget.item.status==TaskStatus.download ? Theme.of(context).colorScheme.primary : widget.item.status==TaskStatus.pause ? Colors.grey[300] : Colors.green,
+                    color: widget.item.status==TaskStatus.download ? Theme.of(context).colorScheme.primary : widget.item.status==TaskStatus.pause || widget.item.status==TaskStatus.wait ? Colors.grey[300] : Colors.green,
                   ),
                   Expanded(
                     child: Padding(

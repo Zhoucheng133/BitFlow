@@ -67,7 +67,7 @@ class _FinishTaskState extends State<FinishTask> {
                   AnimatedContainer(
                     duration: const Duration(milliseconds: 200),
                     width: 10,
-                    color: widget.item.status==TaskStatus.download ? Theme.of(context).colorScheme.primary : widget.item.status==TaskStatus.pause ? Colors.grey[300] : Colors.green,
+                    color: Colors.green,
                   ),
                   Expanded(
                     child: Padding(
