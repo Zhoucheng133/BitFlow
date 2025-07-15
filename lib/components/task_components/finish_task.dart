@@ -22,6 +22,9 @@ class _FinishTaskState extends State<FinishTask> {
 
   @override
   Widget build(BuildContext context) {    
+    if(statusGet.page.value!=Pages.finish){
+      return Container();
+    }
     return MouseRegion(
       onEnter: (_)=>setState(() {
         onHover=true;

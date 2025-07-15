@@ -1,3 +1,4 @@
+import 'package:bit_flow/getx/status_get.dart';
 import 'package:bit_flow/getx/theme_get.dart';
 import 'package:bit_flow/types/task_item.dart';
 import 'package:flutter/material.dart';
@@ -18,9 +19,15 @@ class _ActiveTaskState extends State<ActiveTask> {
 
   bool onHover=false;
   final ThemeGet themeGet=Get.find();
+  final StatusGet statusGet=Get.find();
 
   @override
   Widget build(BuildContext context) {
+
+    if(statusGet.page.value!=Pages.active){
+      return Container();
+    }
+
     return MouseRegion(
       onEnter: (_)=>setState(() {
         onHover=true;
