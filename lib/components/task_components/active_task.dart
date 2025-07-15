@@ -93,6 +93,7 @@ class _ActiveTaskState extends State<ActiveTask> {
                               ],
                             )
                           ),
+                          const SizedBox(width: 10,),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -139,6 +140,7 @@ class _ActiveTaskState extends State<ActiveTask> {
                               )
                             ],
                           ),
+                          const SizedBox(width: 10,),
                         ],
                       ),
                     ),
