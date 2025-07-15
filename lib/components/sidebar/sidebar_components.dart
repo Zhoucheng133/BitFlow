@@ -44,6 +44,7 @@ class _SidebarDividerState extends State<SidebarDivider> {
                     child: Icon(
                       Icons.add,
                       size: 16,
+                      color: Theme.of(context).colorScheme.primary,
                     ),
                   ),
                 ),
