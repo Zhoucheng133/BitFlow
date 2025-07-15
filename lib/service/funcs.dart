@@ -19,8 +19,11 @@ class FuncsService extends GetxController{
   final QbitService qbitService=Get.find();
 
   FuncsService(){
-    ever(statusGet.page, (_){
-      getTasks();
+    ever(statusGet.page, (_) async {
+      statusGet.loading.value=true;
+      statusGet.tasks.value=[];
+      await getTasks();
+      statusGet.loading.value=false;
     });
 
     ever(statusGet.sevrerIndex, (_){
@@ -65,8 +68,10 @@ class FuncsService extends GetxController{
       parseStore(context);
     }
     if(storeGet.servers.isNotEmpty){
-      interval= Timer.periodic(const Duration(milliseconds: 1050), (Timer time){
-        getTasks();
+      interval= Timer.periodic(const Duration(milliseconds: 1100), (Timer time){
+        if(!statusGet.loading.value){
+          getTasks();
+        }
       });
     }
   }

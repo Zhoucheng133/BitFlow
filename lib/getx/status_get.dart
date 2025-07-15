@@ -12,6 +12,7 @@ class StatusGet extends GetxController{
 
   RxInt sevrerIndex=0.obs;
   Rx<Pages> page=Pages.active.obs;
+  RxBool loading=false.obs;
 
   RxList<TaskItem> tasks=<TaskItem>[].obs;
 }
