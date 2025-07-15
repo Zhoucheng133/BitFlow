@@ -1,4 +1,5 @@
 import 'package:bit_flow/components/header/header.dart';
+import 'package:bit_flow/getx/status_get.dart';
 import 'package:flutter/material.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -13,7 +14,7 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Header(name: '设置')
+        Header(name: '设置', page: Pages.settings,)
       ],
     );
   }
