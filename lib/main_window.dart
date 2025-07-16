@@ -8,6 +8,7 @@ import 'package:bit_flow/pages/finish.dart';
 import 'package:bit_flow/pages/settings.dart';
 import 'package:bit_flow/service/funcs.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -120,7 +121,101 @@ class _MainWindowState extends State<MainWindow> with WindowListener {
               )
             ],
           ),
-        )
+        ),
+        Platform.isMacOS ? PlatformMenuBar(
+          menus: [
+            PlatformMenu(
+              label: "BitFlow", 
+              menus: [
+                PlatformMenuItemGroup(
+                  members: [
+                    PlatformMenuItem(
+                      label: "关于 BitFlow".tr,
+                      onSelected: (){
+                        // TODO 显示关于
+                      }
+                    )
+                  ]
+                ),
+                PlatformMenuItemGroup(
+                  members: [
+                    PlatformMenuItem(
+                      label: "设置",
+                      shortcut: const SingleActivator(
+                        LogicalKeyboardKey.comma,
+                        meta: true,
+                      ),
+                      onSelected: (){
+                        // TODO 跳转到设置
+                      }
+                    ),
+                  ]
+                ),
+                const PlatformMenuItemGroup(
+                  members: [
+                    PlatformProvidedMenuItem(
+                      enabled: true,
+                      type: PlatformProvidedMenuItemType.hide,
+                    ),
+                    PlatformProvidedMenuItem(
+                      enabled: true,
+                      type: PlatformProvidedMenuItemType.quit,
+                    ),
+                  ]
+                )
+              ]
+            ),
+            PlatformMenu(
+              label: "编辑",
+              menus: [
+                PlatformMenuItem(
+                  label: "复制",
+                  onSelected: (){
+                    final focusedContext = FocusManager.instance.primaryFocus?.context;
+                    if (focusedContext != null) {
+                      Actions.invoke(focusedContext, CopySelectionTextIntent.copy);
+                    }
+                  }
+                ),
+                PlatformMenuItem(
+                  label: "粘贴",
+                  onSelected: (){
+                    final focusedContext = FocusManager.instance.primaryFocus?.context;
+                    if (focusedContext != null) {
+                      Actions.invoke(focusedContext, const PasteTextIntent(SelectionChangedCause.keyboard));
+                    }
+                  },
+                ),
+                PlatformMenuItem(
+                  label: "全选",
+                  onSelected: (){
+                    final focusedContext = FocusManager.instance.primaryFocus?.context;
+                    if (focusedContext != null) {
+                      Actions.invoke(focusedContext, const SelectAllTextIntent(SelectionChangedCause.keyboard));
+                    }
+                  }
+                )
+              ]
+            ),
+            PlatformMenu(
+              label: "窗口", 
+              menus: [
+                const PlatformMenuItemGroup(
+                  members: [
+                    PlatformProvidedMenuItem(
+                      enabled: true,
+                      type: PlatformProvidedMenuItemType.minimizeWindow,
+                    ),
+                    PlatformProvidedMenuItem(
+                      enabled: true,
+                      type: PlatformProvidedMenuItemType.toggleFullScreen,
+                    )
+                  ]
+                )
+              ]
+            )
+          ]
+        ) : Container()
       ],
     );
   }

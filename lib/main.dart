@@ -5,6 +5,7 @@ import 'package:bit_flow/main_window.dart';
 import 'package:bit_flow/service/aria.dart';
 import 'package:bit_flow/service/qbit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:window_manager/window_manager.dart';
@@ -50,6 +51,14 @@ class _MainAppState extends State<MainApp> {
     return Obx(()=>
       GetMaterialApp(
         debugShowCheckedModeBanner: false,
+        localizationsDelegates: [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate
+        ],
+        supportedLocales: [
+          Locale('zh', 'CN'),
+        ],
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(
             seedColor: Colors.orange,
