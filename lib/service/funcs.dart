@@ -86,7 +86,7 @@ class FuncsService extends GetxController{
       parseStore(context);
     }
     if(storeGet.servers.isNotEmpty){
-      interval= Timer.periodic(const Duration(milliseconds: 1100), (Timer time){
+      interval= Timer.periodic(const Duration(milliseconds: 1500), (Timer time){
         if(!statusGet.loading.value){
           getTasks();
         }
