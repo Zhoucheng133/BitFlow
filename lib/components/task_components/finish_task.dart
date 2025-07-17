@@ -87,62 +87,28 @@ class _FinishTaskState extends State<FinishTask> {
                                     color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
                                   ),
                                 ),
-                                Text(
-                                  widget.item.sizeString(widget.item.size),
-                                  style: GoogleFonts.notoSansSc(
-                                    fontSize: 12,
-                                    color: Colors.grey
-                                  ),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        widget.item.sizeString(widget.item.size),
+                                        style: GoogleFonts.notoSansSc(
+                                          fontSize: 12,
+                                          color: Colors.grey
+                                        ),
+                                      ),
+                                    ),
+                                    Text(
+                                      widget.item.addTimeGet()??"",
+                                      style: GoogleFonts.notoSansSc(
+                                        fontSize: 12,
+                                        color: Colors.grey
+                                      ),
+                                    ),
+                                  ],
                                 )
                               ],
                             )
-                          ),
-                          const SizedBox(width: 10,),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  if(widget.item.uploadSpeed!=0) Padding(
-                                    padding: const EdgeInsets.only(top: 3),
-                                    child: Icon(
-                                      Icons.arrow_upward_rounded,
-                                      size: 16,
-                                    ),
-                                  ),
-                                  if(widget.item.uploadSpeed!=0) Text(
-                                    widget.item.sizeString(widget.item.uploadSpeed, useSpeed: true),
-                                    style: GoogleFonts.notoSansSc(
-                                      fontSize: 12,
-                                    ),
-                                  ),
-                                  if(widget.item.downloadSpeed!=0) const SizedBox(width: 10,),
-                                  if(widget.item.downloadSpeed!=0) Padding(
-                                    padding: const EdgeInsets.only(top: 3),
-                                    child: Icon(
-                                      Icons.arrow_downward_rounded,
-                                      size: 16,
-                                    ),
-                                  ),
-                                  if(widget.item.downloadSpeed!=0) Text(
-                                    widget.item.sizeString(widget.item.downloadSpeed, useSpeed: true),
-                                    style: GoogleFonts.notoSansSc(
-                                      fontSize: 12,
-                                    ),
-                                  )
-                                ],
-                              ),
-                              Text(
-                                widget.item.calTime(),
-                                style: GoogleFonts.notoSansSc(
-                                  fontSize: 12,
-                                  color: Colors.grey
-                                ),
-                              )
-                            ],
                           ),
                           const SizedBox(width: 10,),
                         ],
