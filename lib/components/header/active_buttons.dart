@@ -54,7 +54,7 @@ void addTaskDialog(BuildContext context){
         TextButton(onPressed: ()=>Navigator.pop(context), child: Text('取消')),
         ElevatedButton(
           onPressed: (){
-            if(!link.text.startsWith("http://") || !link.text.startsWith("https://") || !link.text.startsWith("magnet:?xt=urn:btih:")){
+            if(!link.text.startsWith("http://") && !link.text.startsWith("https://") && !link.text.startsWith("magnet:?xt=urn:btih:")){
               showErrWarnDialog(context, "添加任务失败", "链接不合法");
               return;
             }
