@@ -144,7 +144,7 @@ class AriaService extends GetxController{
         TaskStatus status=TaskStatus.finish;
         ls.add(TaskItem(name, size, files, status, link, path, downloadSpeed, uploadSpeed, completeBytes, gid, null));
       }
-      return ls.reversed.toList();
+      return ls;
     } catch (_) {}
     return null;
   }

@@ -31,8 +31,10 @@ class StatusGet extends GetxController{
   RxList<TaskItem> activeTasks=<TaskItem>[].obs;
   RxList<TaskItem> finishedTask=<TaskItem>[].obs;
 
-  Rx<OrderTypes> activeOrder=OrderTypes.addNew.obs;
-  Rx<OrderTypes> finishOrder=OrderTypes.addOld.obs;
+  // 默认在活跃页面，新的在后，旧的在前
+  Rx<OrderTypes> activeOrder=OrderTypes.addOld.obs;
+  // 默认在已完成页面，新的在前，旧的在后
+  Rx<OrderTypes> finishOrder=OrderTypes.addNew.obs;
 
   List<TaskItem> orderHandler(List<TaskItem> tasks, OrderTypes order, StoreType serverType){
     switch (order) {

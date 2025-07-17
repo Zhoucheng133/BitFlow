@@ -57,7 +57,7 @@ class _AddStoreState extends State<AddStore> {
     return "";
   }
 
-  void reverseType(String? type){
+  void toEnumType(String? type){
     switch (type) {
       case "Aria":
         item.type=StoreType.aria;
@@ -114,7 +114,7 @@ class _AddStoreState extends State<AddStore> {
                   setState((){
                     type=val!;
                   });
-                  reverseType(val);
+                  toEnumType(val);
                   widget.valCallback(item);
                 },
               ),
