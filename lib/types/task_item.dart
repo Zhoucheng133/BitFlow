@@ -40,8 +40,10 @@ class TaskItem{
   late int uploadSpeed;
   // 已完成 (Byte)
   late int completeBytes;
-  // Aria => gid
+  // Aria => gid, qBit => hash
   late String id;
+  // 添加日期 (时间戳: 秒)
+  late int? addTime;
 
   bool selected=false;
 
@@ -94,5 +96,13 @@ class TaskItem{
     return percent.clamp(0.0, 1.0);
   }
 
-  TaskItem(this.name, this.size, this.files, this.status, this.link, this.path, this.downloadSpeed, this.uploadSpeed, this.completeBytes, this.id);
+  String? addTimeGet(){
+    if(addTime==null){
+      return null;
+    }
+    DateTime date = DateTime.fromMillisecondsSinceEpoch(addTime! * 1000);
+    return "${date.year}/${date.month}/${date.day} ${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')}";
+  }
+
+  TaskItem(this.name, this.size, this.files, this.status, this.link, this.path, this.downloadSpeed, this.uploadSpeed, this.completeBytes, this.id, this.addTime);
 }

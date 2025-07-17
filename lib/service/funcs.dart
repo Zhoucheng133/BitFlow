@@ -72,10 +72,10 @@ class FuncsService extends GetxController{
   Future<void> getTasks() async {
     switch (storeGet.servers[statusGet.sevrerIndex.value].type) {
       case StoreType.aria:
-        statusGet.makeTasks(await ariaService.getTasks(statusGet.page.value ,storeGet.servers[statusGet.sevrerIndex.value]));
+        statusGet.makeTasks(await ariaService.getTasks(statusGet.page.value, storeGet.servers[statusGet.sevrerIndex.value]), storeGet.servers[statusGet.sevrerIndex.value].type);
         break;
       case StoreType.qbit:
-        statusGet.makeTasks(await qbitService.getTasks(statusGet.page.value ,storeGet.servers[statusGet.sevrerIndex.value]));
+        statusGet.makeTasks(await qbitService.getTasks(statusGet.page.value, storeGet.servers[statusGet.sevrerIndex.value]), storeGet.servers[statusGet.sevrerIndex.value].type);
         break;
     }
   }

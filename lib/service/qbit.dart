@@ -86,8 +86,16 @@ class QbitService extends GetxController {
         int uploadSpeed=data['upspeed'];
         int completeBytes=data['completed'];
         String id=data['hash'];
-        tasks.add(TaskItem(name, size, [], status, link, path, downloadSpeed, uploadSpeed, completeBytes, id));
+        int addedOn=data['added_on'];
+        tasks.add(TaskItem(name, size, [], status, link, path, downloadSpeed, uploadSpeed, completeBytes, id, addedOn));
       }
+      // tasks.sort((TaskItem a, TaskItem b){
+      //   if(a.addTime==null || b.addTime==null){
+      //     return b.name.compareTo(a.name);
+      //   }
+      //   return b.addTime!.compareTo(a.addTime!);
+      // });
+      // return makeTasks(tasks, order);
       return tasks;
     } catch (e) {
       return [];

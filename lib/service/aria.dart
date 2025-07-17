@@ -62,7 +62,7 @@ class AriaService extends GetxController{
         if(task['completedLength']==task['totalLength'] && task['status']=='active' && size!=0){
           status=TaskStatus.seeding;
         }
-        ls.add(TaskItem(name, size, files, status, link, path, downloadSpeed, uploadSpeed, completeBytes, gid));
+        ls.add(TaskItem(name, size, files, status, link, path, downloadSpeed, uploadSpeed, completeBytes, gid, null));
       }
       return ls;
     } catch (_) {}
@@ -102,7 +102,7 @@ class AriaService extends GetxController{
           files.add(FileItem(p.basename(file['path']), int.parse(file['length']), file['path'], int.parse(file['completedLength'])));
         }
         TaskStatus status=task['status']=='paused' ? TaskStatus.pause : TaskStatus.wait;
-        ls.add(TaskItem(name, size, files, status, link, path, downloadSpeed, uploadSpeed, completeBytes, gid));
+        ls.add(TaskItem(name, size, files, status, link, path, downloadSpeed, uploadSpeed, completeBytes, gid, null));
       }
       return ls;
     } catch (_) {}
@@ -142,9 +142,9 @@ class AriaService extends GetxController{
           files.add(FileItem(p.basename(file['path']), int.parse(file['length']), file['path'], int.parse(file['completedLength'])));
         }
         TaskStatus status=TaskStatus.finish;
-        ls.add(TaskItem(name, size, files, status, link, path, downloadSpeed, uploadSpeed, completeBytes, gid));
+        ls.add(TaskItem(name, size, files, status, link, path, downloadSpeed, uploadSpeed, completeBytes, gid, null));
       }
-      return ls;
+      return ls.reversed.toList();
     } catch (_) {}
     return null;
   }
