@@ -70,7 +70,7 @@ Future<void> showAbout(BuildContext context) async {
             ),
             const SizedBox(height: 3,),
             Text(
-              'Next v${packageInfo.version}',
+              'v${packageInfo.version}',
               style: GoogleFonts.notoSansSc(
                 fontSize: 13,
                 color: Colors.grey[400]
