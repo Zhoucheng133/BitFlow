@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:bit_flow/components/dialogs.dart';
 import 'package:bit_flow/components/sidebar/sidebar.dart';
 import 'package:bit_flow/getx/status_get.dart';
 import 'package:bit_flow/getx/store_get.dart';
@@ -130,10 +131,8 @@ class _MainWindowState extends State<MainWindow> with WindowListener {
                 PlatformMenuItemGroup(
                   members: [
                     PlatformMenuItem(
-                      label: "关于 BitFlow".tr,
-                      onSelected: (){
-                        // TODO 显示关于
-                      }
+                      label: "关于 BitFlow",
+                      onSelected: ()=>showAbout(context)
                     )
                   ]
                 ),
@@ -146,7 +145,7 @@ class _MainWindowState extends State<MainWindow> with WindowListener {
                         meta: true,
                       ),
                       onSelected: (){
-                        // TODO 跳转到设置
+                        statusGet.page.value=Pages.settings;
                       }
                     ),
                   ]
