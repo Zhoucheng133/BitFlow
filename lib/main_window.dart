@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:bit_flow/components/dialogs.dart';
+import 'package:bit_flow/components/header/active_buttons.dart';
 import 'package:bit_flow/components/sidebar/sidebar.dart';
 import 'package:bit_flow/getx/status_get.dart';
 import 'package:bit_flow/getx/store_get.dart';
@@ -161,6 +162,47 @@ class _MainWindowState extends State<MainWindow> with WindowListener {
                       type: PlatformProvidedMenuItemType.quit,
                     ),
                   ]
+                )
+              ]
+            ),
+            PlatformMenu(
+              label: '任务', 
+              menus: [
+                PlatformMenuItem(
+                  label: '新建任务',
+                  onSelected: ()=>addTaskDialog(context),
+                  shortcut: const SingleActivator(
+                    LogicalKeyboardKey.keyN,
+                    meta: true,
+                  ),
+                ),
+                PlatformMenuItem(
+                  label: '完成',
+                  onSelected: (){},
+                  shortcut: const SingleActivator(
+                    LogicalKeyboardKey.enter,
+                  ),
+                ),
+              ]
+            ),
+            PlatformMenu(
+              label: '页面',
+              menus: [
+                PlatformMenuItem(
+                  label: '活跃中',
+                  onSelected: ()=>statusGet.page.value=Pages.active,
+                  shortcut: const SingleActivator(
+                    LogicalKeyboardKey.digit1,
+                    meta: true,
+                  ),
+                ),
+                PlatformMenuItem(
+                  label: '已完成',
+                  onSelected: ()=>statusGet.page.value=Pages.finish,
+                  shortcut: const SingleActivator(
+                    LogicalKeyboardKey.digit2,
+                    meta: true,
+                  ),
                 )
               ]
             ),
