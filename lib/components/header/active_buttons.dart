@@ -61,23 +61,28 @@ Future<void> addTaskDialog(BuildContext context) async {
                   children: [
                     Text('若要添加多个任务，用回车拆分'),
                     const SizedBox(height: 5,),
-                    TextField(
-                      focusNode: inputNode,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'http(s)://\nmagnet:?xt=urn:btih:', 
-                        hintStyle: GoogleFonts.notoSansSc(
-                          color: Colors.grey,
+                    ConstrainedBox(
+                      constraints: BoxConstraints(
+                        maxHeight: 350
+                      ),
+                      child: TextField(
+                        focusNode: inputNode,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'http(s)://\nmagnet:?xt=urn:btih:', 
+                          hintStyle: GoogleFonts.notoSansSc(
+                            color: Colors.grey,
+                            fontSize: 13
+                          ),
+                          isCollapsed: true,
+                          contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12)
+                        ),
+                        minLines: 3,
+                        maxLines: null,
+                        controller: link,
+                        style: GoogleFonts.notoSansSc(
                           fontSize: 13
                         ),
-                        isCollapsed: true,
-                        contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12)
-                      ),
-                      minLines: 3,
-                      maxLines: null,
-                      controller: link,
-                      style: GoogleFonts.notoSansSc(
-                        fontSize: 13
                       ),
                     )
                   ],
