@@ -58,13 +58,21 @@ class FuncsService extends GetxController{
     }
   }
 
+  List<String> splitUrls(String url){
+    return url.split("\n");
+  }
+
   void addTaskHandler(String url){
     switch (storeGet.servers[statusGet.sevrerIndex.value].type) {
       case StoreType.aria:
-        ariaService.addTask(url, storeGet.servers[statusGet.sevrerIndex.value]);
+        for(String urlItem in splitUrls(url)){
+          ariaService.addTask(urlItem, storeGet.servers[statusGet.sevrerIndex.value]);
+        }
         break;
       case StoreType.qbit:
-        qbitService.addTask(url, storeGet.servers[statusGet.sevrerIndex.value]);
+        for(String urlItem in splitUrls(url)){
+          qbitService.addTask(urlItem, storeGet.servers[statusGet.sevrerIndex.value]);
+        }
         break;
     }
   }

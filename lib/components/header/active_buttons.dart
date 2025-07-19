@@ -32,8 +32,8 @@ Future<void> addTaskDialog(BuildContext context) async {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                // Text('若要添加多个任务，用回车拆分'),
-                // const SizedBox(height: 5,),
+                Text('若要添加多个任务，用回车拆分'),
+                const SizedBox(height: 5,),
                 TextField(
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
