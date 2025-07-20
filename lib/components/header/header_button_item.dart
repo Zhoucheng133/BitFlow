@@ -9,11 +9,12 @@ enum ButtonSide{
 class HeaderButtonItem extends StatefulWidget {
 
   final ButtonSide buttonSide;
-  final VoidCallback func;
+  final VoidCallback? func;
   final IconData icon;
-  final String text;
+  final String? text;
+  final double? iconSize;
 
-  const HeaderButtonItem({super.key, required this.buttonSide, required this.func, required this.icon, required this.text});
+  const HeaderButtonItem({super.key, required this.buttonSide, this.func, required this.icon, this.text, this.iconSize});
 
   @override
   State<HeaderButtonItem> createState() => _HeaderButtonItemState();
@@ -39,9 +40,12 @@ class _HeaderButtonItemState extends State<HeaderButtonItem> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(widget.icon),
-          const SizedBox(width: 5,),
-          Text(widget.text)
+          Icon(
+            widget.icon,
+            size: widget.iconSize??17,
+          ),
+          if(widget.text!=null) const SizedBox(width: 5,),
+          if(widget.text!=null) Text(widget.text!)
         ],
       )
     );

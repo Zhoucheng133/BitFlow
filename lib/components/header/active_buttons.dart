@@ -1,5 +1,7 @@
 import 'package:bit_flow/components/dialogs.dart';
 import 'package:bit_flow/components/header/header_button_item.dart';
+import 'package:bit_flow/components/header/header_funcs.dart';
+import 'package:bit_flow/getx/status_get.dart';
 import 'package:bit_flow/service/funcs.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
@@ -104,17 +106,43 @@ Future<void> addTaskDialog(BuildContext context) async {
 }
 
 class _ActiveButtonsState extends State<ActiveButtons> {
+
+  final StatusGet statusGet=Get.find();
+  final GlobalKey sortMenuKey = GlobalKey(); 
+
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Expanded(child: Container()),
-        HeaderButtonItem(buttonSide: ButtonSide.left, func: ()=>addTaskDialog(context), icon: Icons.add_rounded, text: "添加任务"),
-        HeaderButtonItem(buttonSide: ButtonSide.mid, func: (){}, icon: Icons.check_box_outlined, text: "选择"),
-        HeaderButtonItem(buttonSide: ButtonSide.mid, func: (){}, icon: Icons.pause_rounded, text: "全部暂停"),
-        HeaderButtonItem(buttonSide: ButtonSide.right, func: (){}, icon: Icons.play_arrow_rounded, text: "全部继续")
-      ],
+    return Obx(
+      () => Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(child: Container()),
+          HeaderButtonItem(buttonSide: ButtonSide.left, func: ()=>addTaskDialog(context), icon: Icons.add_rounded, text: "添加任务"),
+          HeaderButtonItem(buttonSide: ButtonSide.mid, func: (){}, icon: Icons.check_box_outlined, text: "选择"),
+          HeaderButtonItem(buttonSide: ButtonSide.mid, func: (){}, icon: Icons.pause_rounded, text: "全部暂停"),
+          HeaderButtonItem(buttonSide: ButtonSide.mid, func: (){}, icon: Icons.play_arrow_rounded, text: "全部继续"),
+          HeaderButtonItem(
+            buttonSide: ButtonSide.right, 
+            func: (){
+              final RenderBox box = sortMenuKey.currentContext!.findRenderObject() as RenderBox;
+              final RenderBox overlay = Overlay.of(context).context.findRenderObject() as RenderBox;
+
+              final RelativeRect position = RelativeRect.fromRect(
+                Rect.fromPoints(
+                  box.localToGlobal(Offset.zero, ancestor: overlay),
+                  box.localToGlobal(box.size.bottomRight(Offset.zero), ancestor: overlay),
+                ),
+                Offset.zero & overlay.size,
+              );
+
+              changeOrderMenu(context, statusGet.activeOrder.value, position);
+            }, 
+            icon: statusGet.getOrderIcon(Pages.active), 
+            iconSize: 13, 
+            key: sortMenuKey,
+          )
+        ],
+      ),
     );
   }
 }
