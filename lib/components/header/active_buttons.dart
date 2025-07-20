@@ -108,7 +108,8 @@ Future<void> addTaskDialog(BuildContext context) async {
 class _ActiveButtonsState extends State<ActiveButtons> {
 
   final StatusGet statusGet=Get.find();
-  final GlobalKey sortMenuKey = GlobalKey(); 
+  final GlobalKey sortActiveMenuKey = GlobalKey(); 
+  final FuncsService funcsService=Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -123,8 +124,8 @@ class _ActiveButtonsState extends State<ActiveButtons> {
           HeaderButtonItem(buttonSide: ButtonSide.mid, func: (){}, icon: Icons.play_arrow_rounded, text: "全部继续"),
           HeaderButtonItem(
             buttonSide: ButtonSide.right, 
-            func: (){
-              final RenderBox box = sortMenuKey.currentContext!.findRenderObject() as RenderBox;
+            func: () async {
+              final RenderBox box = sortActiveMenuKey.currentContext!.findRenderObject() as RenderBox;
               final RenderBox overlay = Overlay.of(context).context.findRenderObject() as RenderBox;
 
               final RelativeRect position = RelativeRect.fromRect(
@@ -135,11 +136,15 @@ class _ActiveButtonsState extends State<ActiveButtons> {
                 Offset.zero & overlay.size,
               );
 
-              changeOrderMenu(context, statusGet.activeOrder.value, position);
+              OrderTypes? type=await changeOrderMenu(context, statusGet.activeOrder.value, position);
+              if(type!=null){
+                statusGet.activeOrder.value=type;
+                funcsService.getTasks();
+              }
             }, 
             icon: statusGet.getOrderIcon(Pages.active), 
             iconSize: 13, 
-            key: sortMenuKey,
+            key: sortActiveMenuKey,
           )
         ],
       ),
