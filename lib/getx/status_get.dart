@@ -1,5 +1,7 @@
 import 'package:bit_flow/types/store_item.dart';
 import 'package:bit_flow/types/task_item.dart';
+import 'package:flutter/widgets.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 enum Pages{
@@ -79,5 +81,32 @@ class StatusGet extends GetxController{
     }else if(page.value==Pages.finish){
       finishedTask.value=orderHandler(tasks, finishOrder.value, serverType);
     }
+  }
+
+  IconData getOrderIcon(Pages page){
+    if(page==Pages.active){
+      switch (activeOrder.value) {
+        case OrderTypes.addNew:
+          return FontAwesomeIcons.arrowDownShortWide;
+        case OrderTypes.addOld:
+          return FontAwesomeIcons.arrowDownWideShort;
+        case OrderTypes.nameAZ:
+          return FontAwesomeIcons.arrowDownAZ;
+        case OrderTypes.nameZA:
+          return FontAwesomeIcons.arrowDownZA;
+      }
+    }else{
+      switch (finishOrder.value) {
+        case OrderTypes.addNew:
+          return FontAwesomeIcons.arrowDownShortWide;
+        case OrderTypes.addOld:
+          return FontAwesomeIcons.arrowDownWideShort;
+        case OrderTypes.nameAZ:
+          return FontAwesomeIcons.arrowDownAZ;
+        case OrderTypes.nameZA:
+          return FontAwesomeIcons.arrowDownZA;
+      }
+    }
+    
   }
 }
