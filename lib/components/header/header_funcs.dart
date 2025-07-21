@@ -9,9 +9,10 @@ Future<OrderTypes?> changeOrderMenu(BuildContext context, OrderTypes originalTyp
   selectedType=await showMenu(
     context: context, 
     position: position,
+    color: Theme.of(context).colorScheme.surface,
     items: [
       PopupMenuItem(
-        height: 40,
+        height: 35,
         value: OrderTypes.addNew,
         child: const Row(
           children: [
