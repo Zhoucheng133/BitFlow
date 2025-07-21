@@ -98,7 +98,7 @@ class _FinishTaskState extends State<FinishTask> {
 
         break;
       case FinishTaskMenuTypes.files:
-
+        if(context.mounted) widget.item.showFiles(context);
         break;
       case FinishTaskMenuTypes.info:
         if(context.mounted) widget.item.showTaskInfo(context);

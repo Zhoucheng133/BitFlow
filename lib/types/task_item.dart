@@ -1,6 +1,11 @@
 import 'dart:math';
 
+import 'package:bit_flow/getx/status_get.dart';
+import 'package:bit_flow/getx/store_get.dart';
+import 'package:bit_flow/service/qbit.dart';
+import 'package:bit_flow/types/store_item.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:path/path.dart' as p;
 
 class FileItem{
@@ -9,9 +14,9 @@ class FileItem{
   // 文件大小
   late int size;
   // 下载位置
-  late String path;
+  late String? path;
   // 已完成 (Byte)
-  late int completeBytes;
+  late int? completeBytes;
 
   FileItem(this.name, this.size, this.path, this.completeBytes);
 }
@@ -25,6 +30,8 @@ enum TaskStatus{
 }
 
 class TaskItem{
+  // 服务器类型
+  late StoreType type;
   // 任务名称
   late String name;
   // 大小 (Byte)
@@ -260,5 +267,58 @@ class TaskItem{
     );
   }
 
-  TaskItem(this.name, this.size, this.files, this.status, this.link, this.path, this.downloadSpeed, this.uploadSpeed, this.completeBytes, this.id, this.addTime, this.uploaded);
+  Future<void> showFiles(BuildContext context) async {
+    if(type==StoreType.qbit){
+      final StoreGet storeGet=Get.find();
+      final QbitService qbitService=Get.find();
+      final StatusGet statusGet=Get.find();
+      files=(await qbitService.getFiles(storeGet.servers[statusGet.sevrerIndex.value], id))??[];
+    }
+    if(context.mounted){
+      showDialog(
+        context: context, 
+        builder: (context)=>AlertDialog(
+          title: const Text('文件列表'),
+          content: SizedBox(
+            width: 400,
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                maxHeight: 400
+              ),
+              child: ListView.builder(
+                itemCount: files.length,
+                itemBuilder: (context, index)=>Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 5),
+                  child: Tooltip(
+                    message: files[index].name,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            files[index].name,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        const SizedBox(width: 10,),
+                        Text(sizeString(files[index].size))
+                      ],
+                    ),
+                  ),
+                )
+              ),
+            ),
+          ),
+          actions: [
+            ElevatedButton(
+              onPressed: ()=>Navigator.pop(context),
+              child: const Text('完成')
+            )
+          ],
+        ),
+      );
+    }
+  }
+
+  TaskItem(this.name, this.size, this.files, this.status, this.link, this.path, this.downloadSpeed, this.uploadSpeed, this.completeBytes, this.id, this.addTime, this.uploaded, this.type);
 }

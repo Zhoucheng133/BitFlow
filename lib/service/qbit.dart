@@ -88,15 +88,8 @@ class QbitService extends GetxController {
         String id=data['hash'];
         int addedOn=data['added_on'];
         int uploaded=data['uploaded'];
-        tasks.add(TaskItem(name, size, [], status, link, path, downloadSpeed, uploadSpeed, completeBytes, id, addedOn, uploaded));
+        tasks.add(TaskItem(name, size, [], status, link, path, downloadSpeed, uploadSpeed, completeBytes, id, addedOn, uploaded, StoreType.qbit));
       }
-      // tasks.sort((TaskItem a, TaskItem b){
-      //   if(a.addTime==null || b.addTime==null){
-      //     return b.name.compareTo(a.name);
-      //   }
-      //   return b.addTime!.compareTo(a.addTime!);
-      // });
-      // return makeTasks(tasks, order);
       return tasks;
     } catch (e) {
       return [];
@@ -130,6 +123,28 @@ class QbitService extends GetxController {
       // print(await response.stream.bytesToString());
     } catch (_) {
       return;
+    }
+  }
+
+  Future<List<FileItem>?> getFiles(StoreItem item, String hash) async {
+    if(item.type!=StoreType.qbit){
+      return null;
+    }
+    try {
+      final url = Uri.parse("${item.url}/api/v2/torrents/files?hash=$hash");
+      final response = await http.get(
+        url,
+        headers: {
+          "Cookie": cookie.value,
+        }
+      );
+      List data=json.decode(utf8.decode(response.bodyBytes));
+
+      return data.map((item){
+        return FileItem(item['name'], item['size'], null, null);
+      }).toList();
+    } catch (_) {
+      return null;
     }
   }
   
