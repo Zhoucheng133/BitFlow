@@ -44,6 +44,8 @@ class TaskItem{
   late String id;
   // 添加日期 (时间戳: 秒)
   late int? addTime;
+  // 已上传的大小
+  late int uploaded;
 
   bool selected=false;
 
