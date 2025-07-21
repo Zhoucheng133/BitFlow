@@ -1,5 +1,8 @@
 import 'dart:math';
 
+import 'package:flutter/material.dart';
+import 'package:path/path.dart' as p;
+
 class FileItem{
   // 文件名称
   late String name;
@@ -48,6 +51,21 @@ class TaskItem{
   late int uploaded;
 
   bool selected=false;
+
+  String statusToText(TaskStatus status){
+    switch (status) {
+      case TaskStatus.download:
+        return "下载中";
+      case TaskStatus.finish:
+        return "已完成/停止";
+      case TaskStatus.pause:
+        return "暂停中";
+      case TaskStatus.seeding:
+        return "做种中";
+      case TaskStatus.wait:
+        return "等待中";
+    }
+  }
 
   String sizeString(int val, {bool useSpeed=false}){
     try {
@@ -106,5 +124,141 @@ class TaskItem{
     return "${date.year}/${date.month}/${date.day} ${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')}";
   }
 
-  TaskItem(this.name, this.size, this.files, this.status, this.link, this.path, this.downloadSpeed, this.uploadSpeed, this.completeBytes, this.id, this.addTime);
+  Future<void> showTaskInfo(BuildContext context) async {
+    await showDialog(
+      context: context, 
+      builder: (context)=>AlertDialog(
+        title: const Text("任务信息"),
+        content: SizedBox(
+          width: 300,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                children: [
+                  SizedBox(
+                    width: 90,
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text('任务名称')
+                    )
+                  ),
+                  Expanded(
+                    child: Text(
+                      name,
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                    )
+                  )
+                ],
+              ),
+              const SizedBox(height: 5,),
+              Row(
+                children: [
+                  SizedBox(
+                    width: 90,
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text('下载位置')
+                    )
+                  ),
+                  Expanded(
+                    child: Text(
+                      p.dirname(path),
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                    )
+                  )
+                ],
+              ),
+              const SizedBox(height: 5,),
+              Row(
+                children: [
+                  SizedBox(
+                    width: 90,
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text('大小')
+                    )
+                  ),
+                  Expanded(
+                    child: Text(
+                      sizeString(size),
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                    )
+                  )
+                ],
+              ),
+              const SizedBox(height: 5,),
+              Row(
+                children: [
+                  SizedBox(
+                    width: 90,
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text('已完成大小')
+                    )
+                  ),
+                  Expanded(
+                    child: Text(
+                      sizeString(completeBytes),
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                    )
+                  )
+                ],
+              ),
+              const SizedBox(height: 5,),
+              Row(
+                children: [
+                  SizedBox(
+                    width: 90,
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text('已上传大小')
+                    )
+                  ),
+                  Expanded(
+                    child: Text(
+                      sizeString(uploaded),
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                    )
+                  )
+                ],
+              ),
+              const SizedBox(height: 5,),
+              Row(
+                children: [
+                  SizedBox(
+                    width: 90,
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text('状态')
+                    )
+                  ),
+                  Expanded(
+                    child: Text(
+                      statusToText(status),
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                    )
+                  )
+                ],
+              ),
+            ],
+          ),
+        ),
+        actions: [
+          ElevatedButton(
+            onPressed: ()=>Navigator.pop(context),
+            child: const Text('完成')
+          )
+        ],
+      )
+    );
+  }
+
+  TaskItem(this.name, this.size, this.files, this.status, this.link, this.path, this.downloadSpeed, this.uploadSpeed, this.completeBytes, this.id, this.addTime, this.uploaded);
 }
