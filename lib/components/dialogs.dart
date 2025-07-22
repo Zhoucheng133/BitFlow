@@ -20,7 +20,7 @@ Future<void> showErrWarnDialog(BuildContext context, String title, String conten
   );
 }
 
-Future<bool> showComfirmDialog(BuildContext context, String title, String content) async {
+Future<bool> showConfirmDialog(BuildContext context, String title, String content) async {
   bool ok=false;
   await showDialog(
     context: context, 

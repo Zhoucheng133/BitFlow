@@ -32,7 +32,7 @@ class StoreGet extends GetxController{
   }
 
   Future<void> delStore(BuildContext context, int delIndex) async {
-    final ok=await showComfirmDialog(context, "删除下载服务器", "你确定要删除下载服务器: ${servers[delIndex].name} 吗？");
+    final ok=await showConfirmDialog(context, "删除下载服务器", "你确定要删除下载服务器: ${servers[delIndex].name} 吗？");
     if(ok){
       statusGet.sevrerIndex.value=0;
       servers.removeAt(delIndex);
