@@ -126,93 +126,97 @@ class _FinishTaskState extends State<FinishTask> {
       }),
       child: GestureDetector(
         onSecondaryTapDown: (details) => showFinishTaskMenu(context, details),
-        child: SizedBox(
-          width: double.infinity,
-          height: 50,
-          child: Stack(
-            children: [
-              if(widget.item.calPercent()!=1) Positioned(
-                top: 0,
-                left: 10,
-                right: 0,
-                child: FractionallySizedBox(
-                  alignment: Alignment.centerLeft,
-                  widthFactor: widget.item.calPercent(),
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 200),
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.surface,
-                      border: Border(
-                        bottom: BorderSide(
-                          color: Theme.of(context).brightness==Brightness.light ? Theme.of(context).colorScheme.primary.withAlpha(50) : Color.fromARGB(255, 100, 100, 100),
-                          width: 2
-                        ),
-                      )
+        child: Tooltip(
+          message: widget.item.name,
+          waitDuration: const Duration(seconds: 1),
+          child: SizedBox(
+            width: double.infinity,
+            height: 50,
+            child: Stack(
+              children: [
+                if(widget.item.calPercent()!=1) Positioned(
+                  top: 0,
+                  left: 10,
+                  right: 0,
+                  child: FractionallySizedBox(
+                    alignment: Alignment.centerLeft,
+                    widthFactor: widget.item.calPercent(),
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 200),
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.surface,
+                        border: Border(
+                          bottom: BorderSide(
+                            color: Theme.of(context).brightness==Brightness.light ? Theme.of(context).colorScheme.primary.withAlpha(50) : Color.fromARGB(255, 100, 100, 100),
+                            width: 2
+                          ),
+                        )
+                      ),
                     ),
                   ),
                 ),
-              ),
-              AnimatedContainer(
-                duration: const Duration(milliseconds: 200),
-                color: themeGet.taskItemColor(context, onHover),
-                child: Row(
-                  children: [
-                    AnimatedContainer(
-                      duration: const Duration(milliseconds: 200),
-                      width: 10,
-                      color: Colors.green,
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    widget.item.name,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: GoogleFonts.notoSansSc(
-                                      // fontWeight: FontWeight.bold,
-                                      color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 200),
+                  color: themeGet.taskItemColor(context, onHover),
+                  child: Row(
+                    children: [
+                      AnimatedContainer(
+                        duration: const Duration(milliseconds: 200),
+                        width: 10,
+                        color: Colors.green,
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      widget.item.name,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: GoogleFonts.notoSansSc(
+                                        // fontWeight: FontWeight.bold,
+                                        color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
+                                      ),
                                     ),
-                                  ),
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        child: Text(
-                                          widget.item.sizeString(widget.item.size),
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: Text(
+                                            widget.item.sizeString(widget.item.size),
+                                            style: GoogleFonts.notoSansSc(
+                                              fontSize: 12,
+                                              color: Colors.grey
+                                            ),
+                                          ),
+                                        ),
+                                        Text(
+                                          widget.item.addTimeGet()??"",
                                           style: GoogleFonts.notoSansSc(
                                             fontSize: 12,
                                             color: Colors.grey
                                           ),
                                         ),
-                                      ),
-                                      Text(
-                                        widget.item.addTimeGet()??"",
-                                        style: GoogleFonts.notoSansSc(
-                                          fontSize: 12,
-                                          color: Colors.grey
-                                        ),
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              )
-                            ),
-                            const SizedBox(width: 10,),
-                          ],
+                                      ],
+                                    )
+                                  ],
+                                )
+                              ),
+                              const SizedBox(width: 10,),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

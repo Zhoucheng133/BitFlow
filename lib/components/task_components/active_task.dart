@@ -43,127 +43,131 @@ class _ActiveTaskState extends State<ActiveTask> {
         onSecondaryTapDown: (details){
           showActiveTaskMenu(context, details);
         },
-        child: SizedBox(
-          width: double.infinity,
-          height: 50,
-          child: Stack(
-            children: [
-              if(widget.item.status!=TaskStatus.seeding) Positioned(
-                top: 0,
-                left: 10,
-                right: 0,
-                child: FractionallySizedBox(
-                  alignment: Alignment.centerLeft,
-                  widthFactor: widget.item.calPercent(),
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 200),
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.surface,
-                      border: Border(
-                        bottom: BorderSide(
-                          color: Theme.of(context).brightness==Brightness.light ? Theme.of(context).colorScheme.primary.withAlpha(50) : Color.fromARGB(255, 100, 100, 100),
-                          width: 2
-                        ),
-                      )
+        child: Tooltip(
+          message: widget.item.name,
+          waitDuration: const Duration(seconds: 1),
+          child: SizedBox(
+            width: double.infinity,
+            height: 50,
+            child: Stack(
+              children: [
+                if(widget.item.status!=TaskStatus.seeding) Positioned(
+                  top: 0,
+                  left: 10,
+                  right: 0,
+                  child: FractionallySizedBox(
+                    alignment: Alignment.centerLeft,
+                    widthFactor: widget.item.calPercent(),
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 200),
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.surface,
+                        border: Border(
+                          bottom: BorderSide(
+                            color: Theme.of(context).brightness==Brightness.light ? Theme.of(context).colorScheme.primary.withAlpha(50) : Color.fromARGB(255, 100, 100, 100),
+                            width: 2
+                          ),
+                        )
+                      ),
                     ),
                   ),
                 ),
-              ),
-              AnimatedContainer(
-                duration: const Duration(milliseconds: 200),
-                color: themeGet.taskItemColor(context, onHover),
-                child: Row(
-                  children: [
-                    AnimatedContainer(
-                      duration: const Duration(milliseconds: 200),
-                      width: 10,
-                      color: widget.item.status==TaskStatus.download ? Theme.of(context).colorScheme.primary : widget.item.status==TaskStatus.pause || widget.item.status==TaskStatus.wait ? Colors.grey[300] : Colors.green,
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 200),
+                  color: themeGet.taskItemColor(context, onHover),
+                  child: Row(
+                    children: [
+                      AnimatedContainer(
+                        duration: const Duration(milliseconds: 200),
+                        width: 10,
+                        color: widget.item.status==TaskStatus.download ? Theme.of(context).colorScheme.primary : widget.item.status==TaskStatus.pause || widget.item.status==TaskStatus.wait ? Colors.grey[300] : Colors.green,
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      widget.item.name,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: GoogleFonts.notoSansSc(
+                                        // fontWeight: FontWeight.bold,
+                                        color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
+                                      ),
+                                    ),
+                                    Text(
+                                      widget.item.sizeString(widget.item.size),
+                                      style: GoogleFonts.notoSansSc(
+                                        fontSize: 12,
+                                        color: Colors.grey
+                                      ),
+                                    )
+                                  ],
+                                )
+                              ),
+                              const SizedBox(width: 10,),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text(
-                                    widget.item.name,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: GoogleFonts.notoSansSc(
-                                      // fontWeight: FontWeight.bold,
-                                      color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
-                                    ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      if(widget.item.uploadSpeed!=0) Padding(
+                                        padding: const EdgeInsets.only(top: 3),
+                                        child: Icon(
+                                          Icons.arrow_upward_rounded,
+                                          size: 16,
+                                        ),
+                                      ),
+                                      if(widget.item.uploadSpeed!=0) Text(
+                                        widget.item.sizeString(widget.item.uploadSpeed, useSpeed: true),
+                                        style: GoogleFonts.notoSansSc(
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                      if(widget.item.downloadSpeed!=0) const SizedBox(width: 10,),
+                                      if(widget.item.downloadSpeed!=0) Padding(
+                                        padding: const EdgeInsets.only(top: 3),
+                                        child: Icon(
+                                          Icons.arrow_downward_rounded,
+                                          size: 16,
+                                        ),
+                                      ),
+                                      if(widget.item.downloadSpeed!=0) Text(
+                                        widget.item.sizeString(widget.item.downloadSpeed, useSpeed: true),
+                                        style: GoogleFonts.notoSansSc(
+                                          fontSize: 12,
+                                        ),
+                                      )
+                                    ],
                                   ),
                                   Text(
-                                    widget.item.sizeString(widget.item.size),
+                                    widget.item.calTime(),
                                     style: GoogleFonts.notoSansSc(
                                       fontSize: 12,
                                       color: Colors.grey
                                     ),
                                   )
                                 ],
-                              )
-                            ),
-                            const SizedBox(width: 10,),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    if(widget.item.uploadSpeed!=0) Padding(
-                                      padding: const EdgeInsets.only(top: 3),
-                                      child: Icon(
-                                        Icons.arrow_upward_rounded,
-                                        size: 16,
-                                      ),
-                                    ),
-                                    if(widget.item.uploadSpeed!=0) Text(
-                                      widget.item.sizeString(widget.item.uploadSpeed, useSpeed: true),
-                                      style: GoogleFonts.notoSansSc(
-                                        fontSize: 12,
-                                      ),
-                                    ),
-                                    if(widget.item.downloadSpeed!=0) const SizedBox(width: 10,),
-                                    if(widget.item.downloadSpeed!=0) Padding(
-                                      padding: const EdgeInsets.only(top: 3),
-                                      child: Icon(
-                                        Icons.arrow_downward_rounded,
-                                        size: 16,
-                                      ),
-                                    ),
-                                    if(widget.item.downloadSpeed!=0) Text(
-                                      widget.item.sizeString(widget.item.downloadSpeed, useSpeed: true),
-                                      style: GoogleFonts.notoSansSc(
-                                        fontSize: 12,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                Text(
-                                  widget.item.calTime(),
-                                  style: GoogleFonts.notoSansSc(
-                                    fontSize: 12,
-                                    color: Colors.grey
-                                  ),
-                                )
-                              ],
-                            ),
-                            const SizedBox(width: 10,),
-                          ],
+                              ),
+                              const SizedBox(width: 10,),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

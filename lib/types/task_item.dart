@@ -291,6 +291,7 @@ class TaskItem{
                   padding: const EdgeInsets.symmetric(vertical: 5),
                   child: Tooltip(
                     message: files[index].name,
+                    waitDuration: const Duration(seconds: 1),
                     child: Row(
                       children: [
                         Expanded(
