@@ -1,7 +1,7 @@
 name: bit_flow
-description: "A new Flutter project."
+description: "Downloader Manager"
 publish_to: 'none'
-version: 0.0.1
+version: 0.1.0
 
 environment:
   sdk: ^3.8.1
