@@ -1,7 +1,10 @@
 import 'dart:math';
 
+import 'package:bit_flow/components/dialogs.dart';
 import 'package:bit_flow/getx/status_get.dart';
 import 'package:bit_flow/getx/store_get.dart';
+import 'package:bit_flow/service/aria.dart';
+import 'package:bit_flow/service/funcs.dart';
 import 'package:bit_flow/service/qbit.dart';
 import 'package:bit_flow/types/store_item.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +33,13 @@ enum TaskStatus{
 }
 
 class TaskItem{
+
+  final AriaService ariaService=Get.find();
+  final StatusGet statusGet=Get.find();
+  final StoreGet storeGet=Get.find();
+  final FuncsService funcsService=Get.find();
+  final QbitService qbitService=Get.find();
+
   // 服务器类型
   late StoreType type;
   // 任务名称
@@ -131,6 +141,7 @@ class TaskItem{
     return "${date.year}/${date.month}/${date.day} ${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')}";
   }
 
+  // 显示任务信息
   Future<void> showTaskInfo(BuildContext context) async {
     await showDialog(
       context: context, 
@@ -266,12 +277,10 @@ class TaskItem{
       )
     );
   }
-
+  
+  // 显示文件
   Future<void> showFiles(BuildContext context) async {
     if(type==StoreType.qbit){
-      final StoreGet storeGet=Get.find();
-      final QbitService qbitService=Get.find();
-      final StatusGet statusGet=Get.find();
       files=(await qbitService.getFiles(storeGet.servers[statusGet.sevrerIndex.value], id))??[];
     }
     if(context.mounted){
@@ -321,5 +330,47 @@ class TaskItem{
     }
   }
 
+  // 删除已完成的任务
+  Future<void> delFinishedTask() async {
+    switch (type) {
+      case StoreType.aria:
+        await ariaService.delFinishedTask(id, storeGet.servers[statusGet.sevrerIndex.value]);
+        break;
+      case StoreType.qbit:
+        await qbitService.delFinishedTask(storeGet.servers[statusGet.sevrerIndex.value], id);
+        break;
+    }
+    funcsService.getTasks();
+  }
+
+  // 删除活跃中的任务
+  Future<void> delActiveTask() async {
+    switch (type) {
+      case StoreType.aria:
+        await ariaService.delActiveTask(id, storeGet.servers[statusGet.sevrerIndex.value]);
+        break;
+      case StoreType.qbit:
+        await qbitService.delActiveTask(storeGet.servers[statusGet.sevrerIndex.value], id);
+        break;
+    }
+    funcsService.getTasks();
+  }
+
+  // 删除任务【总】
+  Future<void> delTask(BuildContext context) async {
+    bool confirm=await showConfirmDialog(context, "删除这个任务", "确定要删除这个任务吗? 这个操作无法撤销!");
+    if(confirm){
+      if(status==TaskStatus.finish){
+        delFinishedTask();
+      }else{
+        delActiveTask();
+      }
+    }
+  }
+
+  // 重新下载任务(针对已停止的任务)
+  void reDownload(){
+
+  }
   TaskItem(this.name, this.size, this.files, this.status, this.link, this.path, this.downloadSpeed, this.uploadSpeed, this.completeBytes, this.id, this.addTime, this.uploaded, this.type);
 }

@@ -31,7 +31,7 @@ class AriaService extends GetxController{
       final data = (await httpRequest({
         "jsonrpc":"2.0",
         "method":"aria2.tellActive",
-        "id":"ariaui",
+        "id":"bitflow",
         "params":["token:${item.password}"]
       }, item.url))['result'];
       List<TaskItem> ls=[];
@@ -75,7 +75,7 @@ class AriaService extends GetxController{
       final data = (await httpRequest({
         "jsonrpc":"2.0",
         "method":"aria2.tellWaiting",
-        "id":"ariaui",
+        "id":"bitflow",
         "params":["token:${item.password}", 0, 1000]
       }, item.url))['result'];
       List<TaskItem> ls=[];
@@ -116,7 +116,7 @@ class AriaService extends GetxController{
       final data = (await httpRequest({
         "jsonrpc":"2.0",
         "method":"aria2.tellStopped",
-        "id":"ariaui",
+        "id":"bitflow",
         "params":["token:${item.password}", 0, 1000]
       }, item.url))['result'];
       List<TaskItem> ls=[];
@@ -169,8 +169,30 @@ class AriaService extends GetxController{
       await httpRequest({
         "jsonrpc":"2.0",
         "method":"aria2.addUri",
-        "id":"ariaui",
+        "id":"bitflow",
         "params":["token:${item.password}", [downloadUrl], {}]
+      }, item.url);
+    } catch (_) {}
+  }
+
+  Future<void> delActiveTask(String id, StoreItem item) async {
+    try {
+      await httpRequest({
+        "jsonrpc":"2.0",
+        "method":"aria2.remove",
+        "id":"bitflow",
+        "params":["token:${item.password}", id]
+      }, item.url);
+    } catch (_) {}
+  }
+
+  Future<void> delFinishedTask(String id, StoreItem item) async {
+    try {
+      await httpRequest({
+        "jsonrpc":"2.0",
+        "method":"aria2.removeDownloadResult",
+        "id":"bitflow",
+        "params":["token:${item.password}", id]
       }, item.url);
     } catch (_) {}
   }
@@ -183,7 +205,7 @@ class AriaService extends GetxController{
       return (await httpRequest({
         "jsonrpc":"2.0",
         "method":"aria2.getVersion",
-        "id":"ariaui",
+        "id":"bitflow",
         "params":["token:${item.password}"]
       }, item.url))['result']['version'];
     } catch (_) {

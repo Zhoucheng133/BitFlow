@@ -127,6 +127,13 @@ class QbitService extends GetxController {
   }
 
   Future<List<FileItem>?> getFiles(StoreItem item, String hash) async {
+    if(cookie.isEmpty){
+      final temp=await getCookie(item);
+      if(temp==null){
+        return [];
+      }
+      cookie.value=temp;
+    }
     if(item.type!=StoreType.qbit){
       return null;
     }
@@ -146,6 +153,37 @@ class QbitService extends GetxController {
     } catch (_) {
       return null;
     }
+  }
+
+  Future<void> delFinishedTask(StoreItem item, String hash) async {
+    await delActiveTask(item, hash);
+  }
+
+  Future<void> delActiveTask(StoreItem item, String hash) async {
+    if(cookie.isEmpty){
+      final temp=await getCookie(item);
+      if(temp==null){
+        return;
+      }
+      cookie.value=temp;
+    }
+    if(item.type!=StoreType.qbit){
+      return;
+    }
+    try {
+      final url = Uri.parse("${item.url}/api/v2/torrents/delete");
+      await http.post(
+        url,
+        headers: {
+          "Cookie": cookie.value,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: {
+          'hashes': hash,
+          'deleteFiles': "false",
+        },
+      );
+    } catch (_) {}
   }
   
   Future<bool> check(StoreItem item) async {
