@@ -59,7 +59,6 @@ class QbitService extends GetxController {
         TaskStatus status=TaskStatus.download;
         switch (data['state']) {
           case "downloading":
-          case "stoppedDL":
           case "checkingDL":
           case "allocating":
           case "metaDL":
@@ -72,6 +71,7 @@ class QbitService extends GetxController {
             status=TaskStatus.seeding;
             break;
           case "pausedDL":
+          case "stoppedDL":
             status=TaskStatus.pause;
             break;
           case "queuedDL":
@@ -186,6 +186,58 @@ class QbitService extends GetxController {
     } catch (_) {}
   }
   
+  Future<void> pauseTask(StoreItem item, String hash) async {
+    if(cookie.isEmpty){
+      final temp=await getCookie(item);
+      if(temp==null){
+        return;
+      }
+      cookie.value=temp;
+    }
+    if(item.type!=StoreType.qbit){
+      return;
+    }
+    try {
+      final url = Uri.parse("${item.url}/api/v2/torrents/pause");
+      await http.post(
+        url,
+        headers: {
+          "Cookie": cookie.value,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: {
+          'hashes': hash,
+        },
+      );
+    } catch (_) {}
+  }
+
+  Future<void> continueTask(StoreItem item, String hash) async {
+    if(cookie.isEmpty){
+      final temp=await getCookie(item);
+      if(temp==null){
+        return;
+      }
+      cookie.value=temp;
+    }
+    if(item.type!=StoreType.qbit){
+      return;
+    }
+    try {
+      final url = Uri.parse("${item.url}/api/v2/torrents/start");
+      await http.post(
+        url,
+        headers: {
+          "Cookie": cookie.value,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: {
+          'hashes': hash,
+        },
+      );
+    } catch (_) {}
+  }
+
   Future<bool> check(StoreItem item) async {
     if(item.type!=StoreType.qbit){
       return false;

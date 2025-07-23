@@ -384,5 +384,31 @@ class TaskItem{
       funcsService.getTasks();
     }
   }
+
+  // 暂停任务
+  Future<void> pauseTask() async {
+    switch (type) {
+      case StoreType.aria:
+        await ariaService.pauseTask(id, storeGet.servers[statusGet.sevrerIndex.value]);
+        break;
+      case StoreType.qbit:
+        await qbitService.pauseTask(storeGet.servers[statusGet.sevrerIndex.value], id);
+        break;
+    }
+    funcsService.getTasks();
+  }
+
+  // 继续任务
+  Future<void> continueTask() async {
+    switch (type) {
+      case StoreType.aria:
+        await ariaService.continueTask(id, storeGet.servers[statusGet.sevrerIndex.value]);
+        break;
+      case StoreType.qbit:
+        await qbitService.continueTask(storeGet.servers[statusGet.sevrerIndex.value], id);
+        break;
+    }
+    funcsService.getTasks();
+  }
   TaskItem(this.name, this.size, this.files, this.status, this.link, this.path, this.downloadSpeed, this.uploadSpeed, this.completeBytes, this.id, this.addTime, this.uploaded, this.type);
 }

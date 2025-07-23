@@ -197,6 +197,28 @@ class AriaService extends GetxController{
     } catch (_) {}
   }
 
+  Future<void> pauseTask(String id, StoreItem item) async {
+    try {
+      await httpRequest({
+        "jsonrpc":"2.0",
+        "method":"aria2.pause",
+        "id":"bitflow",
+        "params":["token:${item.password}", id]
+      }, item.url);
+    } catch (_) {}
+  }
+
+  Future<void> continueTask(String id, StoreItem item) async {
+    try {
+      await httpRequest({
+        "jsonrpc":"2.0",
+        "method":"aria2.unpause",
+        "id":"bitflow",
+        "params":["token:${item.password}", id]
+      }, item.url);
+    } catch (_) {}
+  }
+
   Future<String?> getVersion(StoreItem item) async {
     if(item.type!=StoreType.aria){
       return null;

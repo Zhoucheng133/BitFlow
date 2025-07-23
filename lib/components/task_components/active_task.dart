@@ -1,7 +1,9 @@
 import 'package:bit_flow/getx/status_get.dart';
 import 'package:bit_flow/getx/theme_get.dart';
 import 'package:bit_flow/types/task_item.dart';
+import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -15,6 +17,49 @@ class ActiveTask extends StatefulWidget {
   State<ActiveTask> createState() => _ActiveTaskState();
 }
 
+enum ActiveTaskMenuTypes{
+  pause,
+  cont,
+  info,
+  files,
+  copy,
+  del,
+}
+
+IconData menuIcon(ActiveTaskMenuTypes menuType){
+  switch (menuType) {
+    case ActiveTaskMenuTypes.info:
+      return FontAwesomeIcons.circleInfo;
+    case ActiveTaskMenuTypes.files:
+      return FontAwesomeIcons.file;
+    case ActiveTaskMenuTypes.copy:
+      return FontAwesomeIcons.copy;
+    case ActiveTaskMenuTypes.del:
+      return FontAwesomeIcons.trash;
+    case ActiveTaskMenuTypes.pause:
+      return FontAwesomeIcons.pause;
+    case ActiveTaskMenuTypes.cont:
+      return FontAwesomeIcons.play;
+  }
+}
+
+String menuLabel(ActiveTaskMenuTypes menuType){
+  switch (menuType) {
+    case ActiveTaskMenuTypes.info:
+      return "任务详情";
+    case ActiveTaskMenuTypes.files:
+      return "文件列表";
+    case ActiveTaskMenuTypes.copy:
+      return "复制链接";
+    case ActiveTaskMenuTypes.del:
+      return "删除";
+    case ActiveTaskMenuTypes.pause:
+      return "暂停";
+    case ActiveTaskMenuTypes.cont:
+      return "继续";
+  }
+}
+
 class _ActiveTaskState extends State<ActiveTask> {
 
   bool onHover=false;
@@ -22,7 +67,62 @@ class _ActiveTaskState extends State<ActiveTask> {
   final StatusGet statusGet=Get.find();
 
   Future<void> showActiveTaskMenu(BuildContext context, TapDownDetails details) async {
-    // TODO
+    final RenderBox overlay = Overlay.of(context).context.findRenderObject() as RenderBox;
+    final Offset position = overlay.localToGlobal(details.globalPosition);
+    ActiveTaskMenuTypes? val=await showMenu(
+      context: context,
+      position: RelativeRect.fromLTRB(
+        position.dx,
+        position.dy,
+        position.dx + 50,
+        position.dy + 50,
+      ),
+      color: Theme.of(context).colorScheme.surface,
+      items: ActiveTaskMenuTypes.values.where((item) {
+        if (item == ActiveTaskMenuTypes.pause && widget.item.status==TaskStatus.pause){
+          return false;
+        }else if (item == ActiveTaskMenuTypes.cont && widget.item.status==TaskStatus.download){
+          return false;
+        }
+        return true;
+      }).map((ActiveTaskMenuTypes item){
+        return PopupMenuItem(
+          value: item,
+          height: 35,
+          child: Row(
+            children: [
+              Icon(
+                menuIcon(item),
+                size: 15,
+              ),
+              const SizedBox(width: 10,),
+              Text(menuLabel(item)),
+            ],
+          )
+        );
+      }).toList()
+    );
+    
+    switch (val) {
+      case ActiveTaskMenuTypes.copy:
+        await FlutterClipboard.copy(widget.item.link);
+        break;
+      case ActiveTaskMenuTypes.del:
+        if(context.mounted) widget.item.delTask(context);
+        break;
+      case ActiveTaskMenuTypes.files:
+        if(context.mounted) widget.item.showFiles(context);
+        break;
+      case ActiveTaskMenuTypes.info:
+        if(context.mounted) widget.item.showTaskInfo(context);
+        break;
+      case ActiveTaskMenuTypes.pause:
+        widget.item.pauseTask();
+      case ActiveTaskMenuTypes.cont:
+        widget.item.continueTask();
+      default:
+        return;
+    }
   }
 
   @override
@@ -112,7 +212,7 @@ class _ActiveTaskState extends State<ActiveTask> {
                                 )
                               ),
                               const SizedBox(width: 10,),
-                              Column(
+                              if(widget.item.status==TaskStatus.download) Column(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -155,6 +255,26 @@ class _ActiveTaskState extends State<ActiveTask> {
                                       fontSize: 12,
                                       color: Colors.grey
                                     ),
+                                  )
+                                ],
+                              ),
+                              if(widget.item.status==TaskStatus.pause) Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    FontAwesomeIcons.pause,
+                                    size: 16,
+                                    color: Colors.grey[300],
+                                  )
+                                ],
+                              ),
+                              if(widget.item.status==TaskStatus.wait) Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    FontAwesomeIcons.clock,
+                                    size: 16,
+                                    color: Colors.grey[300],
                                   )
                                 ],
                               ),
