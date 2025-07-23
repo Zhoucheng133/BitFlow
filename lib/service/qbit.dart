@@ -155,11 +155,11 @@ class QbitService extends GetxController {
     }
   }
 
-  Future<void> delFinishedTask(StoreItem item, String hash) async {
-    await delActiveTask(item, hash);
+  Future<void> delFinishedTask(StoreItem item, String hash, {bool delFile=false}) async {
+    await delActiveTask(item, hash, delFile: delFile);
   }
 
-  Future<void> delActiveTask(StoreItem item, String hash) async {
+  Future<void> delActiveTask(StoreItem item, String hash, {bool delFile=false}) async {
     if(cookie.isEmpty){
       final temp=await getCookie(item);
       if(temp==null){
@@ -180,7 +180,7 @@ class QbitService extends GetxController {
         },
         body: {
           'hashes': hash,
-          'deleteFiles': "false",
+          'deleteFiles': delFile==true?"true":"false",
         },
       );
     } catch (_) {}

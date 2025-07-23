@@ -331,26 +331,26 @@ class TaskItem{
   }
 
   // 删除已完成的任务
-  Future<void> delFinishedTask() async {
+  Future<void> delFinishedTask({bool delFile=false}) async {
     switch (type) {
       case StoreType.aria:
         await ariaService.delFinishedTask(id, storeGet.servers[statusGet.sevrerIndex.value]);
         break;
       case StoreType.qbit:
-        await qbitService.delFinishedTask(storeGet.servers[statusGet.sevrerIndex.value], id);
+        await qbitService.delFinishedTask(storeGet.servers[statusGet.sevrerIndex.value], id, delFile: delFile);
         break;
     }
     funcsService.getTasks();
   }
 
   // 删除活跃中的任务
-  Future<void> delActiveTask() async {
+  Future<void> delActiveTask({bool delFile=false}) async {
     switch (type) {
       case StoreType.aria:
         await ariaService.delActiveTask(id, storeGet.servers[statusGet.sevrerIndex.value]);
         break;
       case StoreType.qbit:
-        await qbitService.delActiveTask(storeGet.servers[statusGet.sevrerIndex.value], id);
+        await qbitService.delActiveTask(storeGet.servers[statusGet.sevrerIndex.value], id, delFile: delFile);
         break;
     }
     funcsService.getTasks();
@@ -359,11 +359,15 @@ class TaskItem{
   // 删除任务【总】
   Future<void> delTask(BuildContext context) async {
     bool confirm=await showConfirmDialog(context, "删除这个任务", "确定要删除这个任务吗? 这个操作无法撤销!");
+    bool delFile=false;
+    if(type==StoreType.qbit){
+      if(context.mounted) delFile=await showConfirmDialog(context, "删除文件", "删除这个任务的同时删除文件?");
+    }
     if(confirm){
       if(status==TaskStatus.finish){
-        delFinishedTask();
+        delFinishedTask(delFile: delFile);
       }else{
-        delActiveTask();
+        delActiveTask(delFile: delFile);
       }
     }
   }
