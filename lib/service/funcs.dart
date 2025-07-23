@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:bit_flow/components/dialogs.dart';
 import 'package:bit_flow/getx/status_get.dart';
 import 'package:bit_flow/getx/store_get.dart';
 import 'package:bit_flow/service/aria.dart';
@@ -84,6 +85,23 @@ class FuncsService extends GetxController{
         break;
       case StoreType.qbit:
         statusGet.makeTasks(await qbitService.getTasks(statusGet.page.value, storeGet.servers[statusGet.sevrerIndex.value]), storeGet.servers[statusGet.sevrerIndex.value].type);
+        break;
+    }
+  }
+
+  Future<void> delAllFinishedTasks(BuildContext context) async {
+    bool confirm=await showConfirmDialog(context, "删除所有已完成的任务?", "这个操作不能撤销!");
+    if(!confirm){
+      return;
+    }
+    switch (storeGet.servers[statusGet.sevrerIndex.value].type) {
+      case StoreType.aria:
+        ariaService.clearFinished(storeGet.servers[statusGet.sevrerIndex.value]);
+        break;
+      case StoreType.qbit:
+        final List<String> finishedList=statusGet.finishedTask.map((item)=>item.id).toList();
+        final hashes=finishedList.join('|');
+        qbitService.delFinishedTask(storeGet.servers[statusGet.sevrerIndex.value], hashes);
         break;
     }
   }

@@ -219,6 +219,17 @@ class AriaService extends GetxController{
     } catch (_) {}
   }
 
+  Future<void> clearFinished(StoreItem item) async {
+    try {
+      await httpRequest({
+        "jsonrpc":"2.0",
+        "method":"aria2.purgeDownloadResult",
+        "id":"bitflow",
+        "params":["token:${item.password}"]
+      }, item.url);
+    } catch (_) {}
+  }
+
   Future<String?> getVersion(StoreItem item) async {
     if(item.type!=StoreType.aria){
       return null;

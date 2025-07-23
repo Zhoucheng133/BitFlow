@@ -26,7 +26,7 @@ class _FinishedButtonsState extends State<FinishedButtons> {
         children: [
           Expanded(child: Container()),
           HeaderButtonItem(buttonSide: ButtonSide.left, func: (){}, icon: Icons.check_box_outlined, text: "选择"),
-          HeaderButtonItem(buttonSide: ButtonSide.mid, func: (){}, icon: Icons.delete_rounded, text: "清空已完成"),
+          HeaderButtonItem(buttonSide: ButtonSide.mid, func: ()=>funcsService.delAllFinishedTasks(context), icon: Icons.delete_rounded, text: "清空已完成"),
           HeaderButtonItem(
               buttonSide: ButtonSide.right, 
               func: () async {
