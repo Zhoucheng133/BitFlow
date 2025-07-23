@@ -373,8 +373,16 @@ class TaskItem{
   }
 
   // 重新下载任务(针对已停止的任务)
-  void reDownload(){
-
+  Future<void> reDownload(BuildContext context) async {
+    if(status!=TaskStatus.finish){
+      return;
+    }
+    bool confirm=await showConfirmDialog(context, "重新下载这个任务", "将会从已完成任务中删除，并且重新添加为新的任务");
+    if(confirm){
+      await delFinishedTask(delFile: true);
+      funcsService.addTaskHandler(link);
+      funcsService.getTasks();
+    }
   }
   TaskItem(this.name, this.size, this.files, this.status, this.link, this.path, this.downloadSpeed, this.uploadSpeed, this.completeBytes, this.id, this.addTime, this.uploaded, this.type);
 }

@@ -104,7 +104,7 @@ class _FinishTaskState extends State<FinishTask> {
         if(context.mounted) widget.item.showTaskInfo(context);
         break;
       case FinishTaskMenuTypes.redownload:
-
+        if(context.mounted) widget.item.reDownload(context);
         break;
       
       default:
