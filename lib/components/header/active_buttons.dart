@@ -111,6 +111,14 @@ class _ActiveButtonsState extends State<ActiveButtons> {
   final GlobalKey sortActiveMenuKey = GlobalKey(); 
   final FuncsService funcsService=Get.find();
 
+  void selectAllHandler(){
+    if(statusGet.selectList.length == statusGet.activeTasks.length){
+      statusGet.selectList.value=[];
+      return;
+    }
+    statusGet.selectList.value=statusGet.activeTasks.map((item)=>item.id).toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -118,7 +126,7 @@ class _ActiveButtonsState extends State<ActiveButtons> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: statusGet.selectMode.value ? [
           Expanded(child: Container()),
-          HeaderButtonItem(buttonSide: ButtonSide.left, func: (){}, icon: Icons.checklist_rounded, text: "全选"),
+          HeaderButtonItem(buttonSide: ButtonSide.left, func: ()=>selectAllHandler(), icon: Icons.checklist_rounded, text: "全选"),
           HeaderButtonItem(buttonSide: ButtonSide.mid, func: (){}, icon: Icons.pause_rounded, text: "暂停"),
           HeaderButtonItem(buttonSide: ButtonSide.mid, func: (){}, icon: Icons.play_arrow_rounded, text: "继续"),
           HeaderButtonItem(buttonSide: ButtonSide.mid, func: (){}, icon: Icons.delete, text: "删除"),

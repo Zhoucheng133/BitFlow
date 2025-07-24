@@ -17,6 +17,14 @@ class _FinishedButtonsState extends State<FinishedButtons> {
   final StatusGet statusGet=Get.find();
   final GlobalKey sortFinishedMenuKey = GlobalKey();
   final FuncsService funcsService=Get.find();
+
+  void selectAllHandler(){
+    if(statusGet.selectList.length == statusGet.finishedTask.length){
+      statusGet.selectList.value=[];
+      return;
+    }
+    statusGet.selectList.value=statusGet.finishedTask.map((item)=>item.id).toList();
+  }
   
   @override
   Widget build(BuildContext context) {
@@ -25,7 +33,7 @@ class _FinishedButtonsState extends State<FinishedButtons> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: statusGet.selectMode.value ? [
           Expanded(child: Container()),
-          HeaderButtonItem(buttonSide: ButtonSide.left, func: (){}, icon: Icons.checklist_rounded, text: "全选"),
+          HeaderButtonItem(buttonSide: ButtonSide.left, func: ()=>selectAllHandler(), icon: Icons.checklist_rounded, text: "全选"),
           HeaderButtonItem(buttonSide: ButtonSide.mid, func: (){}, icon: Icons.delete, text: "删除"),
           HeaderButtonItem(buttonSide: ButtonSide.mid, func: (){}, icon: Icons.refresh_rounded, text: "重新下载"),
           HeaderButtonItem(buttonSide: ButtonSide.mid, func: ()=>statusGet.selectMode.value=false, icon: Icons.close_rounded, text: "取消选择"),
