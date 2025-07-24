@@ -21,21 +21,15 @@ class FuncsService extends GetxController{
 
   FuncsService(){
     ever(statusGet.page, (_) async {
-      statusGet.loading.value=true;
+      statusGet.selectMode.value=false;
       await getTasks();
-      await Future.delayed(const Duration(seconds: 1), (){
-        statusGet.loading.value=false;
-      });
     });
 
     ever(statusGet.sevrerIndex, (_) async {
-      statusGet.loading.value=true;
+      statusGet.selectMode.value=false;
       statusGet.activeTasks.value=[];
       statusGet.finishedTask.value=[];
       await getTasks();
-      await Future.delayed(const Duration(seconds: 1), (){
-        statusGet.loading.value=false;
-      });
     });
   }
 
@@ -113,9 +107,7 @@ class FuncsService extends GetxController{
     }
     if(storeGet.servers.isNotEmpty){
       interval= Timer.periodic(const Duration(milliseconds: 1500), (Timer time){
-        if(!statusGet.loading.value){
-          getTasks();
-        }
+        getTasks();
       });
     }
   }

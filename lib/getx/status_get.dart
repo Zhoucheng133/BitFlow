@@ -28,10 +28,11 @@ class StatusGet extends GetxController{
 
   RxInt sevrerIndex=0.obs;
   Rx<Pages> page=Pages.active.obs;
-  RxBool loading=false.obs;
 
   RxList<TaskItem> activeTasks=<TaskItem>[].obs;
   RxList<TaskItem> finishedTask=<TaskItem>[].obs;
+
+  RxBool selectMode=false.obs;
 
   // 默认在活跃页面，新的在后，旧的在前
   Rx<OrderTypes> activeOrder=OrderTypes.addOld.obs;
@@ -109,4 +110,5 @@ class StatusGet extends GetxController{
     }
     
   }
+
 }
