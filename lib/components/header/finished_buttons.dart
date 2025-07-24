@@ -32,17 +32,15 @@ class _FinishedButtonsState extends State<FinishedButtons> {
       () => Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const SizedBox(width: 10,),
+          Expanded(child: Container()),
           HeaderButtonItem(buttonSide: ButtonSide.left, func: ()=>statusGet.selectMode.value=!statusGet.selectMode.value, icon: statusGet.selectMode.value ? Icons.close_rounded : Icons.check_box_rounded, text: statusGet.selectMode.value ? "取消选择" : "选择"),
           if(statusGet.selectMode.value) HeaderButtonItem(buttonSide: ButtonSide.mid, func: ()=>selectAllHandler(), icon: Icons.checklist_rounded, text: "全选"),
           if(statusGet.selectMode.value) HeaderButtonItem(buttonSide: ButtonSide.mid, func: (){}, icon: Icons.delete, text: "删除"),
-          if(statusGet.selectMode.value) HeaderButtonItem(buttonSide: ButtonSide.right, func: (){}, icon: Icons.refresh_rounded, text: "重新下载"),
-          if(!statusGet.selectMode.value) HeaderButtonItem(buttonSide: ButtonSide.right, func: ()=>funcsService.delAllFinishedTasks(context), icon: Icons.delete_rounded, text: "清空已完成"),
-
-          Expanded(child: Container()),
+          if(statusGet.selectMode.value) HeaderButtonItem(buttonSide: ButtonSide.mid, func: (){}, icon: Icons.refresh_rounded, text: "重新下载"),
+          if(!statusGet.selectMode.value) HeaderButtonItem(buttonSide: ButtonSide.mid, func: ()=>funcsService.delAllFinishedTasks(context), icon: Icons.delete_rounded, text: "清空已完成"),
 
           HeaderButtonItem(
-            buttonSide: ButtonSide.both, 
+            buttonSide: ButtonSide.right, 
             func: () async {
               final RenderBox box = sortFinishedMenuKey.currentContext!.findRenderObject() as RenderBox;
               final RenderBox overlay = Overlay.of(context).context.findRenderObject() as RenderBox;
