@@ -143,6 +143,16 @@ class _ActiveTaskState extends State<ActiveTask> {
         onSecondaryTapDown: (details){
           showActiveTaskMenu(context, details);
         },
+        onTap: (){
+          if(!statusGet.selectMode.value){
+            statusGet.selectMode.value=true;
+          }
+          if(statusGet.selectList.contains(widget.item.id)){
+            statusGet.selectList.remove(widget.item.id);
+          }else{
+            statusGet.selectList.add(widget.item.id);
+          }
+        },
         child: Tooltip(
           message: widget.item.name,
           waitDuration: const Duration(seconds: 1),
@@ -188,6 +198,20 @@ class _ActiveTaskState extends State<ActiveTask> {
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: Row(
                             children: [
+                              Obx(()=>
+                                statusGet.selectMode.value ? Checkbox(
+                                  splashRadius: 0,
+                                  value: statusGet.selectList.contains(widget.item.id), 
+                                  onChanged: (bool? select){
+                                    if(select==null) return;
+                                    if(select){
+                                      statusGet.selectList.add(widget.item.id);
+                                    }else{
+                                      statusGet.selectList.remove(widget.item.id);
+                                    }
+                                  }
+                                ) : Container()
+                              ),
                               Expanded(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,

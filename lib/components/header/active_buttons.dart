@@ -116,12 +116,42 @@ class _ActiveButtonsState extends State<ActiveButtons> {
     return Obx(
       () => Row(
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
+        children: statusGet.selectMode.value ? [
+          Expanded(child: Container()),
+          HeaderButtonItem(buttonSide: ButtonSide.left, func: (){}, icon: Icons.checklist_rounded, text: "全选"),
+          HeaderButtonItem(buttonSide: ButtonSide.mid, func: (){}, icon: Icons.pause_rounded, text: "暂停"),
+          HeaderButtonItem(buttonSide: ButtonSide.mid, func: (){}, icon: Icons.play_arrow_rounded, text: "继续"),
+          HeaderButtonItem(buttonSide: ButtonSide.mid, func: (){}, icon: Icons.delete, text: "删除"),
+          HeaderButtonItem(buttonSide: ButtonSide.mid, func: ()=>statusGet.selectMode.value=false, icon: Icons.close_rounded, text: "取消选择"),
+          HeaderButtonItem(
+            buttonSide: ButtonSide.right, 
+            func: () async {
+              final RenderBox box = sortActiveMenuKey.currentContext!.findRenderObject() as RenderBox;
+              final RenderBox overlay = Overlay.of(context).context.findRenderObject() as RenderBox;
+
+              final RelativeRect position = RelativeRect.fromRect(
+                Rect.fromPoints(
+                  box.localToGlobal(Offset.zero, ancestor: overlay),
+                  box.localToGlobal(box.size.bottomRight(Offset.zero), ancestor: overlay),
+                ),
+                Offset.zero & overlay.size,
+              );
+
+              OrderTypes? type=await changeOrderMenu(context, statusGet.activeOrder.value, position);
+              if(type!=null){
+                statusGet.activeOrder.value=type;
+                funcsService.getTasks();
+              }
+            }, 
+            icon: statusGet.getOrderIcon(Pages.active), 
+            iconSize: 13, 
+            key: sortActiveMenuKey,
+          )
+        ] : [
           Expanded(child: Container()),
           HeaderButtonItem(buttonSide: ButtonSide.left, func: ()=>addTaskDialog(context), icon: Icons.add_rounded, text: "添加任务"),
           HeaderButtonItem(buttonSide: ButtonSide.mid, func: (){}, icon: Icons.pause_rounded, text: "全部暂停"),
           HeaderButtonItem(buttonSide: ButtonSide.mid, func: (){}, icon: Icons.play_arrow_rounded, text: "全部继续"),
-          HeaderButtonItem(buttonSide: ButtonSide.mid, func: (){}, icon: Icons.check_box_outlined, text: "选择"),
           HeaderButtonItem(
             buttonSide: ButtonSide.right, 
             func: () async {

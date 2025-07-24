@@ -19,18 +19,36 @@ class FuncsService extends GetxController{
   final AriaService ariaService=Get.find();
   final QbitService qbitService=Get.find();
 
+  late Worker pageListener;
+  late Worker serverListener;
+  late Worker selectListener;
+
   FuncsService(){
-    ever(statusGet.page, (_) async {
+    pageListener=ever(statusGet.page, (_) async {
       statusGet.selectMode.value=false;
       await getTasks();
     });
 
-    ever(statusGet.sevrerIndex, (_) async {
+    serverListener=ever(statusGet.sevrerIndex, (_) async {
       statusGet.selectMode.value=false;
       statusGet.activeTasks.value=[];
       statusGet.finishedTask.value=[];
       await getTasks();
     });
+
+    selectListener=ever(statusGet.selectMode, (bool select){
+      if(!select){
+        statusGet.selectList.value=[];
+      }
+    });
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+    pageListener.dispose();
+    serverListener.dispose();
+    selectListener.dispose();
   }
 
   void parseStore(BuildContext context){
