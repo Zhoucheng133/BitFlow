@@ -119,9 +119,9 @@ class _ActiveButtonsState extends State<ActiveButtons> {
         children: [
           Expanded(child: Container()),
           HeaderButtonItem(buttonSide: ButtonSide.left, func: ()=>addTaskDialog(context), icon: Icons.add_rounded, text: "添加任务"),
-          HeaderButtonItem(buttonSide: ButtonSide.mid, func: (){}, icon: Icons.check_box_outlined, text: "选择"),
           HeaderButtonItem(buttonSide: ButtonSide.mid, func: (){}, icon: Icons.pause_rounded, text: "全部暂停"),
           HeaderButtonItem(buttonSide: ButtonSide.mid, func: (){}, icon: Icons.play_arrow_rounded, text: "全部继续"),
+          HeaderButtonItem(buttonSide: ButtonSide.mid, func: (){}, icon: Icons.check_box_outlined, text: "选择"),
           HeaderButtonItem(
             buttonSide: ButtonSide.right, 
             func: () async {
