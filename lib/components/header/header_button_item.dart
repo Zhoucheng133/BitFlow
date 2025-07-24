@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 enum ButtonSide{
   left,
   mid,
-  right
+  right,
+  both,
 }
 
 class HeaderButtonItem extends StatefulWidget {
@@ -32,7 +33,7 @@ class _HeaderButtonItemState extends State<HeaderButtonItem> {
           ) : widget.buttonSide==ButtonSide.right ? BorderRadius.only(
             topRight: Radius.circular(10),
             bottomRight: Radius.circular(10) 
-          ) : BorderRadius.zero
+          ) : widget.buttonSide==ButtonSide.both ? BorderRadius.circular(10) : BorderRadius.zero
         ),
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       ),

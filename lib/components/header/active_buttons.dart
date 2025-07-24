@@ -124,44 +124,21 @@ class _ActiveButtonsState extends State<ActiveButtons> {
     return Obx(
       () => Row(
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: statusGet.selectMode.value ? [
-          Expanded(child: Container()),
-          HeaderButtonItem(buttonSide: ButtonSide.left, func: ()=>selectAllHandler(), icon: Icons.checklist_rounded, text: "全选"),
-          HeaderButtonItem(buttonSide: ButtonSide.mid, func: (){}, icon: Icons.pause_rounded, text: "暂停"),
-          HeaderButtonItem(buttonSide: ButtonSide.mid, func: (){}, icon: Icons.play_arrow_rounded, text: "继续"),
-          HeaderButtonItem(buttonSide: ButtonSide.mid, func: (){}, icon: Icons.delete, text: "删除"),
-          HeaderButtonItem(buttonSide: ButtonSide.mid, func: ()=>statusGet.selectMode.value=false, icon: Icons.close_rounded, text: "取消选择"),
-          HeaderButtonItem(
-            buttonSide: ButtonSide.right, 
-            func: () async {
-              final RenderBox box = sortActiveMenuKey.currentContext!.findRenderObject() as RenderBox;
-              final RenderBox overlay = Overlay.of(context).context.findRenderObject() as RenderBox;
-
-              final RelativeRect position = RelativeRect.fromRect(
-                Rect.fromPoints(
-                  box.localToGlobal(Offset.zero, ancestor: overlay),
-                  box.localToGlobal(box.size.bottomRight(Offset.zero), ancestor: overlay),
-                ),
-                Offset.zero & overlay.size,
-              );
-
-              OrderTypes? type=await changeOrderMenu(context, statusGet.activeOrder.value, position);
-              if(type!=null){
-                statusGet.activeOrder.value=type;
-                funcsService.getTasks();
-              }
-            }, 
-            icon: statusGet.getOrderIcon(Pages.active), 
-            iconSize: 13, 
-            key: sortActiveMenuKey,
-          )
-        ] : [
-          Expanded(child: Container()),
+        children: [
+          const SizedBox(width: 10,),
           HeaderButtonItem(buttonSide: ButtonSide.left, func: ()=>addTaskDialog(context), icon: Icons.add_rounded, text: "添加任务"),
-          HeaderButtonItem(buttonSide: ButtonSide.mid, func: (){}, icon: Icons.pause_rounded, text: "全部暂停"),
-          HeaderButtonItem(buttonSide: ButtonSide.mid, func: (){}, icon: Icons.play_arrow_rounded, text: "全部继续"),
+          HeaderButtonItem(buttonSide: ButtonSide.mid, func: ()=>statusGet.selectMode.value=!statusGet.selectMode.value, icon: statusGet.selectMode.value ? Icons.close_rounded : Icons.check_box_rounded, text: statusGet.selectMode.value ? "取消选择" : "选择"),
+          if(statusGet.selectMode.value) HeaderButtonItem(buttonSide: ButtonSide.mid, func: ()=>selectAllHandler(), icon: Icons.checklist_rounded, text: "全选"),
+          if(statusGet.selectMode.value) HeaderButtonItem(buttonSide: ButtonSide.mid, func: (){}, icon: Icons.pause_rounded, text: "暂停"),
+          if(statusGet.selectMode.value) HeaderButtonItem(buttonSide: ButtonSide.mid, func: (){}, icon: Icons.play_arrow_rounded, text: "继续"),
+          if(statusGet.selectMode.value) HeaderButtonItem(buttonSide: ButtonSide.right, func: (){}, icon: Icons.delete, text: "删除"),
+          
+          if(!statusGet.selectMode.value) HeaderButtonItem(buttonSide: ButtonSide.mid, func: (){}, icon: Icons.pause_rounded, text: "全部暂停"),
+          if(!statusGet.selectMode.value) HeaderButtonItem(buttonSide: ButtonSide.right, func: (){}, icon: Icons.play_arrow_rounded, text: "全部继续"),
+
+          Expanded(child: Container()),
           HeaderButtonItem(
-            buttonSide: ButtonSide.right, 
+            buttonSide: ButtonSide.both, 
             func: () async {
               final RenderBox box = sortActiveMenuKey.currentContext!.findRenderObject() as RenderBox;
               final RenderBox overlay = Overlay.of(context).context.findRenderObject() as RenderBox;
