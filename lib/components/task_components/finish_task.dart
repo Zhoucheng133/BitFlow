@@ -130,10 +130,10 @@ class _FinishTaskState extends State<FinishTask> {
           if(!statusGet.selectMode.value){
             statusGet.selectMode.value=true;
           }
-          if(statusGet.selectList.contains(widget.item.id)){
-            statusGet.selectList.remove(widget.item.id);
+          if(statusGet.selectList.contains(widget.item)){
+            statusGet.selectList.remove(widget.item);
           }else{
-            statusGet.selectList.add(widget.item.id);
+            statusGet.selectList.add(widget.item);
           }
         },
         child: Tooltip(
@@ -184,13 +184,13 @@ class _FinishTaskState extends State<FinishTask> {
                               Obx(()=>
                                 statusGet.selectMode.value ? Checkbox(
                                   splashRadius: 0,
-                                  value: statusGet.selectList.contains(widget.item.id), 
+                                  value: statusGet.selectList.contains(widget.item), 
                                   onChanged: (bool? select){
                                     if(select==null) return;
                                     if(select){
-                                      statusGet.selectList.add(widget.item.id);
+                                      statusGet.selectList.add(widget.item);
                                     }else{
-                                      statusGet.selectList.remove(widget.item.id);
+                                      statusGet.selectList.remove(widget.item);
                                     }
                                   }
                                 ) : Container()

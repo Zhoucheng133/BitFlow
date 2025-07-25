@@ -23,7 +23,7 @@ class _FinishedButtonsState extends State<FinishedButtons> {
       statusGet.selectList.value=[];
       return;
     }
-    statusGet.selectList.value=statusGet.finishedTask.map((item)=>item.id).toList();
+    statusGet.selectList.value=statusGet.finishedTask;
   }
   
   @override

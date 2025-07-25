@@ -40,6 +40,14 @@ class TaskItem{
   final FuncsService funcsService=Get.find();
   final QbitService qbitService=Get.find();
 
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) || (other is TaskItem && other.id == id);
+  }
+
+  @override
+  int get hashCode => id.hashCode;
+
   // 服务器类型
   late StoreType type;
   // 任务名称
@@ -411,4 +419,5 @@ class TaskItem{
     funcsService.getTasks();
   }
   TaskItem(this.name, this.size, this.files, this.status, this.link, this.path, this.downloadSpeed, this.uploadSpeed, this.completeBytes, this.id, this.addTime, this.uploaded, this.type);
+  
 }

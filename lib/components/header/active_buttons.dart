@@ -116,7 +116,7 @@ class _ActiveButtonsState extends State<ActiveButtons> {
       statusGet.selectList.value=[];
       return;
     }
-    statusGet.selectList.value=statusGet.activeTasks.map((item)=>item.id).toList();
+    statusGet.selectList.value=statusGet.activeTasks;
   }
 
   @override
