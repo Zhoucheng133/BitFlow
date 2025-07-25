@@ -117,6 +117,27 @@ class FuncsService extends GetxController{
         break;
     }
   }
+
+  Future<void> delSelected(BuildContext context, Pages page) async {
+    bool confirm=await showConfirmDialog(context, "删除这些任务?", "这个操作不能撤销!");
+    if(!confirm) return;
+    switch (storeGet.servers[statusGet.sevrerIndex.value].type) {
+      case StoreType.aria:
+        for (var id in statusGet.selectList) {
+          if(page==Pages.active){
+            await ariaService.delActiveTask(id, storeGet.servers[statusGet.sevrerIndex.value]);
+          }else if(page==Pages.finish){
+            await ariaService.delFinishedTask(id, storeGet.servers[statusGet.sevrerIndex.value]);
+          }
+        }
+        break;
+      case StoreType.qbit:
+        final hashes=statusGet.selectList.join('|');
+        await qbitService.delActiveTask(storeGet.servers[statusGet.sevrerIndex.value], hashes);
+        break;
+    }
+    getTasks();
+  }
   
   Future<void> init(BuildContext context) async {
     prefs=await SharedPreferences.getInstance();

@@ -35,7 +35,7 @@ class _FinishedButtonsState extends State<FinishedButtons> {
           Expanded(child: Container()),
           HeaderButtonItem(buttonSide: ButtonSide.left, func: ()=>statusGet.selectMode.value=!statusGet.selectMode.value, icon: statusGet.selectMode.value ? Icons.close_rounded : Icons.check_box_rounded, text: statusGet.selectMode.value ? "取消选择" : "选择"),
           if(statusGet.selectMode.value) HeaderButtonItem(buttonSide: ButtonSide.mid, func: ()=>selectAllHandler(), icon: Icons.checklist_rounded, text: "全选"),
-          if(statusGet.selectMode.value) HeaderButtonItem(buttonSide: ButtonSide.mid, func: (){}, icon: Icons.delete, text: "删除"),
+          if(statusGet.selectMode.value) HeaderButtonItem(buttonSide: ButtonSide.mid, func: ()=>funcsService.delSelected(context, Pages.finish), icon: Icons.delete, text: "删除"),
           if(statusGet.selectMode.value) HeaderButtonItem(buttonSide: ButtonSide.mid, func: (){}, icon: Icons.refresh_rounded, text: "重新下载"),
           if(!statusGet.selectMode.value) HeaderButtonItem(buttonSide: ButtonSide.mid, func: ()=>funcsService.delAllFinishedTasks(context), icon: Icons.delete_rounded, text: "清空已完成"),
 
