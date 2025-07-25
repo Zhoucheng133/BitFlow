@@ -127,15 +127,15 @@ class _FinishTaskState extends State<FinishTask> {
       child: GestureDetector(
         onSecondaryTapDown: (details) => showFinishTaskMenu(context, details),
         onTap: (){
-          // if(!statusGet.selectMode.value){
-          //   statusGet.selectMode.value=true;
-          // }
-          // if(statusGet.selectList.contains(widget.item)){
-          //   statusGet.selectList.remove(widget.item);
-          // }else{
-          //   statusGet.selectList.add(widget.item);
-          // }
-          widget.item.showTaskInfo(context);
+          if(!statusGet.selectMode.value){
+            widget.item.showTaskInfo(context);
+            return;
+          }
+          if(statusGet.selectList.contains(widget.item)){
+            statusGet.selectList.remove(widget.item);
+          }else{
+            statusGet.selectList.add(widget.item);
+          }
         },
         child: Tooltip(
           message: widget.item.name,
