@@ -120,6 +120,10 @@ class FuncsService extends GetxController{
   }
 
   Future<void> delSelected(BuildContext context, Pages page) async {
+    if(statusGet.selectList.isEmpty){
+      await showErrWarnDialog(context, "无效操作", "没有选择任何任务");
+      return;
+    }
     bool confirm=await showConfirmDialog(context, "删除这些任务?", "这个操作不能撤销!");
     if(!confirm) return;
     switch (storeGet.servers[statusGet.sevrerIndex.value].type) {
@@ -145,6 +149,10 @@ class FuncsService extends GetxController{
   }
 
   Future<void> reDownloadSelected(BuildContext context) async {
+    if(statusGet.selectList.isEmpty){
+      await showErrWarnDialog(context, "无效操作", "没有选择任何任务");
+      return;
+    }
     bool confirm=await showConfirmDialog(context, "重新下载这些任务?", "将会删除这些任务并重新添加为新的任务");
     if(!confirm) return;
     switch (storeGet.servers[statusGet.sevrerIndex.value].type) {
