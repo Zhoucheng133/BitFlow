@@ -144,14 +144,15 @@ class _ActiveTaskState extends State<ActiveTask> {
           showActiveTaskMenu(context, details);
         },
         onTap: (){
-          if(!statusGet.selectMode.value){
-            statusGet.selectMode.value=true;
-          }
-          if(statusGet.selectList.contains(widget.item)){
-            statusGet.selectList.remove(widget.item);
-          }else{
-            statusGet.selectList.add(widget.item);
-          }
+          // if(!statusGet.selectMode.value){
+          //   statusGet.selectMode.value=true;
+          // }
+          // if(statusGet.selectList.contains(widget.item)){
+          //   statusGet.selectList.remove(widget.item);
+          // }else{
+          //   statusGet.selectList.add(widget.item);
+          // }
+          widget.item.showTaskInfo(context);
         },
         child: Tooltip(
           message: widget.item.name,
