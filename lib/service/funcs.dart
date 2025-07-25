@@ -7,6 +7,7 @@ import 'package:bit_flow/getx/store_get.dart';
 import 'package:bit_flow/service/aria.dart';
 import 'package:bit_flow/service/qbit.dart';
 import 'package:bit_flow/types/store_item.dart';
+import 'package:bit_flow/types/task_item.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -123,20 +124,46 @@ class FuncsService extends GetxController{
     if(!confirm) return;
     switch (storeGet.servers[statusGet.sevrerIndex.value].type) {
       case StoreType.aria:
-        for (var id in statusGet.selectList) {
+        for (var item in statusGet.selectList) {
           if(page==Pages.active){
-            await ariaService.delActiveTask(id, storeGet.servers[statusGet.sevrerIndex.value]);
+            await ariaService.delActiveTask(item.id, storeGet.servers[statusGet.sevrerIndex.value]);
           }else if(page==Pages.finish){
-            await ariaService.delFinishedTask(id, storeGet.servers[statusGet.sevrerIndex.value]);
+            await ariaService.delFinishedTask(item.id, storeGet.servers[statusGet.sevrerIndex.value]);
           }
         }
         break;
       case StoreType.qbit:
-        final hashes=statusGet.selectList.join('|');
-        await qbitService.delActiveTask(storeGet.servers[statusGet.sevrerIndex.value], hashes);
+        final String hashes=statusGet.selectList.map((item)=>item.id).toList().join('|');
+        if(context.mounted){
+          final delFile=await showConfirmDialog(context, "同时删除文件吗", "是否要同时删除文件?");
+          await qbitService.delActiveTask(storeGet.servers[statusGet.sevrerIndex.value], hashes, delFile: delFile);
+        }
         break;
     }
     getTasks();
+    statusGet.selectMode.value=false;
+  }
+
+  Future<void> reDownloadSelected(BuildContext context) async {
+    bool confirm=await showConfirmDialog(context, "重新下载这些任务?", "将会删除这些任务并重新添加为新的任务");
+    if(!confirm) return;
+    switch (storeGet.servers[statusGet.sevrerIndex.value].type) {
+      case StoreType.aria:
+        for (var item in statusGet.selectList) {
+          await ariaService.delFinishedTask(item.id, storeGet.servers[statusGet.sevrerIndex.value]);
+          await ariaService.addTask(item.link, storeGet.servers[statusGet.sevrerIndex.value]);
+        }
+        break;
+      case StoreType.qbit:
+        final String hashes=statusGet.selectList.map((item)=>item.id).toList().join('|');
+        await qbitService.delFinishedTask(storeGet.servers[statusGet.sevrerIndex.value], hashes, delFile: true);
+        for(TaskItem item in statusGet.selectList){
+          await qbitService.addTask(item.link, storeGet.servers[statusGet.sevrerIndex.value]);
+        }
+        break;
+    }
+    getTasks();
+    statusGet.selectMode.value=false;
   }
   
   Future<void> init(BuildContext context) async {
