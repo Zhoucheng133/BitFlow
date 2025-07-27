@@ -148,6 +148,46 @@ class FuncsService extends GetxController{
     statusGet.selectMode.value=false;
   }
 
+  Future<void> multiContinue(BuildContext context) async {
+    if(statusGet.selectList.isEmpty){
+      await showErrWarnDialog(context, "无效操作", "没有选择任何任务");
+      return;
+    }
+    switch (storeGet.servers[statusGet.sevrerIndex.value].type) {
+      case StoreType.aria:
+        for (var item in statusGet.selectList) {
+          await item.continueTask();
+        }
+        break;
+      case StoreType.qbit:
+        final String hashes=statusGet.selectList.map((item)=>item.id).toList().join('|');
+        await qbitService.continueTask(storeGet.servers[statusGet.sevrerIndex.value], hashes);
+        break;
+    }
+    getTasks();
+    statusGet.selectMode.value=false;
+  }
+
+  Future<void> multiPause(BuildContext context) async {
+    if(statusGet.selectList.isEmpty){
+      await showErrWarnDialog(context, "无效操作", "没有选择任何任务");
+      return;
+    }
+    switch (storeGet.servers[statusGet.sevrerIndex.value].type) {
+      case StoreType.aria:
+        for (var item in statusGet.selectList) {
+          await item.pauseTask();
+        }
+        break;
+      case StoreType.qbit:
+        final String hashes=statusGet.selectList.map((item)=>item.id).toList().join('|');
+        await qbitService.pauseTask(storeGet.servers[statusGet.sevrerIndex.value], hashes);
+        break;
+    }
+    getTasks();
+    statusGet.selectMode.value=false;
+  }
+
   Future<void> reDownloadSelected(BuildContext context) async {
     if(statusGet.selectList.isEmpty){
       await showErrWarnDialog(context, "无效操作", "没有选择任何任务");

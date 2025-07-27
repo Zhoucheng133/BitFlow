@@ -129,8 +129,8 @@ class _ActiveButtonsState extends State<ActiveButtons> {
           HeaderButtonItem(buttonSide: ButtonSide.left, func: ()=>addTaskDialog(context), icon: Icons.add_rounded, text: "添加任务"),
           HeaderButtonItem(buttonSide: ButtonSide.mid, func: ()=>statusGet.selectMode.value=!statusGet.selectMode.value, icon: statusGet.selectMode.value ? Icons.close_rounded : Icons.check_box_rounded, text: statusGet.selectMode.value ? "取消选择" : "选择"),
           if(statusGet.selectMode.value) HeaderButtonItem(buttonSide: ButtonSide.mid, func: ()=>selectAllHandler(), icon: Icons.checklist_rounded, text: "全选"),
-          if(statusGet.selectMode.value) HeaderButtonItem(buttonSide: ButtonSide.mid, func: (){}, icon: Icons.pause_rounded, text: "暂停"),
-          if(statusGet.selectMode.value) HeaderButtonItem(buttonSide: ButtonSide.mid, func: (){}, icon: Icons.play_arrow_rounded, text: "继续"),
+          if(statusGet.selectMode.value) HeaderButtonItem(buttonSide: ButtonSide.mid, func: ()=>funcsService.multiPause(context), icon: Icons.pause_rounded, text: "暂停"),
+          if(statusGet.selectMode.value) HeaderButtonItem(buttonSide: ButtonSide.mid, func: ()=>funcsService.multiContinue(context), icon: Icons.play_arrow_rounded, text: "继续"),
           if(statusGet.selectMode.value) HeaderButtonItem(buttonSide: ButtonSide.mid, func: ()=>funcsService.delSelected(context, Pages.active), icon: Icons.delete, text: "删除"),
           
           if(!statusGet.selectMode.value) HeaderButtonItem(buttonSide: ButtonSide.mid, func: (){}, icon: Icons.pause_rounded, text: "全部暂停"),
