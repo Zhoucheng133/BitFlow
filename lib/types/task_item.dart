@@ -9,6 +9,7 @@ import 'package:bit_flow/service/qbit.dart';
 import 'package:bit_flow/types/store_item.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:path/path.dart' as p;
 
 class FileItem{
@@ -154,7 +155,12 @@ class TaskItem{
     await showDialog(
       context: context, 
       builder: (context)=>AlertDialog(
-        title: const Text("任务信息"),
+        title: Text(
+          "任务信息",
+          style: GoogleFonts.notoSansSc(
+            color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
+          ),
+        ),
         content: SizedBox(
           width: 300,
           child: Column(
@@ -166,7 +172,12 @@ class TaskItem{
                     width: 90,
                     child: Align(
                       alignment: Alignment.centerLeft,
-                      child: Text('任务名称')
+                      child: Text(
+                        '任务名称',
+                        style: GoogleFonts.notoSansSc(
+                          color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
+                        ),
+                      )
                     )
                   ),
                   Expanded(
@@ -174,6 +185,9 @@ class TaskItem{
                       name,
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.notoSansSc(
+                        color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
+                      ),
                     )
                   )
                 ],
@@ -185,7 +199,12 @@ class TaskItem{
                     width: 90,
                     child: Align(
                       alignment: Alignment.centerLeft,
-                      child: Text('下载位置')
+                      child: Text(
+                        '下载位置',
+                        style: GoogleFonts.notoSansSc(
+                          color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
+                        ),
+                      )
                     )
                   ),
                   Expanded(
@@ -193,6 +212,9 @@ class TaskItem{
                       p.dirname(path),
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.notoSansSc(
+                        color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
+                      ),
                     )
                   )
                 ],
@@ -204,7 +226,12 @@ class TaskItem{
                     width: 90,
                     child: Align(
                       alignment: Alignment.centerLeft,
-                      child: Text('大小')
+                      child: Text(
+                        '大小',
+                        style: GoogleFonts.notoSansSc(
+                          color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
+                        ),
+                      )
                     )
                   ),
                   Expanded(
@@ -212,6 +239,9 @@ class TaskItem{
                       sizeString(size),
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.notoSansSc(
+                        color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
+                      ),
                     )
                   )
                 ],
@@ -223,7 +253,12 @@ class TaskItem{
                     width: 90,
                     child: Align(
                       alignment: Alignment.centerLeft,
-                      child: Text('已完成大小')
+                      child: Text(
+                        '已完成大小',
+                        style: GoogleFonts.notoSansSc(
+                          color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
+                        ),
+                      )
                     )
                   ),
                   Expanded(
@@ -231,6 +266,9 @@ class TaskItem{
                       sizeString(completeBytes),
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.notoSansSc(
+                        color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
+                      ),
                     )
                   )
                 ],
@@ -242,7 +280,12 @@ class TaskItem{
                     width: 90,
                     child: Align(
                       alignment: Alignment.centerLeft,
-                      child: Text('已上传大小')
+                      child: Text(
+                        '已上传大小',
+                        style: GoogleFonts.notoSansSc(
+                          color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
+                        ),
+                      )
                     )
                   ),
                   Expanded(
@@ -250,6 +293,9 @@ class TaskItem{
                       sizeString(uploaded),
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.notoSansSc(
+                        color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
+                      ),
                     )
                   )
                 ],
@@ -261,7 +307,12 @@ class TaskItem{
                     width: 90,
                     child: Align(
                       alignment: Alignment.centerLeft,
-                      child: Text('状态')
+                      child: Text(
+                        '状态',
+                        style: GoogleFonts.notoSansSc(
+                          color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
+                        ),
+                      )
                     )
                   ),
                   Expanded(
@@ -269,6 +320,9 @@ class TaskItem{
                       statusToText(status),
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.notoSansSc(
+                        color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
+                      ),
                     )
                   )
                 ],

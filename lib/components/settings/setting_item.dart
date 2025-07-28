@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SettingItem extends StatefulWidget {
 
@@ -31,6 +32,9 @@ class _SettingItemState extends State<SettingItem> {
                   padding: const EdgeInsets.only(left: 5),
                   child: Text(
                     widget.label,
+                    style: GoogleFonts.notoSansSc(
+                      color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
+                    ),
                   ),
                 ),
               ),

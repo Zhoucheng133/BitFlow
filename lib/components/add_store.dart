@@ -21,7 +21,12 @@ class _AddItemState extends State<AddItem> {
       children: [
         SizedBox(
           width: 80,
-          child: Text(widget.label)
+          child: Text(
+            widget.label,
+            style: GoogleFonts.notoSansSc(
+              color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
+            ),
+          )
         ),
         const SizedBox(width: 15,),
         Expanded(child: widget.content)
@@ -84,6 +89,7 @@ class _AddStoreState extends State<AddStore> {
                     borderRadius: BorderRadius.circular(5)
                   )
                 ),
+                
                 menuItemStyleData: const MenuItemStyleData(
                   height: 40,
                   padding: EdgeInsets.only(left: 10, right: 10),
@@ -105,6 +111,7 @@ class _AddStoreState extends State<AddStore> {
                       str,
                       style: GoogleFonts.notoSansSc(
                         fontSize: 14,
+                        color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
                       ),
                     ),
                   );

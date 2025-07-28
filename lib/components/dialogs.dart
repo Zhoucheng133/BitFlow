@@ -8,8 +8,18 @@ Future<void> showErrWarnDialog(BuildContext context, String title, String conten
   await showDialog(
     context: context, 
     builder: (context)=>AlertDialog(
-      title: Text(title),
-      content: Text(content),
+      title: Text(
+        title,
+        style: GoogleFonts.notoSansSc(
+          color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
+        ),
+      ),
+      content: Text(
+        content,
+        style: GoogleFonts.notoSansSc(
+          color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
+        ),
+      ),
       actions: [
         ElevatedButton(
           onPressed: () => Navigator.pop(context), 
@@ -25,8 +35,18 @@ Future<bool> showConfirmDialog(BuildContext context, String title, String conten
   await showDialog(
     context: context, 
     builder: (context)=>AlertDialog(
-      title: Text(title),
-      content: Text(content),
+      title: Text(
+        title,
+        style: GoogleFonts.notoSansSc(
+          color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
+        ),
+      ),
+      content: Text(
+        content,
+        style: GoogleFonts.notoSansSc(
+          color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
+        ),
+      ),
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context), 
@@ -51,7 +71,12 @@ Future<void> showAbout(BuildContext context) async {
     showDialog(
       context: context, 
       builder: (BuildContext context)=>AlertDialog(
-        title: Text('关于'),
+        title: Text(
+          '关于',
+          style: GoogleFonts.notoSansSc(
+            color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
+          ),
+        ),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -62,10 +87,11 @@ Future<void> showAbout(BuildContext context) async {
             ),
             const SizedBox(height: 10,),
             Text(
-              'netPlayer',
+              'BitFlow',
               style: GoogleFonts.notoSansSc(
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
+                color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
               ),
             ),
             const SizedBox(height: 3,),
@@ -99,6 +125,7 @@ Future<void> showAbout(BuildContext context) async {
                         '项目地址',
                         style: GoogleFonts.notoSansSc(
                           fontSize: 13,
+                          color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
                         ),
                       ),
                     )
@@ -130,6 +157,7 @@ Future<void> showAbout(BuildContext context) async {
                         "许可证",
                         style: GoogleFonts.notoSansSc(
                           fontSize: 13,
+                          color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
                         ),
                       ),
                     )

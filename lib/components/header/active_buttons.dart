@@ -40,7 +40,12 @@ Future<void> addTaskDialog(BuildContext context) async {
     showDialog(
       context: context, 
       builder: (BuildContext context) => AlertDialog(
-        title: Text('添加任务'),
+        title: Text(
+          '添加任务',
+          style: GoogleFonts.notoSansSc(
+            color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
+          ),
+        ),
         content: SizedBox(
           width: 400,
           child: StatefulBuilder(
@@ -61,7 +66,12 @@ Future<void> addTaskDialog(BuildContext context) async {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text('若要添加多个任务，用回车拆分'),
+                    Text(
+                      '若要添加多个任务，用回车拆分',
+                      style: GoogleFonts.notoSansSc(
+                        color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
+                      ),
+                    ),
                     const SizedBox(height: 5,),
                     ConstrainedBox(
                       constraints: BoxConstraints(
