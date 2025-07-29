@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -20,7 +21,13 @@ class _SettingsPageState extends State<SettingsPage> {
   String version="";
   final StoreGet storeGet=Get.find();
 
-  Future<void> initVersion() async {
+  late SharedPreferences prefs;
+
+  Future<void> init() async {
+    // 初始化prefs
+    prefs=await SharedPreferences.getInstance();
+
+    // 获取版本号
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     setState(() {
       version="v${packageInfo.version}";
@@ -30,7 +37,7 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   void initState() {
     super.initState();
-    initVersion();
+    init();
   }
 
   bool hoverVersion=false;
@@ -49,7 +56,9 @@ class _SettingsPageState extends State<SettingsPage> {
                   selectedIcon: orderToIcon(storeGet.defaultActiveOrder.value), 
                   selectedText: orderToString(storeGet.defaultActiveOrder.value), 
                   func: (val){
+                    val=val as OrderTypes;
                     storeGet.defaultActiveOrder.value=val;
+                    prefs.setInt("defaultActiveOrder", val.index);
                   }, 
                   list: OrderTypes.values.map((item)=>CustomDropDownItem(orderToString(item), item, orderToIcon(item))).toList()
                 ),
@@ -60,7 +69,9 @@ class _SettingsPageState extends State<SettingsPage> {
                   selectedIcon: orderToIcon(storeGet.defaultFinishOrder.value), 
                   selectedText: orderToString(storeGet.defaultFinishOrder.value), 
                   func: (val){
+                    val=val as OrderTypes;
                     storeGet.defaultFinishOrder.value=val;
+                    prefs.setInt("defaultFinishOrder", val.index);
                   }, 
                   list: OrderTypes.values.map((item)=>CustomDropDownItem(orderToString(item), item, orderToIcon(item))).toList()
                 ),

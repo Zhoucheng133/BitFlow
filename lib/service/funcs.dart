@@ -70,6 +70,18 @@ class FuncsService extends GetxController{
       storeGet.starIndex.value=starPrefs;
       statusGet.sevrerIndex.value=starPrefs;
     }
+    int? activeOrder=prefs.getInt("defaultActiveOrder");
+    int? finishedOrder=prefs.getInt("defaultFinishOrder");
+    
+    if(activeOrder!=null){
+      statusGet.activeOrder.value=OrderTypes.values[activeOrder];
+      storeGet.defaultActiveOrder.value=OrderTypes.values[activeOrder];
+    }
+
+    if(finishedOrder!=null){
+      statusGet.finishOrder.value=OrderTypes.values[finishedOrder];
+      storeGet.defaultFinishOrder.value=OrderTypes.values[finishedOrder];
+    }
   }
 
   List<String> splitUrls(String url){
