@@ -23,6 +23,32 @@ enum OrderTypes{
   nameZA
 }
 
+String orderToString(OrderTypes type){
+  switch (type) {
+    case OrderTypes.addNew:
+      return "新的在前";
+    case OrderTypes.addOld:
+      return "新的在后";
+    case OrderTypes.nameAZ:
+      return "名称A到Z";
+    case OrderTypes.nameZA:
+      return "名称Z到A";
+  }
+}
+
+IconData orderToIcon(OrderTypes type){
+  switch (type) {
+    case OrderTypes.addNew:
+      return FontAwesomeIcons.arrowDownShortWide;
+    case OrderTypes.addOld:
+      return FontAwesomeIcons.arrowDownWideShort;
+    case OrderTypes.nameAZ:
+      return FontAwesomeIcons.arrowDownAZ;
+    case OrderTypes.nameZA:
+      return FontAwesomeIcons.arrowDownZA;
+  }
+}
+
 class StatusGet extends GetxController{
   RxBool initOk=false.obs;
 
