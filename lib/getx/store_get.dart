@@ -18,6 +18,11 @@ class StoreGet extends GetxController{
   RxList<StoreItem> servers = <StoreItem>[].obs;
   RxInt starIndex=0.obs;
 
+  // 默认在活跃页面，新的在后，旧的在前
+  Rx<OrderTypes> defaultActiveOrder=OrderTypes.addOld.obs;
+  // 默认在已完成页面，新的在前，旧的在后
+  Rx<OrderTypes> defaultFinishOrder=OrderTypes.addNew.obs;
+
   late SharedPreferences prefs;
 
 
