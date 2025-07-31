@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-Future<void> showErrWarnDialog(BuildContext context, String title, String content) async {
+Future<void> showErrWarnDialog(BuildContext context, String title, String content, {String okText="好的"}) async {
   await showDialog(
     context: context, 
     builder: (context)=>AlertDialog(
@@ -23,14 +23,14 @@ Future<void> showErrWarnDialog(BuildContext context, String title, String conten
       actions: [
         ElevatedButton(
           onPressed: () => Navigator.pop(context), 
-          child: const Text("好的")
+          child: Text(okText)
         )
       ],
     )
   );
 }
 
-Future<bool> showConfirmDialog(BuildContext context, String title, String content) async {
+Future<bool> showConfirmDialog(BuildContext context, String title, String content, {String okText="好的"}) async {
   bool ok=false;
   await showDialog(
     context: context, 
@@ -57,7 +57,7 @@ Future<bool> showConfirmDialog(BuildContext context, String title, String conten
             ok=true;
             Navigator.pop(context);
           }, 
-          child: const Text("好的")
+          child: Text(okText)
         )
       ],
     )

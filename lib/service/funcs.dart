@@ -200,12 +200,46 @@ class FuncsService extends GetxController{
     statusGet.selectMode.value=false;
   }
 
+  Future<void> pauseAll(BuildContext context) async {
+    bool confirm=await showConfirmDialog(context, "暂停所有任务?", "确定要暂停所有活跃中的任务吗", okText: "继续");
+    if(!confirm) return;
+    switch (storeGet.servers[statusGet.sevrerIndex.value].type) {
+      case StoreType.aria:
+        for (var item in statusGet.activeTasks) {
+          await item.pauseTask();
+        }
+        break;
+      case StoreType.qbit:
+        final String hashes=statusGet.activeTasks.map((item)=>item.id).toList().join('|');
+        await qbitService.pauseTask(storeGet.servers[statusGet.sevrerIndex.value], hashes);
+        break;
+    }
+    getTasks();
+  }
+
+  Future<void> continueAll(BuildContext context) async {
+    bool confirm=await showConfirmDialog(context, "继续任务?", "确定要继续所有活跃中的任务吗", okText: "继续");
+    if(!confirm) return;
+    switch (storeGet.servers[statusGet.sevrerIndex.value].type) {
+      case StoreType.aria:
+        for (var item in statusGet.activeTasks) {
+          await item.continueTask();
+        }
+        break;
+      case StoreType.qbit:
+        final String hashes=statusGet.activeTasks.map((item)=>item.id).toList().join('|');
+        await qbitService.continueTask(storeGet.servers[statusGet.sevrerIndex.value], hashes);
+        break;
+    }
+    getTasks();
+  }
+
   Future<void> reDownloadSelected(BuildContext context) async {
     if(statusGet.selectList.isEmpty){
       await showErrWarnDialog(context, "无效操作", "没有选择任何任务");
       return;
     }
-    bool confirm=await showConfirmDialog(context, "重新下载这些任务?", "将会删除这些任务并重新添加为新的任务");
+    bool confirm=await showConfirmDialog(context, "重新下载这些任务?", "将会删除这些任务并重新添加为新的任务", okText: "继续");
     if(!confirm) return;
     switch (storeGet.servers[statusGet.sevrerIndex.value].type) {
       case StoreType.aria:

@@ -143,8 +143,8 @@ class _ActiveButtonsState extends State<ActiveButtons> {
           if(statusGet.selectMode.value) HeaderButtonItem(buttonSide: ButtonSide.mid, func: ()=>funcsService.multiContinue(context), icon: Icons.play_arrow_rounded, text: "继续"),
           if(statusGet.selectMode.value) HeaderButtonItem(buttonSide: ButtonSide.mid, func: ()=>funcsService.delSelected(context, Pages.active), icon: Icons.delete, text: "删除"),
           
-          if(!statusGet.selectMode.value) HeaderButtonItem(buttonSide: ButtonSide.mid, func: (){}, icon: Icons.pause_rounded, text: "全部暂停"),
-          if(!statusGet.selectMode.value) HeaderButtonItem(buttonSide: ButtonSide.mid, func: (){}, icon: Icons.play_arrow_rounded, text: "全部继续"),
+          if(!statusGet.selectMode.value) HeaderButtonItem(buttonSide: ButtonSide.mid, func: ()=>funcsService.pauseAll(context), icon: Icons.pause_rounded, text: "全部暂停"),
+          if(!statusGet.selectMode.value) HeaderButtonItem(buttonSide: ButtonSide.mid, func: ()=>funcsService.continueAll(context), icon: Icons.play_arrow_rounded, text: "全部继续"),
 
           HeaderButtonItem(
             buttonSide: ButtonSide.right, 
