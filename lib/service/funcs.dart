@@ -82,6 +82,11 @@ class FuncsService extends GetxController{
       statusGet.finishOrder.value=OrderTypes.values[finishedOrder];
       storeGet.defaultFinishOrder.value=OrderTypes.values[finishedOrder];
     }
+
+    final int? freq=prefs.getInt("freq");
+    if(freq!=null){
+      storeGet.freq.value=freq;
+    }
   }
 
   List<String> splitUrls(String url){
@@ -268,7 +273,16 @@ class FuncsService extends GetxController{
       parseStore(context);
     }
     if(storeGet.servers.isNotEmpty){
-      interval= Timer.periodic(const Duration(milliseconds: 1500), (Timer time){
+      interval= Timer.periodic(Duration(milliseconds: storeGet.freq.value), (Timer time){
+        getTasks();
+      });
+    }
+  }
+
+  void reLoadService(){
+    interval.cancel();
+    if(storeGet.servers.isNotEmpty){
+      interval= Timer.periodic(Duration(milliseconds: storeGet.freq.value), (Timer time){
         getTasks();
       });
     }

@@ -54,6 +54,7 @@ class StoreGet extends GetxController{
 
   Future<void> showFreqDialog(BuildContext context) async {
     freq.value=await freqDialogContent(context, freq.value);
+    prefs.setInt("freq", freq.value);
   }
 
   void setStar(int index){

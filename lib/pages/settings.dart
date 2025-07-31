@@ -3,6 +3,7 @@ import 'package:bit_flow/components/header/header.dart';
 import 'package:bit_flow/components/settings/setting_item.dart';
 import 'package:bit_flow/getx/status_get.dart';
 import 'package:bit_flow/getx/store_get.dart';
+import 'package:bit_flow/service/funcs.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -20,6 +21,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
   String version="";
   final StoreGet storeGet=Get.find();
+  final FuncsService funcsService=Get.find();
 
   late SharedPreferences prefs;
 
@@ -54,7 +56,14 @@ class _SettingsPageState extends State<SettingsPage> {
               SettingItem(
                 label: '更新频率', 
                 child: GestureDetector(
-                  onTap: ()=>storeGet.showFreqDialog(context),
+                  onTap: () async {
+                    int oldFreq=storeGet.freq.value;
+                    await storeGet.showFreqDialog(context);
+                    if(oldFreq!=storeGet.freq.value){
+                      funcsService.reLoadService();
+                      return;
+                    }
+                  },
                   child: MouseRegion(
                     onEnter: (_)=>setState(() {
                       hoverFreq=true;
