@@ -101,6 +101,7 @@ class FuncsService extends GetxController{
         }
         break;
     }
+    getTasks();
   }
 
   Future<void> getTasks() async {
@@ -129,6 +130,7 @@ class FuncsService extends GetxController{
         qbitService.delFinishedTask(storeGet.servers[statusGet.sevrerIndex.value], hashes);
         break;
     }
+    getTasks();
   }
 
   Future<void> delSelected(BuildContext context, Pages page) async {
