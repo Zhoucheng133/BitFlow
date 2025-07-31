@@ -101,6 +101,10 @@ class _SettingsPageState extends State<SettingsPage> {
                   )
                 ),
               ),
+              SettingItem(
+                label: '更新频率', 
+                child: Container()
+              )
             ],
           )
         )
