@@ -198,7 +198,7 @@ class QbitService extends GetxController {
       return;
     }
     try {
-      final url = Uri.parse("${item.url}/api/v2/torrents/pause");
+      final url = Uri.parse("${item.url}/api/v2/torrents/stop");
       await http.post(
         url,
         headers: {
