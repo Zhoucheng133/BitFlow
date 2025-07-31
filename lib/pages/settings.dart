@@ -41,6 +41,7 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   bool hoverVersion=false;
+  bool hoverFreq=false;
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +51,28 @@ class _SettingsPageState extends State<SettingsPage> {
         Expanded(
           child: ListView(
             children: [
+              SettingItem(
+                label: '更新频率', 
+                child: GestureDetector(
+                  onTap: ()=>storeGet.showFreqDialog(context),
+                  child: MouseRegion(
+                    onEnter: (_)=>setState(() {
+                      hoverFreq=true;
+                    }),
+                    onExit: (_)=>setState(() {
+                      hoverFreq=false;
+                    }),
+                    cursor: SystemMouseCursors.click,
+                    child: AnimatedDefaultTextStyle(
+                      style: GoogleFonts.notoSansSc(
+                        color: hoverVersion ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.primary.withAlpha(180)
+                      ), 
+                      duration: const Duration(milliseconds: 200),
+                      child: Obx(()=> Text("${storeGet.freq.value.toString()} 毫秒"))
+                    ),
+                  ),
+                )
+              ),
               Obx(()=>
                 SettingDropDownItem(
                   label: "默认活跃任务顺序", 
@@ -101,10 +124,6 @@ class _SettingsPageState extends State<SettingsPage> {
                   )
                 ),
               ),
-              SettingItem(
-                label: '更新频率', 
-                child: Container()
-              )
             ],
           )
         )

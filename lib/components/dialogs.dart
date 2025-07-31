@@ -179,3 +179,70 @@ Future<void> showAbout(BuildContext context) async {
     );
   }
 }
+
+Future<int> freqDialogContent(BuildContext context, int storeFreq) async {
+    int freq=storeFreq;
+    
+    await showDialog(
+      context: context, 
+      builder: (context)=>AlertDialog(
+        title: Text(
+          "设置更新频率",
+          style: GoogleFonts.notoSansSc(
+            color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
+          ),
+        ),
+        content: StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState)=>SizedBox(
+            width: 400,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "注意，推荐最小更新时间为1.5s (1500毫秒)\n更新频率过高在一些下载服务器中可能会触发缓存机制",
+                  style: GoogleFonts.notoSansSc(
+                    color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
+                  ),
+                ),
+                const SizedBox(height: 10,),
+                Text("$freq 毫秒"),
+                const SizedBox(height: 5,),
+                SliderTheme(
+                  data: SliderThemeData(
+                    overlayColor: Colors.transparent
+                  ),
+                  child: Slider(
+                    value: freq.toDouble(), 
+                    min: 500,
+                    max: 10000,
+                    divisions: 19,
+                    onChanged: (double val){
+                      setState((){
+                        freq=val.round();
+                      });
+                    }
+                  ),
+                )
+              ],
+            ),
+          )
+        ),
+        actions: [
+          TextButton(
+            onPressed: (){
+              freq=storeFreq;
+              Navigator.pop(context);
+            }, 
+            child: const Text('取消')
+          ),
+          ElevatedButton(
+            onPressed: ()=>Navigator.pop(context), 
+            child: const Text('完成')
+          )
+        ],
+      )
+    );
+
+    return freq;
+  }

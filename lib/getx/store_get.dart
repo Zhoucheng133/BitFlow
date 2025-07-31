@@ -23,6 +23,9 @@ class StoreGet extends GetxController{
   // 默认在已完成页面，新的在前，旧的在后
   Rx<OrderTypes> defaultFinishOrder=OrderTypes.addNew.obs;
 
+  // 更新频率 (单位: 毫秒)
+  RxInt freq=1500.obs;
+
   late SharedPreferences prefs;
 
 
@@ -47,6 +50,10 @@ class StoreGet extends GetxController{
       }
       saveStore();
     }
+  }
+
+  Future<void> showFreqDialog(BuildContext context) async {
+    freq.value=await freqDialogContent(context, freq.value);
   }
 
   void setStar(int index){
