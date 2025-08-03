@@ -4,6 +4,7 @@ import 'package:bit_flow/components/settings/setting_item.dart';
 import 'package:bit_flow/getx/status_get.dart';
 import 'package:bit_flow/getx/store_get.dart';
 import 'package:bit_flow/service/funcs.dart';
+import 'package:bit_flow/types/store_item.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -22,6 +23,7 @@ class _SettingsPageState extends State<SettingsPage> {
   String version="";
   final StoreGet storeGet=Get.find();
   final FuncsService funcsService=Get.find();
+  final StatusGet statusGet=Get.find();
 
   late SharedPreferences prefs;
 
@@ -44,6 +46,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
   bool hoverVersion=false;
   bool hoverFreq=false;
+  bool hoverConfig=false;
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +77,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     cursor: SystemMouseCursors.click,
                     child: AnimatedDefaultTextStyle(
                       style: GoogleFonts.notoSansSc(
-                        color: hoverVersion ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.primary.withAlpha(180)
+                        color: hoverFreq ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.primary.withAlpha(180)
                       ), 
                       duration: const Duration(milliseconds: 200),
                       child: Obx(()=> Text("${storeGet.freq.value.toString()} 毫秒"))
@@ -107,6 +110,30 @@ class _SettingsPageState extends State<SettingsPage> {
                   }, 
                   list: OrderTypes.values.map((item)=>CustomDropDownItem(orderToString(item), item, orderToIcon(item))).toList()
                 ),
+              ),
+              SettingItem(
+                label: "下载器配置", 
+                child: GestureDetector(
+                  onTap: (){
+
+                  },
+                  child: MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    onEnter: (_)=>setState(() {
+                      hoverConfig=true;
+                    }),
+                    onExit: (_)=>setState(() {
+                      hoverConfig=false;
+                    }),
+                    child: AnimatedDefaultTextStyle(
+                      style: GoogleFonts.notoSansSc(
+                        color: hoverConfig ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.primary.withAlpha(180)
+                      ), 
+                      duration: const Duration(milliseconds: 200),
+                      child: Obx(() => Text("配置${storeGet.servers[statusGet.sevrerIndex.value].type==StoreType.aria?'Aria':'qBittorrent'}"))
+                    ),
+                  ),
+                )
               ),
               SettingItem(
                 label: "关于 BitFlow",
