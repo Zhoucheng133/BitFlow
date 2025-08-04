@@ -7,6 +7,27 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart' as p;
 
+class AriaConfig{
+  // 允许覆盖【allow-overwrite】
+  bool allowOverwrite;
+  // 下载位置【dir】
+  String dir;
+  // 最多同时下载个数【max-concurrent-downloads】
+  int maxDownloads;
+  // 做种时间【seed-time】
+  int seedTime;
+  // 下载限制【max-overall-download-limit】
+  int downloadLimit;
+  // 上传限制【max-overall-upload-limit】
+  int uploadLimit;
+  // 用户代理【user-agent】
+  String userAgent;
+  // 做种比率【seed-ratio】
+  double seedRatio;
+
+  AriaConfig(this.allowOverwrite, this.dir, this.maxDownloads, this.seedTime, this.downloadLimit, this.uploadLimit, this.userAgent, this.seedRatio);
+}
+
 class AriaService extends GetxController{
 
   Future<Map> httpRequest(Map data, String aria) async {
@@ -241,6 +262,21 @@ class AriaService extends GetxController{
         "id":"bitflow",
         "params":["token:${item.password}"]
       }, item.url))['result']['version'];
+    } catch (_) {
+      return null;
+    }
+  }
+
+   // 获取全局设置
+  Future<AriaConfig?> getGlobalSettings(StoreItem item) async {
+    try {
+      final data = (await httpRequest({
+        "jsonrpc":"2.0",
+        "method":"aria2.getGlobalOption",
+        "id":"bitflow",
+        "params":["token:${item.password}"]
+      }, item.url))['result'];
+      return AriaConfig(data['allow-overwrite']=='true', data['dir'], int.parse(data['max-concurrent-downloads']), int.parse(data['seed-time']), int.parse(data['max-overall-download-limit']), int.parse(data['max-overall-upload-limit']), data['user-agent'], double.parse(data['seed-ratio']));
     } catch (_) {
       return null;
     }
