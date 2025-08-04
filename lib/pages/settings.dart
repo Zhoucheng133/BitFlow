@@ -130,7 +130,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         color: hoverConfig ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.primary.withAlpha(180)
                       ), 
                       duration: const Duration(milliseconds: 200),
-                      child: Obx(() => Text("配置${storeGet.servers[statusGet.sevrerIndex.value].type==StoreType.aria?'Aria':'qBittorrent'}"))
+                      child: Obx(() => Text("配置${ storeGet.servers.isEmpty ? "" : storeGet.servers[statusGet.sevrerIndex.value].type==StoreType.aria?'Aria':'qBittorrent'}"))
                     ),
                   ),
                 )
