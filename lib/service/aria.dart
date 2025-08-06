@@ -281,4 +281,16 @@ class AriaService extends GetxController{
       return null;
     }
   }
+
+  // 修改全局设置
+  Future<void> changeGlobalSettings(StoreItem item, Map settings) async {
+    try {
+      await httpRequest({
+        "jsonrpc":"2.0",
+        "method":"aria2.changeGlobalOption",
+        "id":"bitflow",
+        "params":["token:${item.password}", settings]
+      }, item.url);
+    } catch (_) {}
+  }
 }

@@ -1,5 +1,6 @@
 import 'package:bit_flow/components/dialogs.dart';
 import 'package:bit_flow/components/header/header.dart';
+import 'package:bit_flow/components/settings/setting_components.dart';
 import 'package:bit_flow/components/settings/setting_item.dart';
 import 'package:bit_flow/getx/status_get.dart';
 import 'package:bit_flow/getx/store_get.dart';
@@ -24,6 +25,7 @@ class _SettingsPageState extends State<SettingsPage> {
   final StoreGet storeGet=Get.find();
   final FuncsService funcsService=Get.find();
   final StatusGet statusGet=Get.find();
+  final SettingComponents settingComponents=SettingComponents();
 
   late SharedPreferences prefs;
 
@@ -114,9 +116,7 @@ class _SettingsPageState extends State<SettingsPage> {
               SettingItem(
                 label: "下载器配置", 
                 child: GestureDetector(
-                  onTap: (){
-
-                  },
+                  onTap: ()=>settingComponents.downloaderConfig(context),
                   child: MouseRegion(
                     cursor: SystemMouseCursors.click,
                     onEnter: (_)=>setState(() {
