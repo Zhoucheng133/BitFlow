@@ -34,6 +34,9 @@ class FuncsService extends GetxController{
       statusGet.selectMode.value=false;
       statusGet.activeTasks.value=[];
       statusGet.finishedTask.value=[];
+      if(storeGet.servers[statusGet.sevrerIndex.value].type==StoreType.qbit){
+        qbitService.cookie.value=(await qbitService.getCookie(storeGet.servers[statusGet.sevrerIndex.value]))??"";
+      }
       await getTasks();
     });
 
