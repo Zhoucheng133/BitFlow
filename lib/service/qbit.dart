@@ -6,6 +6,25 @@ import 'package:bit_flow/types/task_item.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
+class QbitConfig{
+  // 保存位置【save_path】=> app/preferences
+  String savePath;
+  // 最多下载个数【max_active_downloads】=> app/preferences
+  int maxDownloadCount;
+  // 做种时间【max_seeding_time】【需要max_seeding_time_enabled为true】=> app/preferences
+  bool seedTimeEnable;
+  int seedTime;
+  // 做种比率【max_ratio】【需要max_ratio_enabled为true】=> app/preferences
+  bool ratioEnable;
+  int seedRatio;
+  // 下载速度限制【dl_rate_limit】=> transfer/info
+  int downloadLimit;
+  // 上传速度限制【up_rate_limit】=> transfer/info
+  int uploadLimit;
+
+  QbitConfig(this.savePath, this.maxDownloadCount, this.seedTimeEnable, this.seedTime, this.ratioEnable, this.seedRatio, this.downloadLimit, this.uploadLimit);
+}
+
 class QbitService extends GetxController {
 
   RxString cookie="".obs;
@@ -248,5 +267,64 @@ class QbitService extends GetxController {
     }
 
     return true;
+  }
+
+  Future<Map> getAppConfig(StoreItem item) async {
+    if(cookie.isEmpty){
+      final temp=await getCookie(item);
+      if(temp==null){
+        return {};
+      }
+      cookie.value=temp;
+    }
+    if(item.type!=StoreType.qbit){
+      return {};
+    }
+    Map data={};
+    try {
+      final url = Uri.parse("${item.url}/api/v2/app/preferences");
+      final response=await http.get(
+        url,
+        headers: {
+          "Cookie": cookie.value,
+        },
+      );
+      data=json.decode(utf8.decode(response.bodyBytes));
+    } catch (_) {}
+    return data;
+  }
+
+  Future<Map> getTransferConfig(StoreItem item) async {
+    if(cookie.isEmpty){
+      final temp=await getCookie(item);
+      if(temp==null){
+        return {};
+      }
+      cookie.value=temp;
+    }
+    if(item.type!=StoreType.qbit){
+      return {};
+    }
+    Map data={};
+    try {
+      final url = Uri.parse("${item.url}/api/v2/transfer/info");
+      final response=await http.get(
+        url,
+        headers: {
+          "Cookie": cookie.value,
+        },
+      );
+      data=json.decode(utf8.decode(response.bodyBytes));
+    } catch (_) {}
+    return data;
+  }
+  
+  Future<QbitConfig> getConfig(StoreItem item) async {
+    // App配置API【/api/v2/app/preferences】【/api/v2/app/setPreferences】
+    // 传输配置API【/api/v2/transfer/info】【/api/v2/transfer/setDownloadLimit】【/api/v2/transfer/setUploadLimit】
+    final appConfig=await getAppConfig(item);
+    final transferConfig=await getTransferConfig(item);
+    
+    return QbitConfig(appConfig['save_path'], appConfig['max_active_downloads'], appConfig['max_seeding_time_enabled'], appConfig['max_seeding_time'], appConfig['max_ratio_enabled'], appConfig['max_ratio'], transferConfig['dl_rate_limit'], transferConfig['up_rate_limit']);
   }
 }

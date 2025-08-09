@@ -224,9 +224,126 @@ class SettingComponents {
     }
   }
 
+  Future<void> qbitConfig(BuildContext context) async {
+    final QbitConfig config=await qbitService.getConfig(storeGet.servers[statusGet.sevrerIndex.value]);
+
+    // 下载位置【dir】
+    TextEditingController savePath=TextEditingController(text: config.savePath);
+    // 最多同时下载个数【max-concurrent-downloads】
+    TextEditingController maxDownloadCount=TextEditingController(text: config.maxDownloadCount.toString());
+    // 做种时间【seed-time】
+    bool seedTimeEnable=config.seedTimeEnable;
+    TextEditingController seedTime=TextEditingController(text: config.seedTime.toString());
+    // 下载限制【max-overall-download-limit】
+    TextEditingController downloadLimit=TextEditingController(text: config.downloadLimit.toString());
+    // 上传限制【max-overall-upload-limit】
+    TextEditingController uploadLimit=TextEditingController(text: config.uploadLimit.toString());
+    // 做种比率【seed-ratio】
+    bool ratioEnable=config.ratioEnable;
+    TextEditingController seedRatio=TextEditingController(text: config.seedRatio.toString());
+
+    if(context.mounted){
+      await showDialog(
+        context: context, 
+        builder: (context)=>AlertDialog(
+          title: const Text("配置qBittorrent"),
+          content: SizedBox(
+            width: 350,
+            child: StatefulBuilder(
+              builder: (BuildContext context, StateSetter setState)=>Column(
+                children: [
+                  Expanded(
+                    child: ListView(
+                      children: [
+                        ConfigItemWithTextField(
+                          label: "下载位置", 
+                          controller: savePath,
+                        ),
+                        ConfigItemWithTextField(
+                          label: "同时下载个数", 
+                          controller: maxDownloadCount,
+                          useInt: true,
+                        ),
+                        ConfigItem(
+                          label: "启用做种时间", 
+                          child: Transform.scale(
+                            scale: 0.8,
+                            child: Switch(
+                              splashRadius: 0,
+                              value: seedTimeEnable, 
+                              onChanged: (bool val){
+                                setState((){
+                                  seedTimeEnable=val;
+                                });
+                              }
+                            ),
+                          )
+                        ),
+                        ConfigItemWithTextField(
+                          label: "做种时间", 
+                          controller: seedTime,
+                          useInt: true,
+                        ),
+                        ConfigItem(
+                          label: "启用做种比率", 
+                          child: Transform.scale(
+                            scale: 0.8,
+                            child: Switch(
+                              splashRadius: 0,
+                              value: ratioEnable, 
+                              onChanged: (bool val){
+                                setState((){
+                                  ratioEnable=val;
+                                });
+                              }
+                            ),
+                          )
+                        ),
+                        ConfigItemWithTextField(
+                          label: "做种比率", 
+                          controller: seedRatio,
+                          useDouble: true,
+                        ),
+                        ConfigItemWithTextField(
+                          label: "下载速度限制", 
+                          controller: downloadLimit,
+                          useInt: true,
+                        ),
+                        ConfigItemWithTextField(
+                          label: "上传速度限制", 
+                          controller: uploadLimit,
+                          useInt: true,
+                        ),
+                      ],
+                    )
+                  ),
+                ],
+              )
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: ()=>Navigator.pop(context), 
+              child: const Text('取消')
+            ),
+            ElevatedButton(
+              onPressed: (){
+                // TODO 保存设置
+                Navigator.pop(context);
+              }, 
+              child: const Text('完成')
+            )
+          ],
+        )
+      );
+    }
+  }
+
   Future<void> downloaderConfig(BuildContext context) async {
     if(storeGet.servers[statusGet.sevrerIndex.value].type==StoreType.aria){
       await ariaConfig(context);
+    }else if(storeGet.servers[statusGet.sevrerIndex.value].type==StoreType.qbit){
+      await qbitConfig(context);
     }
   }
 }
