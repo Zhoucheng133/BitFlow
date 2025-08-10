@@ -23,6 +23,34 @@ class QbitConfig{
   int uploadLimit;
 
   QbitConfig(this.savePath, this.maxDownloadCount, this.seedTimeEnable, this.seedTime, this.ratioEnable, this.seedRatio, this.downloadLimit, this.uploadLimit);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true; // 同一对象直接相等
+    return other is QbitConfig &&
+      other.savePath==savePath &&
+      other.maxDownloadCount==maxDownloadCount &&
+      other.seedTimeEnable==seedTimeEnable &&
+      other.seedTime==seedTime &&
+      other.ratioEnable==ratioEnable &&
+      other.seedRatio==seedRatio &&
+      other.downloadLimit==downloadLimit &&
+      other.uploadLimit==uploadLimit;
+  }
+  
+  @override
+  int get hashCode => Object.hash(savePath, maxDownloadCount, seedTimeEnable, seedTime, ratioEnable, seedRatio, downloadLimit, uploadLimit);
+
+  Map toJson(){
+    return {
+      "save_path": savePath,
+      "max_active_downloads": maxDownloadCount,
+      "max_seeding_time_enabled": seedTimeEnable,
+      "max_seeding_time": seedTime,
+      "max_ratio_enabled": ratioEnable,
+      "max_ratio": seedRatio,
+    };
+  }
 }
 
 class QbitService extends GetxController {
@@ -326,5 +354,75 @@ class QbitService extends GetxController {
     final transferConfig=await getTransferConfig(item);
     
     return QbitConfig(appConfig['save_path'], appConfig['max_active_downloads'], appConfig['max_seeding_time_enabled'], appConfig['max_seeding_time'], appConfig['max_ratio_enabled'], appConfig['max_ratio'], transferConfig['dl_rate_limit'], transferConfig['up_rate_limit']);
+  }
+
+  bool samePreference(QbitConfig config1, QbitConfig config2){
+    return config1.savePath==config2.savePath &&
+      config1.maxDownloadCount==config2.maxDownloadCount &&
+      config1.seedTimeEnable==config2.seedTimeEnable &&
+      config1.seedTime==config2.seedTime &&
+      config1.ratioEnable==config2.ratioEnable &&
+      config1.seedRatio==config2.seedRatio;
+  }
+
+  // 保存配置
+  Future<void> saveConfig(StoreItem item, QbitConfig preConfig, QbitConfig nowConfig) async {
+    if(preConfig==nowConfig){
+      // 设置没有变化
+      return;
+    }
+    if(cookie.isEmpty){
+      final temp=await getCookie(item);
+      if(temp==null){
+        return;
+      }
+      cookie.value=temp;
+    }
+    if(preConfig.downloadLimit != nowConfig.downloadLimit){
+      try {
+        final url = Uri.parse("${item.url}/api/v2/transfer/setDownloadLimit");
+        await http.post(
+          url,
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            "Cookie": cookie.value,
+          },
+          body: {
+            'limit': nowConfig.downloadLimit.toString(),
+          },
+        );
+      } catch (_) {}
+    }
+    if(preConfig.uploadLimit!=nowConfig.uploadLimit){
+      try {
+        final url = Uri.parse("${item.url}/api/v2/transfer/setUploadLimit");
+        await http.post(
+          url,
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            "Cookie": cookie.value,
+          },
+          body: {
+            'limit': nowConfig.uploadLimit.toString(),
+          },
+        );
+      } catch (_) {}
+    }
+
+    if(!samePreference(preConfig, nowConfig)){
+      try {
+        final url = Uri.parse("${item.url}/api/v2/app/setPreferences");
+        await http.post(
+          url,
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            "Cookie": cookie.value,
+          },
+          body: {
+            'json': jsonEncode(nowConfig.toJson()),
+          },
+        );
+      } catch (_) {}
+    }
   }
 }
