@@ -141,6 +141,10 @@ class SettingComponents {
                   Expanded(
                     child: ListView(
                       children: [
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: Text("速度和大小单位为Byte(/s)"),
+                        ),
                         ConfigItem(
                           label: "允许下载覆盖", 
                           child: Transform.scale(
@@ -255,6 +259,10 @@ class SettingComponents {
                   Expanded(
                     child: ListView(
                       children: [
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: Text("速度和大小单位为Byte(/s)"),
+                        ),
                         ConfigItemWithTextField(
                           label: "下载位置", 
                           controller: savePath,
@@ -302,7 +310,7 @@ class SettingComponents {
                         ConfigItemWithTextField(
                           label: "做种比率", 
                           controller: seedRatio,
-                          useDouble: true,
+                          useInt: true,
                         ),
                         ConfigItemWithTextField(
                           label: "下载速度限制", 
@@ -328,7 +336,11 @@ class SettingComponents {
             ),
             ElevatedButton(
               onPressed: (){
-                // TODO 保存设置
+                qbitService.saveConfig(
+                  storeGet.servers[statusGet.sevrerIndex.value], 
+                  config, 
+                  QbitConfig(savePath.text, int.parse(maxDownloadCount.text), seedTimeEnable, int.parse(seedTime.text), ratioEnable, int.parse(seedRatio.text), int.parse(downloadLimit.text), int.parse(uploadLimit.text))
+                );
                 Navigator.pop(context);
               }, 
               child: const Text('完成')
