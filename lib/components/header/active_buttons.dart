@@ -4,6 +4,7 @@ import 'package:bit_flow/components/header/header_funcs.dart';
 import 'package:bit_flow/getx/status_get.dart';
 import 'package:bit_flow/service/funcs.dart';
 import 'package:clipboard/clipboard.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -105,6 +106,20 @@ Future<void> addTaskDialog(BuildContext context) async {
         ),
         actions: [
           TextButton(onPressed: ()=>Navigator.pop(context), child: Text('取消')),
+          TextButton(
+            onPressed: () async {
+              FilePickerResult? result = await FilePicker.platform.pickFiles(
+                type: FileType.custom,
+                allowedExtensions: ["torrent"]
+              );
+              if(result!=null){
+                if(context.mounted) Navigator.pop(context);
+                final filePath=result.files.single.path!;
+                funcs.addTorrentTaskHandler(filePath);
+              }
+            }, 
+            child: const Text('使用Torrent文件')
+          ),
           ElevatedButton(
             onPressed: ()=>addTaskHandler(context, link, funcs), 
             child: Text('添加')

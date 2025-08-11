@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:bit_flow/components/dialogs.dart';
 import 'package:bit_flow/getx/status_get.dart';
@@ -110,6 +111,20 @@ class FuncsService extends GetxController{
         break;
     }
     getTasks();
+  }
+
+  Future<void> addTorrentTaskHandler(String filePath) async {
+    switch (storeGet.servers[statusGet.sevrerIndex.value].type) {
+      case StoreType.aria:
+        File file = File(filePath);
+        final bytes = await file.readAsBytes();
+        final base64Torrent = base64Encode(bytes);
+        ariaService.addTorrentTask(base64Torrent, storeGet.servers[statusGet.sevrerIndex.value]);
+        break;
+      case StoreType.qbit:
+        qbitService.addTorrentTask(filePath, storeGet.servers[statusGet.sevrerIndex.value]);
+        break;
+    }
   }
 
   Future<void> getTasks() async {

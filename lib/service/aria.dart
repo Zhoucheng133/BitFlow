@@ -196,6 +196,17 @@ class AriaService extends GetxController{
     } catch (_) {}
   }
 
+  Future<void> addTorrentTask(String base64, StoreItem item) async {
+    try {
+      await httpRequest({
+        "jsonrpc":"2.0",
+        "method":"aria2.addTorrent",
+        "id":"bitflow",
+        "params":["token:${item.password}", base64, [], {}]
+      }, item.url);
+    } catch (_) {}
+  }
+
   Future<void> delActiveTask(String id, StoreItem item) async {
     try {
       await httpRequest({
