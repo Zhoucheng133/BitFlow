@@ -173,6 +173,25 @@ class QbitService extends GetxController {
     }
   }
 
+  Future<void> addTorrentTask(String filePath, StoreItem item) async {
+    if(cookie.isEmpty){
+      final temp=await getCookie(item);
+      if(temp==null){
+        return;
+      }
+      cookie.value=temp;
+    }
+    try {
+      final url = Uri.parse("${item.url}/api/v2/torrents/add");
+      final request = http.MultipartRequest('POST', url)
+      ..files.add(await http.MultipartFile.fromPath('torrents', filePath))
+      ..headers['Cookie'] = cookie.value;
+      await request.send();
+    } catch (_) {
+      return;
+    }
+  }
+
   Future<List<FileItem>?> getFiles(StoreItem item, String hash) async {
     if(cookie.isEmpty){
       final temp=await getCookie(item);
