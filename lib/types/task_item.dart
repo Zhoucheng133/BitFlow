@@ -331,6 +331,13 @@ class TaskItem{
           ),
         ),
         actions: [
+          TextButton(
+            onPressed: (){
+              Navigator.pop(context);
+              showFiles(context);
+            }, 
+            child: const Text('文件列表')
+          ),
           ElevatedButton(
             onPressed: ()=>Navigator.pop(context),
             child: const Text('完成')
