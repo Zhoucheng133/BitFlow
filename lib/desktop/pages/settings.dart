@@ -4,6 +4,7 @@ import 'package:bit_flow/components/settings/setting_components.dart';
 import 'package:bit_flow/components/settings/setting_item.dart';
 import 'package:bit_flow/getx/status_get.dart';
 import 'package:bit_flow/getx/store_get.dart';
+import 'package:bit_flow/getx/theme_get.dart';
 import 'package:bit_flow/service/funcs.dart';
 import 'package:bit_flow/types/store_item.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,7 @@ class _SettingsPageState extends State<SettingsPage> {
   final StoreGet storeGet=Get.find();
   final FuncsService funcsService=Get.find();
   final StatusGet statusGet=Get.find();
+  final ThemeGet themeGet=Get.find();
   final SettingComponents settingComponents=SettingComponents();
 
   late SharedPreferences prefs;
@@ -49,6 +51,7 @@ class _SettingsPageState extends State<SettingsPage> {
   bool hoverVersion=false;
   bool hoverFreq=false;
   bool hoverConfig=false;
+  bool hoverDark=false;
 
   @override
   Widget build(BuildContext context) {
@@ -136,9 +139,30 @@ class _SettingsPageState extends State<SettingsPage> {
                 )
               ),
               SettingItem(
+                label: "深色模式", 
+                child: GestureDetector(
+                  onTap: ()=>themeGet.showDarkModeDialog(context),
+                  child: MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    onEnter: (_)=>setState(() {
+                      hoverDark=true;
+                    }),
+                    onExit: (_)=>setState(() {
+                      hoverDark=false;
+                    }),
+                    child: AnimatedDefaultTextStyle(
+                      style: GoogleFonts.notoSansSc(
+                        color: hoverDark ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.primary.withAlpha(180)
+                      ), 
+                      duration: const Duration(milliseconds: 200),
+                      child: Obx(() => Text(themeGet.autoDark.value ? "自动" : themeGet.darkMode.value ? "深色" : "浅色"))
+                    ),
+                  ),
+                )
+              ),
+              SettingItem(
                 label: "关于 BitFlow",
                 showDivider: false, 
-                paddingRight: 10,
                 child: GestureDetector(
                   onTap: ()=>showAbout(context),
                   child: MouseRegion(
