@@ -206,7 +206,12 @@ Future<int> freqDialogContent(BuildContext context, int storeFreq) async {
                   ),
                 ),
                 const SizedBox(height: 10,),
-                Text("$freq 毫秒 / ${freq/1000} 秒"),
+                Text(
+                  "$freq 毫秒 / ${freq/1000} 秒",
+                  style: GoogleFonts.notoSansSc(
+                    color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
+                  ),
+                ),
                 const SizedBox(height: 5,),
                 SliderTheme(
                   data: SliderThemeData(

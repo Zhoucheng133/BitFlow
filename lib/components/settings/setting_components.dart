@@ -6,6 +6,7 @@ import 'package:bit_flow/types/store_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ConfigItem extends StatefulWidget {
 
@@ -29,7 +30,12 @@ class _ConfigItemState extends State<ConfigItem> {
             width: 100,
             child: Align(
               alignment: Alignment.centerLeft,
-              child: Text(widget.label)
+              child: Text(
+                widget.label,
+                style: GoogleFonts.notoSansSc(
+                  color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
+                ),
+              )
             )
           ),
           const SizedBox(width: 10,),
@@ -70,7 +76,12 @@ class _ConfigItemWithTextFieldState extends State<ConfigItemWithTextField> {
             width: 100,
             child: Align(
               alignment: Alignment.centerLeft,
-              child: Text(widget.label)
+              child: Text(
+                widget.label,
+                style: GoogleFonts.notoSansSc(
+                  color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
+                ),
+              )
             )
           ),
           const SizedBox(width: 18,),
@@ -88,6 +99,9 @@ class _ConfigItemWithTextFieldState extends State<ConfigItemWithTextField> {
                   border: OutlineInputBorder(),
                   isCollapsed: true,
                   contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 10)
+                ),
+                style: GoogleFonts.notoSansSc(
+                  color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
                 ),
                 maxLines: widget.multiLine ? 3 : 1,
               )
@@ -132,7 +146,12 @@ class SettingComponents {
       showDialog(
         context: context, 
         builder: (context)=>AlertDialog(
-          title: const Text('配置Aria'),
+          title: Text(
+            '配置Aria',
+            style: GoogleFonts.notoSansSc(
+              color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
+            ),
+          ),
           content: SizedBox(
             width: 350,
             child: StatefulBuilder(
@@ -143,7 +162,12 @@ class SettingComponents {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(bottom: 10),
-                          child: Text("速度和大小单位为Byte(/s)"),
+                          child: Text(
+                            "速度和大小单位为Byte(/s)",
+                            style: GoogleFonts.notoSansSc(
+                              color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
+                            ),
+                          ),
                         ),
                         ConfigItem(
                           label: "允许下载覆盖", 
@@ -250,7 +274,12 @@ class SettingComponents {
       await showDialog(
         context: context, 
         builder: (context)=>AlertDialog(
-          title: const Text("配置qBittorrent"),
+          title: Text(
+            "配置qBittorrent",
+            style: GoogleFonts.notoSansSc(
+              color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
+            ),
+          ),
           content: SizedBox(
             width: 350,
             child: StatefulBuilder(
@@ -261,7 +290,12 @@ class SettingComponents {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(bottom: 10),
-                          child: Text("速度和大小单位为Byte(/s)"),
+                          child: Text(
+                            "速度和大小单位为Byte(/s)",
+                            style: GoogleFonts.notoSansSc(
+                              color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
+                            ),
+                          ),
                         ),
                         ConfigItemWithTextField(
                           label: "下载位置", 

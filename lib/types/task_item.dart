@@ -356,7 +356,12 @@ class TaskItem{
       showDialog(
         context: context, 
         builder: (context)=>AlertDialog(
-          title: const Text('文件列表'),
+          title: Text(
+            '文件列表',
+            style: GoogleFonts.notoSansSc(
+              color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
+            ),
+          ),
           content: SizedBox(
             width: 400,
             child: ConstrainedBox(
@@ -377,10 +382,18 @@ class TaskItem{
                             files[index].name,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
+                            style: GoogleFonts.notoSansSc(
+                              color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
+                            ),
                           ),
                         ),
                         const SizedBox(width: 10,),
-                        Text(sizeString(files[index].size))
+                        Text(
+                          sizeString(files[index].size),
+                          style: GoogleFonts.notoSansSc(
+                            color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
+                          ),
+                        )
                       ],
                     ),
                   ),
