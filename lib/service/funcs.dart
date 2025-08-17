@@ -305,4 +305,11 @@ class FuncsService extends GetxController{
       });
     }
   }
+
+  bool isDesktop(){
+    if(Platform.isWindows || Platform.isMacOS || Platform.isLinux){
+      return true;
+    }
+    return false;
+  }
 }

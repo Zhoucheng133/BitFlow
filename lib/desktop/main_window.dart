@@ -5,9 +5,9 @@ import 'package:bit_flow/components/header/active_buttons.dart';
 import 'package:bit_flow/components/sidebar/sidebar.dart';
 import 'package:bit_flow/getx/status_get.dart';
 import 'package:bit_flow/getx/store_get.dart';
-import 'package:bit_flow/pages/download.dart';
-import 'package:bit_flow/pages/finish.dart';
-import 'package:bit_flow/pages/settings.dart';
+import 'package:bit_flow/desktop/pages/download.dart';
+import 'package:bit_flow/desktop/pages/finish.dart';
+import 'package:bit_flow/desktop/pages/settings.dart';
 import 'package:bit_flow/service/funcs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,7 +23,7 @@ class MainWindow extends StatefulWidget {
 
 class _MainWindowState extends State<MainWindow> with WindowListener {
   bool isMax=false;
-  final FuncsService funcsService=Get.put(FuncsService());
+  final FuncsService funcsService=Get.find();
 
   @override
   void initState() {

@@ -1,8 +1,10 @@
 import 'package:bit_flow/getx/status_get.dart';
 import 'package:bit_flow/getx/store_get.dart';
 import 'package:bit_flow/getx/theme_get.dart';
-import 'package:bit_flow/main_window.dart';
+import 'package:bit_flow/desktop/main_window.dart';
+import 'package:bit_flow/mobile/main_view.dart';
 import 'package:bit_flow/service/aria.dart';
+import 'package:bit_flow/service/funcs.dart';
 import 'package:bit_flow/service/qbit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -30,6 +32,7 @@ Future<void> main() async {
   Get.put(AriaService());
   Get.put(QbitService());
   Get.put(StoreGet());
+  Get.put(FuncsService());
   runApp(const MainApp());
 }
 
@@ -42,6 +45,7 @@ class MainApp extends StatefulWidget {
 
 class _MainAppState extends State<MainApp> {
   final ThemeGet themeGet=Get.find();
+  final FuncsService funcsService=Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +72,7 @@ class _MainAppState extends State<MainApp> {
           textTheme: GoogleFonts.notoSansScTextTheme(),
         ),
         home: Scaffold(
-          body: MainWindow()
+          body: funcsService.isDesktop() ?  MainWindow() : MainView()
         ),
       )
     );
