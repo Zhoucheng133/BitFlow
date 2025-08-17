@@ -14,25 +14,27 @@ import 'package:window_manager/window_manager.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await windowManager.ensureInitialized();
-  WindowOptions windowOptions = WindowOptions(
-    size: Size(850, 650),
-    minimumSize: Size(850, 650),
-    center: true,
-    backgroundColor: Colors.transparent,
-    skipTaskbar: false,
-    titleBarStyle: TitleBarStyle.hidden,
-  );
-  windowManager.waitUntilReadyToShow(windowOptions, () async {
-    await windowManager.show();
-    await windowManager.focus();
-  });
   Get.put(ThemeGet());
   Get.put(StatusGet());
   Get.put(AriaService());
   Get.put(QbitService());
   Get.put(StoreGet());
-  Get.put(FuncsService());
+  final FuncsService funcsService=Get.put(FuncsService());
+  if(funcsService.isDesktop()){
+    await windowManager.ensureInitialized();
+    WindowOptions windowOptions = WindowOptions(
+      size: Size(850, 650),
+      minimumSize: Size(850, 650),
+      center: true,
+      backgroundColor: Colors.transparent,
+      skipTaskbar: false,
+      titleBarStyle: TitleBarStyle.hidden,
+    );
+    windowManager.waitUntilReadyToShow(windowOptions, () async {
+      await windowManager.show();
+      await windowManager.focus();
+    });
+  }
   runApp(const MainApp());
 }
 
