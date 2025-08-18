@@ -80,9 +80,7 @@ class _MainAppState extends State<MainApp> {
           useMaterial3: true,
           textTheme: GoogleFonts.notoSansScTextTheme(),
         ),
-        home: Scaffold(
-          body: funcsService.isDesktop() ?  MainWindow() : MainView()
-        ),
+        home: funcsService.isDesktop() ?  MainWindow() : MainView()
       )
     );
   }
