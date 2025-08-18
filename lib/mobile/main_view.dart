@@ -1,4 +1,8 @@
 import 'package:bit_flow/getx/status_get.dart';
+import 'package:bit_flow/mobile/pages/download_m.dart';
+import 'package:bit_flow/mobile/pages/finish_m.dart';
+import 'package:bit_flow/mobile/pages/settings_m.dart';
+import 'package:bit_flow/service/funcs.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,14 +16,25 @@ class MainView extends StatefulWidget {
 class _MainViewState extends State<MainView> {
 
   final StatusGet statusGet=Get.find();
+  final FuncsService funcsService=Get.find();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_){
+      funcsService.init(context);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Obx(
       ()=> Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: Text(pageToText(statusGet.page.value)),
           backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
+          scrolledUnderElevation: 0.0
         ),
         bottomNavigationBar: NavigationBar(
           destinations: [
@@ -41,9 +56,14 @@ class _MainViewState extends State<MainView> {
             statusGet.page.value=Pages.values[index];
           }
         ),
-        body: Center(
-          child: Text("Hello World!!!"),
-        ),
+        body: IndexedStack(
+          index: statusGet.page.value.index,
+          children: [
+            DownloadM(),
+            FinishM(),
+            SettingsM()
+          ],
+        )
       ),
     );
   }
