@@ -7,6 +7,7 @@ import 'package:bit_flow/service/aria.dart';
 import 'package:bit_flow/service/funcs.dart';
 import 'package:bit_flow/service/qbit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -34,6 +35,12 @@ Future<void> main() async {
       await windowManager.show();
       await windowManager.focus();
     });
+  }else{
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,     // 顶部朝上
+      DeviceOrientation.portraitDown,   // 顶部朝下
+    ]);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
   }
   runApp(const MainApp());
 }
