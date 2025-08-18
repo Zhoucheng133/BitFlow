@@ -10,6 +10,17 @@ enum Pages{
   settings
 }
 
+String pageToText(Pages page){
+  switch (page) {
+    case Pages.active:
+      return "活跃中";
+    case Pages.finish:
+      return "已完成";
+    case Pages.settings:
+      return "设置";
+  }
+}
+
 enum OrderTypes{
   // Aria默认情况下新的在后面
 
