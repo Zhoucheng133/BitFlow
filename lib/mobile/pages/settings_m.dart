@@ -1,8 +1,11 @@
 import 'package:bit_flow/components/dialogs.dart';
 import 'package:bit_flow/getx/status_get.dart';
 import 'package:bit_flow/getx/store_get.dart';
+import 'package:bit_flow/types/store_item.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -23,10 +26,8 @@ class _SettingsMState extends State<SettingsM> {
   late SharedPreferences prefs;
 
   Future<void> init() async {
-    // 初始化prefs
     prefs=await SharedPreferences.getInstance();
 
-    // 获取版本号
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     setState(() {
       version="v${packageInfo.version}";
@@ -39,6 +40,79 @@ class _SettingsMState extends State<SettingsM> {
     init();
   }
 
+  Future<void> showServerDialog(BuildContext context) async {
+    int serverIndex=statusGet.sevrerIndex.value;
+    await showDialog(
+      context: context, 
+      builder: (context)=>AlertDialog(
+        title: const Text('下载服务器'),
+        content: StatefulBuilder(
+          builder: (context, setState)=>DropdownButtonHideUnderline(
+            child: DropdownButton2<String>(
+              buttonStyleData: ButtonStyleData(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5)
+                )
+              ),
+              dropdownStyleData: DropdownStyleData(
+                padding: const EdgeInsets.symmetric(vertical: 0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  color: Theme.of(context).colorScheme.surface
+                )
+              ),
+              isExpanded: true,
+              value: storeGet.servers[serverIndex].name,
+              items: storeGet.servers.map((StoreItem item) {
+                final name=item.name;
+                return DropdownMenuItem<String>(
+                  value: name,
+                  child: Text(
+                    name,
+                    style: GoogleFonts.notoSansSc(
+                      fontSize: 14,
+                      color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                );
+              }).toList(),
+              onChanged: (val){
+                // int index=storeGet.servers.indexWhere((item)=>item.name==val);
+                // statusGet.sevrerIndex.value=index;
+                int index=storeGet.servers.indexWhere((item)=>item.name==val);
+                setState((){
+                  serverIndex=index;
+                });
+              },
+            ),
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: (){
+              Navigator.pop(context);
+              storeGet.addStore(context);
+            }, 
+            child: const Text("添加")
+          ),
+          TextButton(
+            onPressed: ()=>Navigator.pop(context), 
+            child: const Text('取消')
+          ),
+          ElevatedButton(
+            onPressed: (){
+              statusGet.sevrerIndex.value=serverIndex;
+              Navigator.pop(context);
+            }, 
+            child: const Text('完成')
+          )
+        ],
+      )
+    );
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -47,7 +121,7 @@ class _SettingsMState extends State<SettingsM> {
           ListTile(
             title: const Text('下载服务器'),
             subtitle: storeGet.servers.isEmpty ? Text("/") : Text(storeGet.servers[statusGet.sevrerIndex.value].name),
-            onTap: (){},
+            onTap: ()=>showServerDialog(context),
           ),
           ListTile(
             title: const Text('清除所有配置文件'),
