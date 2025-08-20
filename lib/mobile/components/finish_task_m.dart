@@ -19,7 +19,6 @@ class FinishTaskM extends StatefulWidget {
 }
 
 class _FinishTaskMState extends State<FinishTaskM> {
-  bool onHover=false;
   final ThemeGet themeGet=Get.find();
   final StatusGet statusGet=Get.find();
   final FuncsService funcsService=Get.find();
@@ -105,9 +104,8 @@ class _FinishTaskMState extends State<FinishTaskM> {
                   ),
                 ),
               ),
-              AnimatedContainer(
-                duration: const Duration(milliseconds: 200),
-                color: themeGet.taskItemColor(context, onHover),
+              Container(
+                color: themeGet.taskItemColor(context, false),
                 child: Row(
                   children: [
                     AnimatedContainer(
