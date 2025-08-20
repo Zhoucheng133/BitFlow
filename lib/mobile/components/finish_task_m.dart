@@ -80,7 +80,7 @@ class _FinishTaskMState extends State<FinishTaskM> {
         },
         child: SizedBox(
           width: double.infinity,
-          height: 50,
+          height: 60,
           child: Stack(
             children: [
               if(widget.item.calPercent()!=1) Positioned(
@@ -92,7 +92,7 @@ class _FinishTaskMState extends State<FinishTaskM> {
                   widthFactor: widget.item.calPercent(),
                   child: AnimatedContainer(
                     duration: const Duration(milliseconds: 200),
-                    height: 50,
+                    height: 60,
                     decoration: BoxDecoration(
                       border: Border(
                         bottom: BorderSide(

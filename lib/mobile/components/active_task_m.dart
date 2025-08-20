@@ -82,7 +82,7 @@ class _ActiveTaskMState extends State<ActiveTaskM> {
         },
         child: SizedBox(
           width: double.infinity,
-          height: 50,
+          height: 60,
           child: Stack(
             children: [
               if(widget.item.status!=TaskStatus.seeding) Positioned(
@@ -94,7 +94,7 @@ class _ActiveTaskMState extends State<ActiveTaskM> {
                   widthFactor: widget.item.calPercent(),
                   child: AnimatedContainer(
                     duration: const Duration(milliseconds: 200),
-                    height: 50,
+                    height: 60,
                     decoration: BoxDecoration(
                       border: Border(
                         bottom: BorderSide(
