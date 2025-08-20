@@ -1,5 +1,5 @@
-import 'package:bit_flow/components/task_components/finish_task.dart';
 import 'package:bit_flow/getx/status_get.dart';
+import 'package:bit_flow/mobile/components/finish_task_m.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -19,7 +19,7 @@ class _FinishMState extends State<FinishM> {
     return Obx(()=>
       ListView.builder(
         itemCount: statusGet.finishedTask.length,
-        itemBuilder: (BuildContext context, int index)=>FinishTask(item: statusGet.finishedTask[index])
+        itemBuilder: (BuildContext context, int index)=>FinishTaskM(item: statusGet.finishedTask[index])
       )
     );
   }
