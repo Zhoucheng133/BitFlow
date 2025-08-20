@@ -118,7 +118,7 @@ Future<void> addTaskDialog(BuildContext context) async {
                 funcs.addTorrentTaskHandler(filePath);
               }
             }, 
-            child: const Text('使用Torrent文件')
+            child: const Text('来自种子文件')
           ),
           ElevatedButton(
             onPressed: ()=>addTaskHandler(context, link, funcs), 
