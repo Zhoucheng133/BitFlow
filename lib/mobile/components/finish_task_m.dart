@@ -53,8 +53,9 @@ class _FinishTaskMState extends State<FinishTaskM> {
                           await FlutterClipboard.copy(widget.item.link);
                           break;
                         case FinishTaskMenuTypes.del:
-                          await widget.item.delTask(context);
-                          if(context.mounted) Navigator.pop(context);
+                          Navigator.pop(context);
+                          final parentContext = Navigator.of(context, rootNavigator: true).context;
+                          widget.item.delTask(parentContext);
                           break;
                         case FinishTaskMenuTypes.files:
                           Navigator.pop(context);

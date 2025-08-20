@@ -53,8 +53,9 @@ class _ActiveTaskMState extends State<ActiveTaskM> {
                           await FlutterClipboard.copy(widget.item.link);
                           break;
                         case ActiveTaskMenuTypes.del:
-                          if(context.mounted) widget.item.delTask(context);
                           Navigator.pop(context);
+                          final parentContext = Navigator.of(context, rootNavigator: true).context;
+                          widget.item.delTask(parentContext);
                           break;
                         case ActiveTaskMenuTypes.files:
                           Navigator.pop(context);
