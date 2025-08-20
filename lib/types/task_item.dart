@@ -442,10 +442,12 @@ class TaskItem{
   Future<void> delTask(BuildContext context) async {
     bool confirm=await showConfirmDialog(context, "删除这个任务", "确定要删除这个任务吗? 这个操作无法撤销!");
     bool delFile=false;
-    if(type==StoreType.qbit){
-      if(context.mounted) delFile=await showConfirmDialog(context, "删除文件", "删除这个任务的同时删除文件?");
-    }
     if(confirm){
+      if(type==StoreType.qbit){
+        if(context.mounted){
+          delFile=await showConfirmDialog(context, "删除文件", "删除这个任务的同时删除文件?");
+        }
+      }
       if(status==TaskStatus.finish){
         delFinishedTask(delFile: delFile);
       }else{
