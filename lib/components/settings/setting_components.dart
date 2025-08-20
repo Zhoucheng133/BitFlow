@@ -216,7 +216,6 @@ class SettingComponents {
                         ConfigItemWithTextField(
                           label: "用户代理", 
                           controller: userAgent,
-                          useDouble: true,
                           multiLine: true,
                         ),
                       ],
