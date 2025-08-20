@@ -42,49 +42,82 @@ class _SettingsMState extends State<SettingsM> {
 
   Future<void> showServerDialog(BuildContext context) async {
     int serverIndex=statusGet.sevrerIndex.value;
+    int starIndex=storeGet.starIndex.value;
     await showDialog(
       context: context, 
       builder: (context)=>AlertDialog(
         title: const Text('下载服务器'),
         content: StatefulBuilder(
           builder: (context, setState)=>DropdownButtonHideUnderline(
-            child: DropdownButton2<String>(
-              buttonStyleData: ButtonStyleData(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5)
-                )
-              ),
-              dropdownStyleData: DropdownStyleData(
-                padding: const EdgeInsets.symmetric(vertical: 0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  color: Theme.of(context).colorScheme.surface
-                )
-              ),
-              isExpanded: true,
-              value: storeGet.servers[serverIndex].name,
-              items: storeGet.servers.map((StoreItem item) {
-                final name=item.name;
-                return DropdownMenuItem<String>(
-                  value: name,
-                  child: Text(
-                    name,
-                    style: GoogleFonts.notoSansSc(
-                      fontSize: 14,
-                      color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
-                    ),
-                    overflow: TextOverflow.ellipsis,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                DropdownButton2<String>(
+                  buttonStyleData: ButtonStyleData(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5)
+                    )
                   ),
-                );
-              }).toList(),
-              onChanged: (val){
-                // int index=storeGet.servers.indexWhere((item)=>item.name==val);
-                // statusGet.sevrerIndex.value=index;
-                int index=storeGet.servers.indexWhere((item)=>item.name==val);
-                setState((){
-                  serverIndex=index;
-                });
-              },
+                  dropdownStyleData: DropdownStyleData(
+                    padding: const EdgeInsets.symmetric(vertical: 0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      color: Theme.of(context).colorScheme.surface
+                    )
+                  ),
+                  isExpanded: true,
+                  value: storeGet.servers[serverIndex].name,
+                  items: storeGet.servers.map((StoreItem item) {
+                    final name=item.name;
+                    return DropdownMenuItem<String>(
+                      value: name,
+                      child: Text(
+                        name,
+                        style: GoogleFonts.notoSansSc(
+                          fontSize: 14,
+                          color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    );
+                  }).toList(),
+                  onChanged: (val){
+                    // int index=storeGet.servers.indexWhere((item)=>item.name==val);
+                    // statusGet.sevrerIndex.value=index;
+                    int index=storeGet.servers.indexWhere((item)=>item.name==val);
+                    setState((){
+                      serverIndex=index;
+                    });
+                  },
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    IconButton(
+                      onPressed: (){
+                        if(starIndex!=serverIndex){
+                          setState((){
+                            starIndex=serverIndex;
+                          });
+                        }
+                      }, 
+                      icon: Icon(
+                        Icons.star_rounded,
+                        color: starIndex==serverIndex ? Colors.orange : Colors.grey,
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: storeGet.servers.length==1 ? null : (){
+                        storeGet.delStore(context, statusGet.sevrerIndex.value);
+                      }, 
+                      icon: Icon(
+                        Icons.delete_rounded,
+                        size: 18,
+                      ),
+                    ),
+                  ],
+                )
+              ],
             ),
           ),
         ),
@@ -103,6 +136,7 @@ class _SettingsMState extends State<SettingsM> {
           ElevatedButton(
             onPressed: (){
               statusGet.sevrerIndex.value=serverIndex;
+              storeGet.setStar(statusGet.sevrerIndex.value);
               Navigator.pop(context);
             }, 
             child: const Text('完成')
