@@ -95,11 +95,10 @@ class _ActiveTaskMState extends State<ActiveTaskM> {
                     duration: const Duration(milliseconds: 200),
                     height: 50,
                     decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.surface,
                       border: Border(
                         bottom: BorderSide(
                           color: Theme.of(context).brightness==Brightness.light ? Theme.of(context).colorScheme.primary.withAlpha(50) : Color.fromARGB(255, 100, 100, 100),
-                          width: 2
+                          width: 3
                         ),
                       )
                     ),
@@ -232,6 +231,7 @@ class _ActiveTaskMState extends State<ActiveTaskM> {
                   ],
                 ),
               ),
+        
             ],
           ),
         ),
