@@ -72,7 +72,7 @@ class QbitService extends GetxController {
           'username': item.username,
           'password': item.password,
         },
-      );
+      ).timeout(Duration(seconds: 3));
       String setCookie=response.headers['set-cookie']!;
       return setCookie.split(';')[0];
     } catch (_) {

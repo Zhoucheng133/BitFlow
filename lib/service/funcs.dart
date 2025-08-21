@@ -291,6 +291,26 @@ class FuncsService extends GetxController{
       parseStore(context);
     }
     if(storeGet.servers.isNotEmpty){
+      String? check;
+      switch (storeGet.servers[statusGet.sevrerIndex.value].type) {
+        case StoreType.aria:
+          check=await ariaService.getVersion(storeGet.servers[statusGet.sevrerIndex.value]);
+          break;
+        case StoreType.qbit:
+          check=await qbitService.getCookie(storeGet.servers[statusGet.sevrerIndex.value]);
+          break;
+      }
+      if(check==null){
+        if(context.mounted){
+          await showErrWarnDialog(
+            context, 
+            "请求下载服务器出错", 
+            "请求${storeGet.servers[statusGet.sevrerIndex.value].type==StoreType.aria ? 'Aria' : 'qBittorrent'}服务器出错"
+          );
+        }
+        return;
+      }
+
       interval= Timer.periodic(Duration(milliseconds: storeGet.freq.value), (Timer time){
         getTasks();
       });

@@ -39,7 +39,7 @@ class AriaService extends GetxController{
         'Content-Type': 'application/json',
       },
       body: body,
-    );
+    ).timeout(Duration(seconds: 3));
     if (response.statusCode == 200) {
       return json.decode(utf8.decode(response.bodyBytes));
     } else {
