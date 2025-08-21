@@ -34,6 +34,9 @@ Future<void> addTaskDialogM(BuildContext context) async {
     link.text=copyText;
   }
   if(context.mounted){
+
+    FocusNode inputFocus=FocusNode();
+    
     showDialog(
       context: context, 
       builder: (BuildContext context) => AlertDialog(
@@ -63,6 +66,7 @@ Future<void> addTaskDialogM(BuildContext context) async {
                       maxHeight: 350
                     ),
                     child: TextField(
+                      focusNode: inputFocus,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         hintText: 'http(s)://\nmagnet:?xt=urn:btih:', 
@@ -87,9 +91,20 @@ Future<void> addTaskDialogM(BuildContext context) async {
           ),
         ),
         actions: [
-          TextButton(onPressed: ()=>Navigator.pop(context), child: Text('取消')),
+          TextButton(
+            onPressed: (){
+              if (inputFocus.hasFocus) {
+                inputFocus.unfocus();
+              }
+              Navigator.pop(context);
+            }, 
+            child: Text('取消')
+          ),
           TextButton(
             onPressed: () async {
+              if (inputFocus.hasFocus) {
+                inputFocus.unfocus();
+              }
               FilePickerResult? result = await FilePicker.platform.pickFiles(
                 type: FileType.custom,
                 allowedExtensions: ["torrent"]
@@ -103,7 +118,12 @@ Future<void> addTaskDialogM(BuildContext context) async {
             child: const Text('来自种子文件')
           ),
           ElevatedButton(
-            onPressed: ()=>addTaskHandler(context, link, funcs), 
+            onPressed: (){
+              if (inputFocus.hasFocus) {
+                inputFocus.unfocus();
+              }
+              addTaskHandler(context, link, funcs);
+            }, 
             child: Text('添加')
           )
         ],
