@@ -26,6 +26,92 @@ void addTaskHandler(BuildContext context, TextEditingController link, FuncsServi
   Navigator.pop(context);
 }
 
+Future<void> addTaskDialogM(BuildContext context) async {
+  final FuncsService funcs=Get.find();
+  final TextEditingController link=TextEditingController();
+  final copyText=await FlutterClipboard.paste();
+  if(copyText.startsWith("http://") || copyText.startsWith("https://") || copyText.startsWith("magnet:?xt=urn:btih:")){
+    link.text=copyText;
+  }
+  if(context.mounted){
+    showDialog(
+      context: context, 
+      builder: (BuildContext context) => AlertDialog(
+        title: Text(
+          '添加任务',
+          style: GoogleFonts.notoSansSc(
+            color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
+          ),
+        ),
+        content: SizedBox(
+          width: 400,
+          child: StatefulBuilder(
+            builder: (BuildContext context, setState){
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    '若要添加多个任务，用回车拆分',
+                    style: GoogleFonts.notoSansSc(
+                      color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
+                    ),
+                  ),
+                  const SizedBox(height: 5,),
+                  ConstrainedBox(
+                    constraints: BoxConstraints(
+                      maxHeight: 350
+                    ),
+                    child: TextField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: 'http(s)://\nmagnet:?xt=urn:btih:', 
+                        hintStyle: GoogleFonts.notoSansSc(
+                          color: Colors.grey,
+                          fontSize: 13
+                        ),
+                        isCollapsed: true,
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12)
+                      ),
+                      minLines: 3,
+                      maxLines: null,
+                      controller: link,
+                      style: GoogleFonts.notoSansSc(
+                        fontSize: 13
+                      ),
+                    ),
+                  )
+                ],
+              );
+            }
+          ),
+        ),
+        actions: [
+          TextButton(onPressed: ()=>Navigator.pop(context), child: Text('取消')),
+          TextButton(
+            onPressed: () async {
+              FilePickerResult? result = await FilePicker.platform.pickFiles(
+                type: FileType.custom,
+                allowedExtensions: ["torrent"]
+              );
+              if(result!=null){
+                if(context.mounted) Navigator.pop(context);
+                final filePath=result.files.single.path!;
+                funcs.addTorrentTaskHandler(filePath);
+              }
+            }, 
+            child: const Text('来自种子文件')
+          ),
+          ElevatedButton(
+            onPressed: ()=>addTaskHandler(context, link, funcs), 
+            child: Text('添加')
+          )
+        ],
+      )
+    );
+  }
+}
+
 Future<void> addTaskDialog(BuildContext context) async {
   final FuncsService funcs=Get.find();
   final TextEditingController link=TextEditingController();

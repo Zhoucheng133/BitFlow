@@ -66,7 +66,7 @@ class _MainViewState extends State<MainView> {
           ],
         ),
         floatingActionButton: statusGet.page.value==Pages.active ? FloatingActionButton(
-          onPressed: ()=>addTaskDialog(context),
+          onPressed: ()=>addTaskDialogM(context),
           child: Center(
             child: Icon(Icons.add_rounded),
           ),
