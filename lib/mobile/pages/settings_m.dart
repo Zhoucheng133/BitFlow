@@ -189,10 +189,17 @@ class _SettingsMState extends State<SettingsM> {
         ],
       )
     );
+    if(context.mounted){
+      showErrWarnDialog(
+        context, 
+        "已修改默认顺序", 
+        "重启App生效"
+      );
+    }
   }
 
-  void showFinishOrderDialog(BuildContext context){
-    showDialog(
+  Future<void> showFinishOrderDialog(BuildContext context) async {
+    await showDialog(
       context: context, 
       builder: (context)=>AlertDialog(
         title: Text(
@@ -223,6 +230,13 @@ class _SettingsMState extends State<SettingsM> {
         ],
       ),
     );
+    if(context.mounted){
+      showErrWarnDialog(
+        context, 
+        "已修改默认顺序", 
+        "重启App生效"
+      );
+    }
   }
 
   @override
