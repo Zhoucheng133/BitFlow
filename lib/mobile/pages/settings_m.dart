@@ -161,7 +161,12 @@ class _SettingsMState extends State<SettingsM> {
     await showDialog(
       context: context, 
       builder: (context)=>AlertDialog(
-        title: Text('设置默认活跃任务'),
+        title: Text(
+          '设置默认活跃任务',
+          style: GoogleFonts.notoSansSc(
+            color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
+          ),
+        ),
         content: Obx(()=>
           DropDownContent(
             selected: null,
@@ -190,7 +195,12 @@ class _SettingsMState extends State<SettingsM> {
     showDialog(
       context: context, 
       builder: (context)=>AlertDialog(
-        title: Text('设置默认已完成任务'),
+        title: Text(
+          '设置默认已完成任务',
+          style: GoogleFonts.notoSansSc(
+            color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
+          ),
+        ),
         content: Obx(
           ()=> DropDownContent(
             selected: null,
