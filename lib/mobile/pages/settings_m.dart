@@ -160,6 +160,7 @@ class _SettingsMState extends State<SettingsM> {
   Future<void> showActiveOrderDialog(BuildContext context) async {
     await showDialog(
       context: context, 
+      barrierDismissible: false,
       builder: (context)=>AlertDialog(
         title: Text(
           '设置默认活跃任务',
@@ -201,6 +202,7 @@ class _SettingsMState extends State<SettingsM> {
   Future<void> showFinishOrderDialog(BuildContext context) async {
     await showDialog(
       context: context, 
+      barrierDismissible: false,
       builder: (context)=>AlertDialog(
         title: Text(
           '设置默认已完成任务',

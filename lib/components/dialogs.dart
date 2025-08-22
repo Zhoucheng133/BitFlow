@@ -7,7 +7,6 @@ import 'package:url_launcher/url_launcher.dart';
 Future<void> showErrWarnDialog(BuildContext context, String title, String content, {String okText="好的"}) async {
   await showDialog(
     context: context, 
-    barrierDismissible: false,
     builder: (context)=>AlertDialog(
       title: Text(
         title,
