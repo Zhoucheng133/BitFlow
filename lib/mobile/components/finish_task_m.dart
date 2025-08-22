@@ -31,52 +31,63 @@ class _FinishTaskMState extends State<FinishTaskM> {
     }
     return Ink(
       child: InkWell(
+        onLongPress: (){
+          statusGet.selectMode.value=true;
+        },
         onTap: (){
-          showModalBottomSheet(
-            context: context, 
-            clipBehavior: Clip.antiAlias,
-            builder: (BuildContext context)=>Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                ...List.generate(
-                  FinishTaskMenuTypes.values.length,
-                  (index)=>ListTile(
-                    leading: Icon(
-                      menuIcon(FinishTaskMenuTypes.values[index]),
-                      size: 18,
-                    ),
-                    title: Text(menuLabel(FinishTaskMenuTypes.values[index])),
-                    onTap: () async {
-                      switch (FinishTaskMenuTypes.values[index]) {
-                        case FinishTaskMenuTypes.copy:
-                          Navigator.pop(context);
-                          await FlutterClipboard.copy(widget.item.link);
-                          break;
-                        case FinishTaskMenuTypes.del:
-                          Navigator.pop(context);
-                          final parentContext = Navigator.of(context, rootNavigator: true).context;
-                          widget.item.delTask(parentContext);
-                          break;
-                        case FinishTaskMenuTypes.files:
-                          Navigator.pop(context);
-                          if(context.mounted) widget.item.showFiles(context);
-                          break;
-                        case FinishTaskMenuTypes.info:
-                          Navigator.pop(context);
-                          if(context.mounted) widget.item.showTaskInfo(context);
-                          break;
-                        case FinishTaskMenuTypes.redownload:
-                          Navigator.pop(context);
-                          if(context.mounted) widget.item.reDownload(context);
-                          break;
-                      }
-                    },
-                  )
-                ),
-                SizedBox(height: MediaQuery.of(context).padding.bottom,),
-              ],
-            )
-          );
+          if(statusGet.selectMode.value){
+            if(statusGet.selectList.contains(widget.item)){
+              statusGet.selectList.remove(widget.item);
+            }else{
+              statusGet.selectList.add(widget.item);
+            }
+          }else{
+            showModalBottomSheet(
+              context: context, 
+              clipBehavior: Clip.antiAlias,
+              builder: (BuildContext context)=>Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  ...List.generate(
+                    FinishTaskMenuTypes.values.length,
+                    (index)=>ListTile(
+                      leading: Icon(
+                        menuIcon(FinishTaskMenuTypes.values[index]),
+                        size: 18,
+                      ),
+                      title: Text(menuLabel(FinishTaskMenuTypes.values[index])),
+                      onTap: () async {
+                        switch (FinishTaskMenuTypes.values[index]) {
+                          case FinishTaskMenuTypes.copy:
+                            Navigator.pop(context);
+                            await FlutterClipboard.copy(widget.item.link);
+                            break;
+                          case FinishTaskMenuTypes.del:
+                            Navigator.pop(context);
+                            final parentContext = Navigator.of(context, rootNavigator: true).context;
+                            widget.item.delTask(parentContext);
+                            break;
+                          case FinishTaskMenuTypes.files:
+                            Navigator.pop(context);
+                            if(context.mounted) widget.item.showFiles(context);
+                            break;
+                          case FinishTaskMenuTypes.info:
+                            Navigator.pop(context);
+                            if(context.mounted) widget.item.showTaskInfo(context);
+                            break;
+                          case FinishTaskMenuTypes.redownload:
+                            Navigator.pop(context);
+                            if(context.mounted) widget.item.reDownload(context);
+                            break;
+                        }
+                      },
+                    )
+                  ),
+                  SizedBox(height: MediaQuery.of(context).padding.bottom,),
+                ],
+              )
+            );
+          }
         },
         child: SizedBox(
           width: double.infinity,

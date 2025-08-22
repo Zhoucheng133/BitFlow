@@ -31,54 +31,65 @@ class _ActiveTaskMState extends State<ActiveTaskM> {
 
     return Ink(
       child: InkWell(
+        onLongPress: (){
+          statusGet.selectMode.value=true;
+        },
         onTap: (){
-          showModalBottomSheet(
-            context: context, 
-            clipBehavior: Clip.antiAlias,
-            builder: (BuildContext context)=>Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                ...List.generate(
-                  ActiveTaskMenuTypes.values.length,
-                  (index)=>ListTile(
-                    leading: Icon(
-                      menuIcon(ActiveTaskMenuTypes.values[index]),
-                      size: 18,
-                    ),
-                    title: Text(menuLabel(ActiveTaskMenuTypes.values[index])),
-                    onTap: () async {
-                      switch (ActiveTaskMenuTypes.values[index]) {
-                        case ActiveTaskMenuTypes.copy:
-                          Navigator.pop(context);
-                          await FlutterClipboard.copy(widget.item.link);
-                          break;
-                        case ActiveTaskMenuTypes.del:
-                          Navigator.pop(context);
-                          final parentContext = Navigator.of(context, rootNavigator: true).context;
-                          widget.item.delTask(parentContext);
-                          break;
-                        case ActiveTaskMenuTypes.files:
-                          Navigator.pop(context);
-                          if(context.mounted) widget.item.showFiles(context);
-                          break;
-                        case ActiveTaskMenuTypes.info:
-                          Navigator.pop(context);
-                          if(context.mounted) widget.item.showTaskInfo(context);
-                          break;
-                        case ActiveTaskMenuTypes.pause:
-                          Navigator.pop(context);
-                          widget.item.pauseTask();
-                        case ActiveTaskMenuTypes.cont:
-                          Navigator.pop(context);
-                          widget.item.continueTask();
-                      }
-                    },
-                  )
-                ),
-                SizedBox(height: MediaQuery.of(context).padding.bottom,),
-              ],
-            )
-          );
+          if(statusGet.selectMode.value){
+            if(statusGet.selectList.contains(widget.item)){
+              statusGet.selectList.remove(widget.item);
+            }else{
+              statusGet.selectList.add(widget.item);
+            }
+          }else {
+            showModalBottomSheet(
+              context: context, 
+              clipBehavior: Clip.antiAlias,
+              builder: (BuildContext context)=>Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  ...List.generate(
+                    ActiveTaskMenuTypes.values.length,
+                    (index)=>ListTile(
+                      leading: Icon(
+                        menuIcon(ActiveTaskMenuTypes.values[index]),
+                        size: 18,
+                      ),
+                      title: Text(menuLabel(ActiveTaskMenuTypes.values[index])),
+                      onTap: () async {
+                        switch (ActiveTaskMenuTypes.values[index]) {
+                          case ActiveTaskMenuTypes.copy:
+                            Navigator.pop(context);
+                            await FlutterClipboard.copy(widget.item.link);
+                            break;
+                          case ActiveTaskMenuTypes.del:
+                            Navigator.pop(context);
+                            final parentContext = Navigator.of(context, rootNavigator: true).context;
+                            widget.item.delTask(parentContext);
+                            break;
+                          case ActiveTaskMenuTypes.files:
+                            Navigator.pop(context);
+                            if(context.mounted) widget.item.showFiles(context);
+                            break;
+                          case ActiveTaskMenuTypes.info:
+                            Navigator.pop(context);
+                            if(context.mounted) widget.item.showTaskInfo(context);
+                            break;
+                          case ActiveTaskMenuTypes.pause:
+                            Navigator.pop(context);
+                            widget.item.pauseTask();
+                          case ActiveTaskMenuTypes.cont:
+                            Navigator.pop(context);
+                            widget.item.continueTask();
+                        }
+                      },
+                    )
+                  ),
+                  SizedBox(height: MediaQuery.of(context).padding.bottom,),
+                ],
+              )
+            );
+          }
         },
         child: SizedBox(
           width: double.infinity,
