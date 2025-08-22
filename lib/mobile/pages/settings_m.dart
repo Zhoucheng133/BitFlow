@@ -2,6 +2,7 @@ import 'package:bit_flow/components/dialogs.dart';
 import 'package:bit_flow/getx/status_get.dart';
 import 'package:bit_flow/getx/store_get.dart';
 import 'package:bit_flow/getx/theme_get.dart';
+import 'package:bit_flow/service/funcs.dart';
 import 'package:bit_flow/types/store_item.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,7 @@ class _SettingsMState extends State<SettingsM> {
   final StatusGet statusGet=Get.find();
   final StoreGet storeGet=Get.find();
   final ThemeGet themeGet=Get.find();
+  final FuncsService funcsService=Get.find();
 
   String version="";
 
@@ -163,6 +165,18 @@ class _SettingsMState extends State<SettingsM> {
             title: const Text('下载服务器'),
             subtitle: storeGet.servers.isEmpty ? Text("/") : Text(storeGet.servers[statusGet.sevrerIndex.value].name),
             onTap: ()=>showServerDialog(context),
+          ),
+          ListTile(
+            title: const Text('更新频率'),
+            subtitle: Text("${storeGet.freq.value.toString()} 毫秒"),
+            onTap: () async {
+              int oldFreq=storeGet.freq.value;
+              await storeGet.showFreqDialog(context);
+              if(oldFreq!=storeGet.freq.value){
+                funcsService.reLoadService();
+                return;
+              }
+            },
           ),
           ListTile(
             title: const Text('深色模式'),
