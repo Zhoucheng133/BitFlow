@@ -1,4 +1,5 @@
 import 'package:bit_flow/components/dialogs.dart';
+import 'package:bit_flow/components/settings/setting_item.dart';
 import 'package:bit_flow/getx/status_get.dart';
 import 'package:bit_flow/getx/store_get.dart';
 import 'package:bit_flow/getx/theme_get.dart';
@@ -156,6 +157,64 @@ class _SettingsMState extends State<SettingsM> {
 
   }
 
+  Future<void> showActiveOrderDialog(BuildContext context) async {
+    await showDialog(
+      context: context, 
+      builder: (context)=>AlertDialog(
+        title: Text('设置默认活跃任务'),
+        content: Obx(()=>
+          DropDownContent(
+            selected: null,
+            selectedIcon: orderToIcon(storeGet.defaultActiveOrder.value), 
+            selectedText: orderToString(storeGet.defaultActiveOrder.value), 
+            func: (val){
+              val=val as OrderTypes;
+              storeGet.defaultActiveOrder.value=val;
+              prefs.setInt("defaultActiveOrder", val.index);
+            }, 
+            list: OrderTypes.values.map((item)=>CustomDropDownItem(orderToString(item), item, orderToIcon(item))).toList(),
+            mobile: true,
+          ),
+        ),
+        actions: [
+          ElevatedButton(
+            onPressed: ()=>Navigator.pop(context), 
+            child: const Text("完成")
+          )
+        ],
+      )
+    );
+  }
+
+  void showFinishOrderDialog(BuildContext context){
+    showDialog(
+      context: context, 
+      builder: (context)=>AlertDialog(
+        title: Text('设置默认已完成任务'),
+        content: Obx(
+          ()=> DropDownContent(
+            selected: null,
+            selectedIcon: orderToIcon(storeGet.defaultFinishOrder.value), 
+            selectedText: orderToString(storeGet.defaultFinishOrder.value), 
+            func: (val){
+              val=val as OrderTypes;
+              storeGet.defaultFinishOrder.value=val;
+              prefs.setInt("defaultFinishOrder", val.index);
+            },
+            list: OrderTypes.values.map((item)=>CustomDropDownItem(orderToString(item), item, orderToIcon(item))).toList(),
+            mobile: true,
+          ),
+        ),
+        actions: [
+          ElevatedButton(
+            onPressed: ()=>Navigator.pop(context), 
+            child: const Text("完成")
+          )
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -177,6 +236,16 @@ class _SettingsMState extends State<SettingsM> {
                 return;
               }
             },
+          ),
+          ListTile(
+            title: const Text("默认活跃任务顺序"),
+            subtitle: Text(orderToString(storeGet.defaultActiveOrder.value)),
+            onTap: ()=>showActiveOrderDialog(context)
+          ),
+          ListTile(
+            title: const Text("默认已完成任务顺序"),
+            subtitle: Text(orderToString(storeGet.defaultFinishOrder.value)),
+            onTap: ()=>showFinishOrderDialog(context),
           ),
           ListTile(
             title: const Text('深色模式'),

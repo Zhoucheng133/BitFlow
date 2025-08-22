@@ -107,99 +107,128 @@ class SettingDropDownItem extends StatefulWidget {
 
 class _SettingDropDownItemState extends State<SettingDropDownItem> {
 
-  bool hover=false;
-
   @override
   Widget build(BuildContext context) {
     return SettingItem(
       label: widget.label, 
-      child: DropdownButtonHideUnderline(
-        child: DropdownButton2(
-          value: widget.selected,
-          buttonStyleData: ButtonStyleData(
+      child: DropDownContent(
+        selected: widget.selected,
+        selectedIcon: widget.selectedIcon,
+        selectedText: widget.selectedText,
+        func: widget.func,
+        list: widget.list,
+      )
+    );
+  }
+}
+
+class DropDownContent extends StatefulWidget {
+
+  final dynamic selected;
+  final IconData selectedIcon;
+  final String selectedText;
+  final ValueChanged func;
+  final List<CustomDropDownItem> list;
+  final bool mobile;
+
+  const DropDownContent({super.key, this.selected, required this.selectedIcon, required this.selectedText, required this.func, required this.list, this.mobile=false});
+
+  @override
+  State<DropDownContent> createState() => _DropDownContentState();
+}
+
+class _DropDownContentState extends State<DropDownContent> {
+
+  bool hover=false;
+
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButtonHideUnderline(
+      child: DropdownButton2(
+        value: widget.selected,
+        buttonStyleData: ButtonStyleData(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5)
+          )
+        ),
+        menuItemStyleData: MenuItemStyleData(
+          height: widget.mobile ? 50 : 40,
+          padding: EdgeInsets.only(left: 10, right: 10),
+        ),
+        dropdownStyleData: DropdownStyleData(
+          padding: const EdgeInsets.symmetric(vertical: 0),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
+            color: Theme.of(context).colorScheme.surface
+          )
+        ),
+        customButton: MouseRegion(
+          onEnter: (_) => setState(() => hover = true),
+          onExit: (_) => setState(() => hover = false),
+          child: AnimatedContainer(
+            height: widget.mobile ? 45 : 35,
+            duration: const Duration(milliseconds: 200),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5)
-            )
-          ),
-          menuItemStyleData: const MenuItemStyleData(
-            height: 40,
-            padding: EdgeInsets.only(left: 10, right: 10),
-          ),
-          dropdownStyleData: DropdownStyleData(
-            padding: const EdgeInsets.symmetric(vertical: 0),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              color: Theme.of(context).colorScheme.surface
-            )
-          ),
-          customButton: MouseRegion(
-            onEnter: (_) => setState(() => hover = true),
-            onExit: (_) => setState(() => hover = false),
-            child: AnimatedContainer(
-              height: 35,
-              duration: const Duration(milliseconds: 200),
-              decoration: BoxDecoration(
-                color: hover ? Theme.of(context).colorScheme.primary.withAlpha(12) : Theme.of(context).colorScheme.primary.withAlpha(0),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 10, right: 10),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Icon(
-                      widget.selectedIcon,
-                      size: 15,
-                    ),
-                    const SizedBox(width: 10,),
-                    Text(
-                      widget.selectedText,
-                      style: GoogleFonts.notoSansSc(
-                        fontSize: 14,
-                        color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
-                      ),
-                    ),
-                    const SizedBox(width: 10,),
-                    Icon(
-                      Icons.arrow_drop_down,
-                      size: 22,
-                      color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
-                    ),
-                  ],
-                ),
-              ),
+              color: hover ? Theme.of(context).colorScheme.primary.withAlpha(12) : Theme.of(context).colorScheme.primary.withAlpha(0),
+              borderRadius: BorderRadius.circular(10),
             ),
-          ),
-          isExpanded: false,
-          items: widget.list.map((item)=>
-            DropdownMenuItem(
-              value: item.key,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 10, right: 10),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Icon(
-                    item.icon,
+                    widget.selectedIcon,
                     size: 15,
                   ),
-                  SizedBox(width: 10,),
+                  const SizedBox(width: 10,),
                   Text(
-                    item.label,
+                    widget.selectedText,
                     style: GoogleFonts.notoSansSc(
                       fontSize: 14,
                       color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
                     ),
                   ),
+                  const SizedBox(width: 10,),
+                  Icon(
+                    Icons.arrow_drop_down,
+                    size: 22,
+                    color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
+                  ),
                 ],
-              )
+              ),
+            ),
+          ),
+        ),
+        isExpanded: false,
+        items: widget.list.map((item)=>
+          DropdownMenuItem(
+            value: item.key,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  item.icon,
+                  size: 15,
+                ),
+                SizedBox(width: 10,),
+                Text(
+                  item.label,
+                  style: GoogleFonts.notoSansSc(
+                    fontSize: 14,
+                    color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
+                  ),
+                ),
+              ],
             )
-          ).toList(),
-          onChanged: (val){
-            if(val!=null){
-              widget.func(val);
-            }
-          },
-        )
+          )
+        ).toList(),
+        onChanged: (val){
+          if(val!=null){
+            widget.func(val);
+          }
+        },
       )
     );
   }
