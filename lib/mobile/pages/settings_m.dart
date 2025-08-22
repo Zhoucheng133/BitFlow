@@ -1,4 +1,5 @@
 import 'package:bit_flow/components/dialogs.dart';
+import 'package:bit_flow/components/settings/setting_components.dart';
 import 'package:bit_flow/components/settings/setting_item.dart';
 import 'package:bit_flow/getx/status_get.dart';
 import 'package:bit_flow/getx/store_get.dart';
@@ -25,6 +26,7 @@ class _SettingsMState extends State<SettingsM> {
   final StoreGet storeGet=Get.find();
   final ThemeGet themeGet=Get.find();
   final FuncsService funcsService=Get.find();
+  final SettingComponents settingComponents=SettingComponents();
 
   String version="";
 
@@ -272,6 +274,11 @@ class _SettingsMState extends State<SettingsM> {
             title: const Text("默认已完成任务顺序"),
             subtitle: Text(orderToString(storeGet.defaultFinishOrder.value)),
             onTap: ()=>showFinishOrderDialog(context),
+          ),
+          ListTile(
+            title: const Text("下载器配置"),
+            subtitle: Text("配置${ storeGet.servers.isEmpty ? "" : storeGet.servers[statusGet.sevrerIndex.value].type==StoreType.aria?'Aria':'qBittorrent'}"),
+            onTap: ()=>settingComponents.downloaderConfig(context),
           ),
           ListTile(
             title: const Text('深色模式'),
