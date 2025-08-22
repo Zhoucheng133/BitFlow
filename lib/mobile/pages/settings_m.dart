@@ -1,6 +1,7 @@
 import 'package:bit_flow/components/dialogs.dart';
 import 'package:bit_flow/getx/status_get.dart';
 import 'package:bit_flow/getx/store_get.dart';
+import 'package:bit_flow/getx/theme_get.dart';
 import 'package:bit_flow/types/store_item.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,7 @@ class _SettingsMState extends State<SettingsM> {
 
   final StatusGet statusGet=Get.find();
   final StoreGet storeGet=Get.find();
+  final ThemeGet themeGet=Get.find();
 
   String version="";
 
@@ -46,7 +48,12 @@ class _SettingsMState extends State<SettingsM> {
     await showDialog(
       context: context, 
       builder: (context)=>AlertDialog(
-        title: const Text('下载服务器'),
+        title: Text(
+          '下载服务器',
+          style: GoogleFonts.notoSansSc(
+            color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
+          ),
+        ),
         content: StatefulBuilder(
           builder: (context, setState)=>DropdownButtonHideUnderline(
             child: Column(
@@ -156,6 +163,11 @@ class _SettingsMState extends State<SettingsM> {
             title: const Text('下载服务器'),
             subtitle: storeGet.servers.isEmpty ? Text("/") : Text(storeGet.servers[statusGet.sevrerIndex.value].name),
             onTap: ()=>showServerDialog(context),
+          ),
+          ListTile(
+            title: const Text('深色模式'),
+            subtitle: Text(themeGet.autoDark.value ? "自动" : themeGet.darkMode.value ? "深色" : "浅色"),
+            onTap: ()=>themeGet.showDarkModeDialog(context),
           ),
           ListTile(
             title: const Text('清除所有配置文件'),
