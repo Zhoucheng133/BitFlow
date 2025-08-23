@@ -13,4 +13,10 @@
 
 ## 截图
 
-![alt text](demo/demo.png)
+## 桌面端
+
+![desktop](demo/demo1.png)
+
+## 移动端
+
+<img src="demo/demo2.png" alt="demo2.jpg" width="300px" />
