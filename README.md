@@ -6,7 +6,7 @@
 
 ![License](https://img.shields.io/badge/License-MIT-dark_green)
 
-这是一个支持多下载器的桌面端远程控制App
+这是一个支持多下载器的桌面端远程控制App，支持Windows，macOS，iOS（需要自行打包）和Android
 
 ✅ qBittorrent  
 ✅ Aria
