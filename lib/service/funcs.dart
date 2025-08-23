@@ -56,7 +56,7 @@ class FuncsService extends GetxController{
     selectListener.dispose();
   }
 
-  void parseStore(BuildContext context){
+  Future<void> parseStore(BuildContext context) async {
     final storePrefs=prefs.getString('store');
     if(storePrefs!=null){
       try {
@@ -64,10 +64,10 @@ class FuncsService extends GetxController{
         storeGet.servers.value=store;
         statusGet.initOk.value=true;
       } catch (_) {
-        storeGet.addStore(context, init: true);
+        await storeGet.addStore(context, init: true);
       }
     }else{
-      storeGet.addStore(context, init: true);
+      await storeGet.addStore(context, init: true);
     }
     final starPrefs=prefs.getInt("star");
     if(starPrefs!=null && starPrefs<storeGet.servers.length){
@@ -288,7 +288,7 @@ class FuncsService extends GetxController{
   Future<void> init(BuildContext context) async {
     prefs=await SharedPreferences.getInstance();
     if(context.mounted){
-      parseStore(context);
+      await parseStore(context);
     }
     if(storeGet.servers.isNotEmpty){
       String? check;

@@ -62,14 +62,14 @@ class StoreGet extends GetxController{
     prefs.setInt("star", index);
   }
 
-  void addStore(BuildContext context, {init=false}){
+  Future<void> addStore(BuildContext context, {init=false}) async {
     StoreItem item=StoreItem("", StoreType.aria, "", null, "");
     bool load=false;
     void setVal(StoreItem val){
       item = StoreItem(val.name, val.type, val.url, val.type==StoreType.aria ? null : val.username, val.password);
     }
 
-    showDialog(
+    await showDialog(
       context: context, 
       barrierDismissible: false,
       builder: (context)=>StatefulBuilder(
@@ -102,7 +102,7 @@ class StoreGet extends GetxController{
                   bool checked=await item.checkItem();
                   if(checked){
                     servers.add(item);
-                    saveStore();
+                    await saveStore();
                     if(context.mounted) Navigator.pop(context);
                   }else{
                     if(context.mounted) showErrWarnDialog(context, "连接下载器失败", "请检查服务器地址和登录信息");
