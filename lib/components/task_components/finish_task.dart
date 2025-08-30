@@ -175,7 +175,7 @@ class _FinishTaskState extends State<FinishTask> {
                       AnimatedContainer(
                         duration: const Duration(milliseconds: 200),
                         width: 10,
-                        color: Colors.green,
+                        color: widget.item.calPercent()!=1 ? Colors.orange : Colors.green,
                       ),
                       Expanded(
                         child: Padding(
