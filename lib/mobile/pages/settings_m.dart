@@ -160,6 +160,8 @@ class _SettingsMState extends State<SettingsM> {
   }
 
   Future<void> showActiveOrderDialog(BuildContext context) async {
+    OrderTypes type=storeGet.defaultActiveOrder.value;
+    bool changed=false;
     await showDialog(
       context: context, 
       barrierDismissible: false,
@@ -170,29 +172,41 @@ class _SettingsMState extends State<SettingsM> {
             color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
           ),
         ),
-        content: Obx(()=>
-          DropDownContent(
-            selected: null,
-            selectedIcon: orderToIcon(storeGet.defaultActiveOrder.value), 
-            selectedText: orderToString(storeGet.defaultActiveOrder.value), 
-            func: (val){
-              val=val as OrderTypes;
-              storeGet.defaultActiveOrder.value=val;
-              prefs.setInt("defaultActiveOrder", val.index);
-            }, 
-            list: OrderTypes.values.map((item)=>CustomDropDownItem(orderToString(item), item, orderToIcon(item))).toList(),
-            mobile: true,
-          ),
+        content: StatefulBuilder(
+          builder: (context, setState) {
+            return DropDownContent(
+              selected: null,
+              selectedIcon: orderToIcon(type), 
+              selectedText: orderToString(type), 
+              func: (val){
+                val=val as OrderTypes;
+                setState((){
+                  type=val;
+                });
+              }, 
+              list: OrderTypes.values.map((item)=>CustomDropDownItem(orderToString(item), item, orderToIcon(item))).toList(),
+              mobile: true,
+            );
+          }
         ),
         actions: [
-          ElevatedButton(
+          TextButton(
             onPressed: ()=>Navigator.pop(context), 
+            child: const Text("取消")
+          ),
+          ElevatedButton(
+            onPressed: (){
+              changed=true;
+              Navigator.pop(context);
+            }, 
             child: const Text("完成")
           )
         ],
       )
     );
-    if(context.mounted){
+    if(context.mounted && changed){
+      storeGet.defaultActiveOrder.value=type;
+      prefs.setInt("defaultActiveOrder", type.index);
       showErrWarnDialog(
         context, 
         "已修改默认顺序", 
@@ -202,6 +216,8 @@ class _SettingsMState extends State<SettingsM> {
   }
 
   Future<void> showFinishOrderDialog(BuildContext context) async {
+    bool changed=false;
+    OrderTypes type=storeGet.defaultFinishOrder.value;
     await showDialog(
       context: context, 
       barrierDismissible: false,
@@ -212,29 +228,41 @@ class _SettingsMState extends State<SettingsM> {
             color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
           ),
         ),
-        content: Obx(
-          ()=> DropDownContent(
-            selected: null,
-            selectedIcon: orderToIcon(storeGet.defaultFinishOrder.value), 
-            selectedText: orderToString(storeGet.defaultFinishOrder.value), 
-            func: (val){
-              val=val as OrderTypes;
-              storeGet.defaultFinishOrder.value=val;
-              prefs.setInt("defaultFinishOrder", val.index);
-            },
-            list: OrderTypes.values.map((item)=>CustomDropDownItem(orderToString(item), item, orderToIcon(item))).toList(),
-            mobile: true,
-          ),
+        content: StatefulBuilder(
+          builder: (context, setState) {
+            return DropDownContent(
+              selected: null,
+              selectedIcon: orderToIcon(type), 
+              selectedText: orderToString(type), 
+              func: (val){
+                val=val as OrderTypes;
+                setState((){
+                  type=val;
+                });
+              },
+              list: OrderTypes.values.map((item)=>CustomDropDownItem(orderToString(item), item, orderToIcon(item))).toList(),
+              mobile: true,
+            );
+          }
         ),
         actions: [
+          TextButton(
+            onPressed: ()=>Navigator.pop(context),
+            child: const Text("取消")
+          ),
           ElevatedButton(
-            onPressed: ()=>Navigator.pop(context), 
+            onPressed: (){
+              Navigator.pop(context);
+              changed=true;
+            }, 
             child: const Text("完成")
           )
         ],
       ),
     );
-    if(context.mounted){
+    if(context.mounted && changed){
+      storeGet.defaultFinishOrder.value=type;
+      prefs.setInt("defaultFinishOrder", type.index);
       showErrWarnDialog(
         context, 
         "已修改默认顺序", 
