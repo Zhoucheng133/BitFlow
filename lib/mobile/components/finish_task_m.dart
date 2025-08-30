@@ -33,6 +33,7 @@ class _FinishTaskMState extends State<FinishTaskM> {
       child: InkWell(
         onLongPress: (){
           statusGet.selectMode.value=true;
+          statusGet.selectList.add(widget.item);
         },
         onTap: (){
           if(statusGet.selectMode.value){
