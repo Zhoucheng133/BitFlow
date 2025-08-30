@@ -44,6 +44,37 @@ class _MainViewState extends State<MainView> {
               }, 
               child: const Text('取消')
             ),
+            if(statusGet.page.value!=Pages.settings && !statusGet.selectMode.value) Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: PopupMenuButton(
+                onSelected: (OrderTypes val){
+                  if(statusGet.page.value==Pages.active){
+                    statusGet.activeOrder.value=val;
+                  }else if(statusGet.page.value==Pages.finish){
+                    statusGet.finishOrder.value=val;
+                  }
+                  funcsService.getTasks();
+                },
+                icon: Icon(
+                  statusGet.page.value==Pages.active ? orderToIcon(statusGet.activeOrder.value) : orderToIcon(statusGet.finishOrder.value),
+                  size: 17,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+                itemBuilder: (BuildContext context) => OrderTypes.values.map((item)=>PopupMenuItem(
+                  value: item,
+                  child: Row(
+                    children: [
+                      Icon(
+                        orderToIcon(item),
+                        size: 15,
+                      ),
+                      const SizedBox(width: 10,),
+                      Text(orderToString(item)),
+                    ],
+                  ),
+                )).toList(),
+              ),
+            )
           ],
         ),
         bottomNavigationBar: AnimatedSwitcher(
