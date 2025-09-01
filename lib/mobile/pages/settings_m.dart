@@ -6,6 +6,7 @@ import 'package:bit_flow/getx/store_get.dart';
 import 'package:bit_flow/getx/theme_get.dart';
 import 'package:bit_flow/service/funcs.dart';
 import 'package:bit_flow/types/store_item.dart';
+import 'package:clipboard/clipboard.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -309,15 +310,26 @@ class _SettingsMState extends State<SettingsM> {
             onTap: ()=>settingComponents.downloaderConfig(context),
           ),
           ListTile(
+            title: const Text('下载器地址'),
+            subtitle: Text(
+              storeGet.servers.isEmpty ? "" : storeGet.servers[statusGet.sevrerIndex.value].url,
+              overflow: TextOverflow.ellipsis,
+            ),
+            onTap: () async {
+              await FlutterClipboard.copy(storeGet.servers[statusGet.sevrerIndex.value].url);
+              
+            },
+          ),
+          ListTile(
             title: const Text('深色模式'),
             subtitle: Text(themeGet.autoDark.value ? "自动" : themeGet.darkMode.value ? "深色" : "浅色"),
             onTap: ()=>themeGet.showDarkModeDialog(context),
           ),
           ListTile(
             title: const Text('清除所有配置文件'),
-            subtitle: const Text('开发使用'),
+            subtitle: const Text('初始化BitFlow'),
             onTap: () async {
-              final ok=await showConfirmDialog(context, "确定要清除所有用户配置文件吗", "这是一个开发用的功能!");
+              final ok=await showConfirmDialog(context, "清除所有配置文件", "这会清除所有BitFlow数据\n此操作不可撤销");
               if(ok){
                 final prefs=await SharedPreferences.getInstance();
                 prefs.clear();
