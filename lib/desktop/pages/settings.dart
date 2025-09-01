@@ -7,6 +7,7 @@ import 'package:bit_flow/getx/store_get.dart';
 import 'package:bit_flow/getx/theme_get.dart';
 import 'package:bit_flow/service/funcs.dart';
 import 'package:bit_flow/types/store_item.dart';
+import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -52,6 +53,7 @@ class _SettingsPageState extends State<SettingsPage> {
   bool hoverFreq=false;
   bool hoverConfig=false;
   bool hoverDark=false;
+  bool hoverUrl=false;
 
   @override
   Widget build(BuildContext context) {
@@ -115,6 +117,38 @@ class _SettingsPageState extends State<SettingsPage> {
                   }, 
                   list: OrderTypes.values.map((item)=>CustomDropDownItem(orderToString(item), item, orderToIcon(item))).toList()
                 ),
+              ),
+              Obx(()=>
+                SettingItem(
+                  label: "下载器地址", 
+                  child: MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    onEnter: (_)=>setState(() {
+                      hoverUrl=true;
+                    }),
+                    onExit: (_)=>setState(() {
+                      hoverUrl=false;
+                    }),
+                    child: GestureDetector(
+                      onTap: () async {
+                        await FlutterClipboard.copy(storeGet.servers[statusGet.sevrerIndex.value].url);
+                      },
+                      child: Tooltip(
+                        message: storeGet.servers.isEmpty ? "" : "${storeGet.servers[statusGet.sevrerIndex.value].url}\n点击复制",
+                        child: AnimatedDefaultTextStyle(
+                          style: GoogleFonts.notoSansSc(
+                            color: hoverConfig ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.primary.withAlpha(180)
+                          ),
+                          duration: const Duration(milliseconds: 200),
+                          child: Text(
+                            storeGet.servers.isEmpty ? "" : storeGet.servers[statusGet.sevrerIndex.value].url,
+                            overflow: TextOverflow.ellipsis,
+                          )
+                        ),
+                      ),
+                    ),
+                  )
+                )
               ),
               SettingItem(
                 label: "下载器配置", 
