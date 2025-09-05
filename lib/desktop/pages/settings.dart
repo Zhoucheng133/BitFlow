@@ -137,7 +137,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         message: storeGet.servers.isEmpty ? "" : "${storeGet.servers[statusGet.sevrerIndex.value].url}\n点击复制",
                         child: AnimatedDefaultTextStyle(
                           style: GoogleFonts.notoSansSc(
-                            color: hoverConfig ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.primary.withAlpha(180)
+                            color: hoverUrl ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.primary.withAlpha(180)
                           ),
                           duration: const Duration(milliseconds: 200),
                           child: Text(
