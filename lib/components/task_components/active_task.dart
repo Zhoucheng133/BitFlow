@@ -221,10 +221,6 @@ class _ActiveTaskState extends State<ActiveTask> {
                                     Text(
                                       widget.item.name,
                                       overflow: TextOverflow.ellipsis,
-                                      style: GoogleFonts.notoSansSc(
-                                        // fontWeight: FontWeight.bold,
-                                        color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
-                                      ),
                                     ),
                                     Text(
                                       widget.item.sizeString(widget.item.size),

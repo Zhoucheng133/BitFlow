@@ -6,7 +6,6 @@ import 'package:bit_flow/types/store_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class ConfigItem extends StatefulWidget {
 
@@ -30,12 +29,7 @@ class _ConfigItemState extends State<ConfigItem> {
             width: 100,
             child: Align(
               alignment: Alignment.centerLeft,
-              child: Text(
-                widget.label,
-                style: GoogleFonts.notoSansSc(
-                  color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
-                ),
-              )
+              child: Text(widget.label)
             )
           ),
           const SizedBox(width: 10,),
@@ -78,9 +72,6 @@ class _ConfigItemWithTextFieldState extends State<ConfigItemWithTextField> {
               alignment: Alignment.centerLeft,
               child: Text(
                 widget.label,
-                style: GoogleFonts.notoSansSc(
-                  color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
-                ),
               )
             )
           ),
@@ -99,9 +90,6 @@ class _ConfigItemWithTextFieldState extends State<ConfigItemWithTextField> {
                   border: OutlineInputBorder(),
                   isCollapsed: true,
                   contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 10)
-                ),
-                style: GoogleFonts.notoSansSc(
-                  color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
                 ),
                 maxLines: widget.multiLine ? 3 : 1,
               )
@@ -148,9 +136,6 @@ class SettingComponents {
         builder: (context)=>AlertDialog(
           title: Text(
             '配置Aria',
-            style: GoogleFonts.notoSansSc(
-              color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
-            ),
           ),
           content: SizedBox(
             width: 350,
@@ -164,9 +149,6 @@ class SettingComponents {
                           padding: const EdgeInsets.only(bottom: 10),
                           child: Text(
                             "速度和大小单位为Byte(/s)",
-                            style: GoogleFonts.notoSansSc(
-                              color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
-                            ),
                           ),
                         ),
                         ConfigItem(
@@ -275,9 +257,6 @@ class SettingComponents {
         builder: (context)=>AlertDialog(
           title: Text(
             "配置qBittorrent",
-            style: GoogleFonts.notoSansSc(
-              color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
-            ),
           ),
           content: SizedBox(
             width: 350,
@@ -291,9 +270,6 @@ class SettingComponents {
                           padding: const EdgeInsets.only(bottom: 10),
                           child: Text(
                             "速度和大小单位为Byte(/s)",
-                            style: GoogleFonts.notoSansSc(
-                              color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
-                            ),
                           ),
                         ),
                         ConfigItemWithTextField(

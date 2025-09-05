@@ -56,9 +56,6 @@ class _SettingsMState extends State<SettingsM> {
       builder: (context)=>AlertDialog(
         title: Text(
           '下载服务器',
-          style: GoogleFonts.notoSansSc(
-            color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
-          ),
         ),
         content: StatefulBuilder(
           builder: (context, setState)=>DropdownButtonHideUnderline(
@@ -88,7 +85,6 @@ class _SettingsMState extends State<SettingsM> {
                         name,
                         style: GoogleFonts.notoSansSc(
                           fontSize: 14,
-                          color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
                         ),
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -169,9 +165,6 @@ class _SettingsMState extends State<SettingsM> {
       builder: (context)=>AlertDialog(
         title: Text(
           '设置默认活跃任务',
-          style: GoogleFonts.notoSansSc(
-            color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
-          ),
         ),
         content: StatefulBuilder(
           builder: (context, setState) {
@@ -225,9 +218,6 @@ class _SettingsMState extends State<SettingsM> {
       builder: (context)=>AlertDialog(
         title: Text(
           '设置默认已完成任务',
-          style: GoogleFonts.notoSansSc(
-            color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
-          ),
         ),
         content: StatefulBuilder(
           builder: (context, setState) {

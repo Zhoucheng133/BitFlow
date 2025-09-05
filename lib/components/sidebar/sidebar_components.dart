@@ -164,9 +164,6 @@ class _SidebarButtonState extends State<SidebarButton> {
                 const SizedBox(width: 5,),
                 Text(
                   widget.label,
-                  style: GoogleFonts.notoSansSc(
-                    color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
-                  ),
                 )
               ],
             ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ThemeGet extends GetxController{
@@ -42,9 +41,6 @@ class ThemeGet extends GetxController{
       builder: (context)=>AlertDialog(
         title: Text(
           "深色模式",
-          style: GoogleFonts.notoSansSc(
-            color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
-          ),
         ),
         content: SizedBox(
           width: 200,
@@ -58,9 +54,6 @@ class ThemeGet extends GetxController{
                       width: 150,
                       child: Text(
                         "跟随系统",
-                        style: GoogleFonts.notoSansSc(
-                          color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
-                        ),
                       )
                     ),
                     const SizedBox(width: 10,),
@@ -91,9 +84,6 @@ class ThemeGet extends GetxController{
                       width: 150,
                       child: Text(
                         "启用深色模式",
-                        style: GoogleFonts.notoSansSc(
-                          color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
-                        ),
                       )
                     ),
                     const SizedBox(width: 10,),
@@ -123,9 +113,6 @@ class ThemeGet extends GetxController{
             }, 
             child: Text(
               "取消",
-              style: GoogleFonts.notoSansSc(
-                color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
-              ),
             )
           ),
           ElevatedButton(
@@ -137,9 +124,6 @@ class ThemeGet extends GetxController{
             }, 
             child: Text(
               "好的",
-              style: GoogleFonts.notoSansSc(
-                color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
-              ),
             )
           )
         ],

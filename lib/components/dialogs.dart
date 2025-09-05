@@ -10,15 +10,9 @@ Future<void> showErrWarnDialog(BuildContext context, String title, String conten
     builder: (context)=>AlertDialog(
       title: Text(
         title,
-        style: GoogleFonts.notoSansSc(
-          color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
-        ),
       ),
       content: Text(
         content,
-        style: GoogleFonts.notoSansSc(
-          color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
-        ),
       ),
       actions: [
         ElevatedButton(
@@ -35,18 +29,8 @@ Future<bool> showConfirmDialog(BuildContext context, String title, String conten
   await showDialog(
     context: context, 
     builder: (context)=>AlertDialog(
-      title: Text(
-        title,
-        style: GoogleFonts.notoSansSc(
-          color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
-        ),
-      ),
-      content: Text(
-        content,
-        style: GoogleFonts.notoSansSc(
-          color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
-        ),
-      ),
+      title: Text(title),
+      content: Text(content),
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context), 
@@ -71,12 +55,7 @@ Future<void> showAbout(BuildContext context) async {
     showDialog(
       context: context, 
       builder: (BuildContext context)=>AlertDialog(
-        title: Text(
-          '关于',
-          style: GoogleFonts.notoSansSc(
-            color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
-          ),
-        ),
+        title: Text('关于'),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -91,7 +70,6 @@ Future<void> showAbout(BuildContext context) async {
               style: GoogleFonts.notoSansSc(
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
-                color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
               ),
             ),
             const SizedBox(height: 3,),
@@ -125,7 +103,6 @@ Future<void> showAbout(BuildContext context) async {
                         '项目地址',
                         style: GoogleFonts.notoSansSc(
                           fontSize: 13,
-                          color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
                         ),
                       ),
                     )
@@ -157,7 +134,6 @@ Future<void> showAbout(BuildContext context) async {
                         "许可证",
                         style: GoogleFonts.notoSansSc(
                           fontSize: 13,
-                          color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
                         ),
                       ),
                     )
@@ -186,12 +162,7 @@ Future<int> freqDialogContent(BuildContext context, int storeFreq) async {
   await showDialog(
     context: context, 
     builder: (context)=>AlertDialog(
-      title: Text(
-        "设置更新频率",
-        style: GoogleFonts.notoSansSc(
-          color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
-        ),
-      ),
+      title: Text("设置更新频率"),
       content: StatefulBuilder(
         builder: (BuildContext context, StateSetter setState)=>SizedBox(
           width: 400,
@@ -199,19 +170,9 @@ Future<int> freqDialogContent(BuildContext context, int storeFreq) async {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                "注意，推荐最小更新时间为1.5s (1500毫秒)\n更新频率过高在一些下载服务器中可能会触发缓存机制",
-                style: GoogleFonts.notoSansSc(
-                  color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
-                ),
-              ),
+              Text("注意，推荐最小更新时间为1.5s (1500毫秒)\n更新频率过高在一些下载服务器中可能会触发缓存机制"),
               const SizedBox(height: 10,),
-              Text(
-                "$freq 毫秒 / ${freq/1000} 秒",
-                style: GoogleFonts.notoSansSc(
-                  color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
-                ),
-              ),
+              Text("$freq 毫秒 / ${freq/1000} 秒"),
               const SizedBox(height: 5,),
               SliderTheme(
                 data: SliderThemeData(

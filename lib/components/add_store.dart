@@ -23,9 +23,6 @@ class _AddItemState extends State<AddItem> {
           width: 80,
           child: Text(
             widget.label,
-            style: GoogleFonts.notoSansSc(
-              color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
-            ),
           )
         ),
         const SizedBox(width: 15,),
@@ -111,7 +108,6 @@ class _AddStoreState extends State<AddStore> {
                       str,
                       style: GoogleFonts.notoSansSc(
                         fontSize: 14,
-                        color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
                       ),
                     ),
                   );

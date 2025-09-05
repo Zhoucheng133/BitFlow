@@ -8,7 +8,6 @@ import 'package:bit_flow/service/qbit.dart';
 import 'package:bit_flow/types/store_item.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class StoreGet extends GetxController{
@@ -77,9 +76,6 @@ class StoreGet extends GetxController{
           return AlertDialog(
             title: Text(
               '添加一个下载服务器',
-              style: GoogleFonts.notoSansSc(
-                color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
-              ),
             ),
             content: SizedBox(
               width: 400,

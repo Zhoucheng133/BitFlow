@@ -61,27 +61,30 @@ class _MainAppState extends State<MainApp> {
     final Brightness brightness = MediaQuery.of(context).platformBrightness;
     themeGet.darkModeHandler(brightness==Brightness.dark);
 
-    return Obx(()=>
-      GetMaterialApp(
-        debugShowCheckedModeBanner: false,
-        localizationsDelegates: [
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate
-        ],
-        supportedLocales: [
-          Locale('zh', 'CN'),
-        ],
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.orange,
-            brightness: themeGet.darkMode.value ? Brightness.dark : Brightness.light
-          ),
-          useMaterial3: true,
-          textTheme: GoogleFonts.notoSansScTextTheme(),
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate
+      ],
+      supportedLocales: [
+        Locale('zh', 'CN'),
+      ],
+      theme: brightness==Brightness.dark ? ThemeData.dark().copyWith(
+        textTheme: GoogleFonts.notoSansScTextTheme().apply(
+          bodyColor: Colors.white,
+          displayColor: Colors.white, 
         ),
-        home: funcsService.isDesktop() ?  MainWindow() : MainView()
-      )
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.orange,
+          brightness: Brightness.dark,
+        ),
+      ) : ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
+        textTheme: GoogleFonts.notoSansScTextTheme(),
+      ),
+      home: funcsService.isDesktop() ?  MainWindow() : MainView()
     );
   }
 }

@@ -34,9 +34,6 @@ class _SettingItemState extends State<SettingItem> {
                   padding: const EdgeInsets.only(left: 5),
                   child: Text(
                     widget.label,
-                    style: GoogleFonts.notoSansSc(
-                      color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
-                    ),
                   ),
                 ),
               ),
@@ -187,14 +184,12 @@ class _DropDownContentState extends State<DropDownContent> {
                     widget.selectedText,
                     style: GoogleFonts.notoSansSc(
                       fontSize: 14,
-                      color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
                     ),
                   ),
                   const SizedBox(width: 10,),
                   Icon(
                     Icons.arrow_drop_down,
                     size: 22,
-                    color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
                   ),
                 ],
               ),
@@ -217,7 +212,6 @@ class _DropDownContentState extends State<DropDownContent> {
                   item.label,
                   style: GoogleFonts.notoSansSc(
                     fontSize: 14,
-                    color: Theme.of(context).brightness==Brightness.dark ? Colors.white : Colors.black
                   ),
                 ),
               ],
