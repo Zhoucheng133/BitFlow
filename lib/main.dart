@@ -30,6 +30,7 @@ Future<void> main() async {
       backgroundColor: Colors.transparent,
       skipTaskbar: false,
       titleBarStyle: TitleBarStyle.hidden,
+      title: "BitFlow"
     );
     windowManager.waitUntilReadyToShow(windowOptions, () async {
       await windowManager.show();
