@@ -181,6 +181,14 @@ class _MainViewState extends State<MainView> {
           child: Center(
             child: Icon(Icons.add_rounded),
           ),
+        ) : statusGet.page.value==Pages.finish ? FloatingActionButton(
+          onPressed: ()=> funcsService.delAllFinishedTasks(context),
+          child: Center(
+            child: Icon(
+              Icons.delete_rounded,
+              size: 20,
+            ),
+          ),
         ) : null,
       ),
     );
