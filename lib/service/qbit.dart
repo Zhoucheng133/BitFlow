@@ -135,7 +135,7 @@ class QbitService extends GetxController {
         String id=data['hash'];
         int addedOn=data['added_on'];
         int uploaded=data['uploaded'];
-        tasks.add(TaskItem(name, size, [], status, link, path, downloadSpeed, uploadSpeed, completeBytes, id, addedOn, uploaded, StoreType.qbit));
+        tasks.add(TaskItem(name, size, [], status, link, path, downloadSpeed, uploadSpeed, completeBytes, id, addedOn, uploaded, StoreType.qbit, null, null));
       }
       return tasks;
     } catch (e) {

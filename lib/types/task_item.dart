@@ -74,6 +74,10 @@ class TaskItem{
   late int? addTime;
   // 已上传的大小
   late int uploaded;
+  // 错误代码
+  late String? errorCode;
+  // 错误信息
+  late String? errorMessage;
 
   bool selected=false;
 
@@ -287,6 +291,48 @@ class TaskItem{
                   )
                 ],
               ),
+              if(errorCode!='0' && errorCode!=null) const SizedBox(height: 5,),
+              if(errorCode!='0' && errorCode!=null) Row(
+                children: [
+                  SizedBox(
+                    width: 90,
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        '错误代码',
+                      )
+                    )
+                  ),
+                  Expanded(
+                    child: Text(
+                      errorCode??"",
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                    )
+                  )
+                ],
+              ),
+              if(errorCode!='0' && errorCode!=null) const SizedBox(height: 5,),
+              if(errorCode!='0' && errorCode!=null) Row(
+                children: [
+                  SizedBox(
+                    width: 90,
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        '错误信息',
+                      )
+                    )
+                  ),
+                  Expanded(
+                    child: Text(
+                      errorMessage??"",
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                    )
+                  )
+                ],
+              ),
             ],
           ),
         ),
@@ -445,6 +491,6 @@ class TaskItem{
     }
     funcsService.getTasks();
   }
-  TaskItem(this.name, this.size, this.files, this.status, this.link, this.path, this.downloadSpeed, this.uploadSpeed, this.completeBytes, this.id, this.addTime, this.uploaded, this.type);
+  TaskItem(this.name, this.size, this.files, this.status, this.link, this.path, this.downloadSpeed, this.uploadSpeed, this.completeBytes, this.id, this.addTime, this.uploaded, this.type, this.errorCode, this.errorMessage);
   
 }
