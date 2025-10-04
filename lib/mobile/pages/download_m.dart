@@ -19,6 +19,7 @@ class _DownloadMState extends State<DownloadM> {
     return Obx(()=>
       ListView.builder(
         itemCount: statusGet.activeTasks.length,
+        padding: const EdgeInsets.only(bottom: 70),
         itemBuilder: (BuildContext context, int index)=>ActiveTaskM(item: statusGet.activeTasks[index])
       )
     );

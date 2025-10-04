@@ -19,6 +19,7 @@ class _FinishMState extends State<FinishM> {
     return Obx(()=>
       ListView.builder(
         itemCount: statusGet.finishedTask.length,
+        padding: const EdgeInsets.only(bottom: 70),
         itemBuilder: (BuildContext context, int index)=>FinishTaskM(item: statusGet.finishedTask[index])
       )
     );
