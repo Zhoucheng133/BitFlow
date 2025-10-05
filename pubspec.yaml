@@ -24,6 +24,7 @@ dependencies:
   get: ^4.7.2
   font_awesome_flutter: ^10.8.0
   msix: ^3.16.12
+  hotkey_manager: ^0.2.3
 
 dev_dependencies:
   flutter_test:
