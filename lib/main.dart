@@ -11,6 +11,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hotkey_manager/hotkey_manager.dart';
 import 'package:window_manager/window_manager.dart';
 
 Future<void> main() async {
@@ -23,6 +24,7 @@ Future<void> main() async {
   final FuncsService funcsService=Get.put(FuncsService());
   if(funcsService.isDesktop()){
     await windowManager.ensureInitialized();
+    await hotKeyManager.unregisterAll();
     WindowOptions windowOptions = WindowOptions(
       size: Size(850, 650),
       minimumSize: Size(850, 650),

@@ -12,6 +12,7 @@ import 'package:bit_flow/service/funcs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:hotkey_manager/hotkey_manager.dart';
 import 'package:window_manager/window_manager.dart';
 
 class MainWindow extends StatefulWidget {
@@ -25,18 +26,40 @@ class _MainWindowState extends State<MainWindow> with WindowListener {
   bool isMax=false;
   final FuncsService funcsService=Get.find();
 
+  Future<void> initHotKey(BuildContext context) async {
+    HotKey hotKey = HotKey(
+      key: PhysicalKeyboardKey.keyN,
+      modifiers: [HotKeyModifier.control],
+      scope: HotKeyScope.inapp,
+    );
+    await hotKeyManager.register(
+      hotKey,
+      keyDownHandler: (hotKey) => addTaskDialog(context)
+    );
+  }
+
   @override
   void initState() {
     super.initState();
     windowManager.addListener(this);
     WidgetsBinding.instance.addPostFrameCallback((_){
       funcsService.init(context);
+      if(Platform.isWindows){
+        initHotKey(context);
+      }
     });
+  }
+
+  Future<void> disposeHotKey() async {
+    await hotKeyManager.unregisterAll();
   }
 
   @override
   void dispose() {
     windowManager.removeListener(this);
+    if(Platform.isWindows){
+      disposeHotKey();
+    }
     super.dispose();
   }
 
