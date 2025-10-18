@@ -84,8 +84,8 @@ class AriaService extends GetxController{
           status=TaskStatus.seeding;
         }
         int uploaded=int.parse(task['uploadLength']);
-        String errorCode=task['errorCode'];
-        String errorMessage=task['errorMessage'];
+        String errorCode=task['errorCode']??"";
+        String errorMessage=task['errorMessage']??"";
         ls.add(TaskItem(name, size, files, status, link, path, downloadSpeed, uploadSpeed, completeBytes, gid, null, uploaded, StoreType.aria, errorCode, errorMessage));
       }
       return ls;
@@ -127,13 +127,14 @@ class AriaService extends GetxController{
         }
         TaskStatus status=task['status']=='paused' ? TaskStatus.pause : TaskStatus.wait;
         int uploaded=int.parse(task['uploadLength']);
-        String errorCode=task['errorCode'];
-        String errorMessage=task['errorMessage'];
+        String errorCode=task['errorCode']??"";
+        String errorMessage=task['errorMessage']??"";
         ls.add(TaskItem(name, size, files, status, link, path, downloadSpeed, uploadSpeed, completeBytes, gid, null, uploaded, StoreType.aria, errorCode, errorMessage));
       }
       return ls;
-    } catch (_) {}
-    return null;
+    } catch (e) {
+      return null;
+    }
   }
 
   Future<List<TaskItem>?> getFinish(StoreItem item) async {
@@ -170,8 +171,8 @@ class AriaService extends GetxController{
         }
         TaskStatus status=TaskStatus.finish;
         int uploaded=int.parse(task['uploadLength']);
-        String errorCode=task['errorCode'];
-        String errorMessage=task['errorMessage'];
+        String errorCode=task['errorCode']??"";
+        String errorMessage=task['errorMessage']??"";
         ls.add(TaskItem(name, size, files, status, link, path, downloadSpeed, uploadSpeed, completeBytes, gid, null, uploaded, StoreType.aria, errorCode, errorMessage));
       }
       return ls;
