@@ -25,7 +25,7 @@ class _HeaderButtonItemState extends State<HeaderButtonItem> {
   @override
   Widget build(BuildContext context) {
     return FilledButton(
-      style: ElevatedButton.styleFrom(
+      style: FilledButton.styleFrom(
         shape: RoundedRectangleBorder(
           borderRadius: widget.buttonSide==ButtonSide.left ? BorderRadius.only(
             topLeft: Radius.circular(10),
