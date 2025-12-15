@@ -55,7 +55,7 @@ class _SettingsMState extends State<SettingsM> {
       context: context, 
       builder: (context)=>AlertDialog(
         title: Text(
-          '下载服务器',
+          'downloadSerevr'.tr,
         ),
         content: StatefulBuilder(
           builder: (context, setState)=>DropdownButtonHideUnderline(
@@ -136,11 +136,11 @@ class _SettingsMState extends State<SettingsM> {
               Navigator.pop(context);
               storeGet.addStore(context);
             }, 
-            child: const Text("添加")
+            child: Text("add".tr)
           ),
           TextButton(
             onPressed: ()=>Navigator.pop(context), 
-            child: const Text('取消')
+            child: Text('cancel'.tr)
           ),
           ElevatedButton(
             onPressed: (){
@@ -148,7 +148,7 @@ class _SettingsMState extends State<SettingsM> {
               storeGet.setStar(statusGet.sevrerIndex.value);
               Navigator.pop(context);
             }, 
-            child: const Text('完成')
+            child: Text('ok'.tr)
           )
         ],
       )
@@ -164,7 +164,7 @@ class _SettingsMState extends State<SettingsM> {
       barrierDismissible: false,
       builder: (context)=>AlertDialog(
         title: Text(
-          '设置默认活跃任务',
+          'defaultActiveOrder'.tr,
         ),
         content: StatefulBuilder(
           builder: (context, setState) {
@@ -186,14 +186,14 @@ class _SettingsMState extends State<SettingsM> {
         actions: [
           TextButton(
             onPressed: ()=>Navigator.pop(context), 
-            child: const Text("取消")
+            child: Text("cancel".tr)
           ),
           ElevatedButton(
             onPressed: (){
               changed=true;
               Navigator.pop(context);
             }, 
-            child: const Text("完成")
+            child: Text("ok".tr)
           )
         ],
       )
@@ -203,8 +203,8 @@ class _SettingsMState extends State<SettingsM> {
       prefs.setInt("defaultActiveOrder", type.index);
       showErrWarnDialog(
         context, 
-        "已修改默认顺序", 
-        "重启App生效"
+        "defaultOrderChanged".tr, 
+        "restartToApply".tr
       );
     }
   }
@@ -217,7 +217,7 @@ class _SettingsMState extends State<SettingsM> {
       barrierDismissible: false,
       builder: (context)=>AlertDialog(
         title: Text(
-          '设置默认已完成任务',
+          'defaultFinishedOrder'.tr,
         ),
         content: StatefulBuilder(
           builder: (context, setState) {
@@ -239,14 +239,14 @@ class _SettingsMState extends State<SettingsM> {
         actions: [
           TextButton(
             onPressed: ()=>Navigator.pop(context),
-            child: const Text("取消")
+            child: Text("cancel".tr)
           ),
           ElevatedButton(
             onPressed: (){
               Navigator.pop(context);
               changed=true;
             }, 
-            child: const Text("完成")
+            child: Text("ok".tr)
           )
         ],
       ),
@@ -256,8 +256,8 @@ class _SettingsMState extends State<SettingsM> {
       prefs.setInt("defaultFinishOrder", type.index);
       showErrWarnDialog(
         context, 
-        "已修改默认顺序", 
-        "重启App生效"
+        "defaultOrderChanged".tr, 
+        "restartToApply".tr
       );
     }
   }
@@ -268,13 +268,13 @@ class _SettingsMState extends State<SettingsM> {
       ()=> ListView(
         children: [
           ListTile(
-            title: const Text('下载服务器'),
+            title: Text('downloadSerevr'.tr),
             subtitle: storeGet.servers.isEmpty ? Text("/") : Text(storeGet.servers[statusGet.sevrerIndex.value].name),
             onTap: ()=>showServerDialog(context),
           ),
           ListTile(
-            title: const Text('更新频率'),
-            subtitle: Text("${storeGet.freq.value.toString()} 毫秒"),
+            title: Text('updateFrequency'.tr),
+            subtitle: Text("${storeGet.freq.value.toString()} ${'ms'.tr}"),
             onTap: () async {
               int oldFreq=storeGet.freq.value;
               await storeGet.showFreqDialog(context);
@@ -285,22 +285,22 @@ class _SettingsMState extends State<SettingsM> {
             },
           ),
           ListTile(
-            title: const Text("默认活跃任务顺序"),
+            title: Text("defaultActiveOrder".tr),
             subtitle: Text(orderToString(storeGet.defaultActiveOrder.value)),
             onTap: ()=>showActiveOrderDialog(context)
           ),
           ListTile(
-            title: const Text("默认已完成任务顺序"),
+            title: Text("defaultFinishedOrder".tr),
             subtitle: Text(orderToString(storeGet.defaultFinishOrder.value)),
             onTap: ()=>showFinishOrderDialog(context),
           ),
           ListTile(
-            title: const Text("下载器配置"),
-            subtitle: Text("配置${ storeGet.servers.isEmpty ? "" : storeGet.servers[statusGet.sevrerIndex.value].type==StoreType.aria?'Aria':'qBittorrent'}"),
+            title: Text("downloaderConfig".tr),
+            subtitle: Text("${'config'.tr} ${ storeGet.servers.isEmpty ? "" : storeGet.servers[statusGet.sevrerIndex.value].type==StoreType.aria?'Aria':'qBittorrent'}"),
             onTap: ()=>settingComponents.downloaderConfig(context),
           ),
           ListTile(
-            title: const Text('下载器地址'),
+            title: Text('downloaderURL'.tr),
             subtitle: Text(
               storeGet.servers.isEmpty ? "" : storeGet.servers[statusGet.sevrerIndex.value].url,
               overflow: TextOverflow.ellipsis,
@@ -311,15 +311,15 @@ class _SettingsMState extends State<SettingsM> {
             },
           ),
           ListTile(
-            title: const Text('深色模式'),
-            subtitle: Text(themeGet.autoDark.value ? "自动" : themeGet.darkMode.value ? "深色" : "浅色"),
+            title: Text('darkMode'.tr),
+            subtitle: Text(themeGet.autoDark.value ? "auto".tr : themeGet.darkMode.value ? "dark".tr : "light".tr),
             onTap: ()=>themeGet.showDarkModeDialog(context),
           ),
           ListTile(
-            title: const Text('清除所有配置文件'),
-            subtitle: const Text('初始化BitFlow'),
+            title: Text('clearConfig'.tr),
+            subtitle: Text('initialize'.tr),
             onTap: () async {
-              final ok=await showConfirmDialog(context, "清除所有配置文件", "这会清除所有BitFlow数据\n此操作不可撤销");
+              final ok=await showConfirmDialog(context, "clearConfig".tr, "clearConfigContent".tr);
               if(ok){
                 final prefs=await SharedPreferences.getInstance();
                 prefs.clear();
@@ -327,7 +327,7 @@ class _SettingsMState extends State<SettingsM> {
             },
           ),
           ListTile(
-            title: const Text('关于 BitFlow'),
+            title: Text('${"about".tr} BitFlow'),
             subtitle: Text(version),
             onTap: () => showAbout(context),
           )

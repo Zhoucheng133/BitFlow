@@ -156,7 +156,7 @@ class _MainWindowState extends State<MainWindow> with WindowListener {
                   PlatformMenuItemGroup(
                     members: [
                       PlatformMenuItem(
-                        label: "关于 BitFlow",
+                        label: "${'about'.tr} BitFlow",
                         onSelected: ()=>showAbout(context)
                       )
                     ]
@@ -164,7 +164,7 @@ class _MainWindowState extends State<MainWindow> with WindowListener {
                   PlatformMenuItemGroup(
                     members: [
                       PlatformMenuItem(
-                        label: "设置",
+                        label: "settings".tr,
                         shortcut: const SingleActivator(
                           LogicalKeyboardKey.comma,
                           meta: true,
@@ -190,10 +190,10 @@ class _MainWindowState extends State<MainWindow> with WindowListener {
                 ]
               ),
               PlatformMenu(
-                label: '任务', 
+                label: 'task'.tr, 
                 menus: [
                   PlatformMenuItem(
-                    label: '新建任务',
+                    label: 'addTask'.tr,
                     onSelected: ()=>addTaskDialog(context),
                     shortcut: const SingleActivator(
                       LogicalKeyboardKey.keyN,
@@ -201,7 +201,7 @@ class _MainWindowState extends State<MainWindow> with WindowListener {
                     ),
                   ),
                   PlatformMenuItem(
-                    label: '完成',
+                    label: 'ok'.tr,
                     onSelected: (){},
                     shortcut: const SingleActivator(
                       LogicalKeyboardKey.enter,
@@ -210,10 +210,10 @@ class _MainWindowState extends State<MainWindow> with WindowListener {
                 ]
               ),
               PlatformMenu(
-                label: '页面',
+                label: 'tasks'.tr,
                 menus: [
                   PlatformMenuItem(
-                    label: '活跃中',
+                    label: 'active'.tr,
                     onSelected: ()=>statusGet.page.value=Pages.active,
                     shortcut: const SingleActivator(
                       LogicalKeyboardKey.digit1,
@@ -221,7 +221,7 @@ class _MainWindowState extends State<MainWindow> with WindowListener {
                     ),
                   ),
                   PlatformMenuItem(
-                    label: '已完成',
+                    label: 'finished'.tr,
                     onSelected: ()=>statusGet.page.value=Pages.finish,
                     shortcut: const SingleActivator(
                       LogicalKeyboardKey.digit2,
@@ -231,10 +231,10 @@ class _MainWindowState extends State<MainWindow> with WindowListener {
                 ]
               ),
               PlatformMenu(
-                label: "编辑",
+                label: "edit".tr,
                 menus: [
                   PlatformMenuItem(
-                    label: "复制",
+                    label: "copy".tr,
                     onSelected: (){
                       final focusedContext = FocusManager.instance.primaryFocus?.context;
                       if (focusedContext != null) {
@@ -243,7 +243,7 @@ class _MainWindowState extends State<MainWindow> with WindowListener {
                     }
                   ),
                   PlatformMenuItem(
-                    label: "粘贴",
+                    label: "paste".tr,
                     onSelected: (){
                       final focusedContext = FocusManager.instance.primaryFocus?.context;
                       if (focusedContext != null) {
@@ -252,7 +252,7 @@ class _MainWindowState extends State<MainWindow> with WindowListener {
                     },
                   ),
                   PlatformMenuItem(
-                    label: "全选",
+                    label: "selectAll".tr,
                     onSelected: (){
                       final focusedContext = FocusManager.instance.primaryFocus?.context;
                       if (focusedContext != null) {
@@ -263,7 +263,7 @@ class _MainWindowState extends State<MainWindow> with WindowListener {
                 ]
               ),
               PlatformMenu(
-                label: "窗口", 
+                label: "window".tr, 
                 menus: [
                   const PlatformMenuItemGroup(
                     members: [

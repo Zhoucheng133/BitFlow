@@ -42,7 +42,7 @@ class _MainViewState extends State<MainView> {
                 statusGet.selectMode.value=false;
                 statusGet.selectList.value=[];
               }, 
-              child: const Text('取消')
+              child: Text('cancel'.tr)
             ),
             if(statusGet.page.value!=Pages.settings && !statusGet.selectMode.value) Padding(
               padding: const EdgeInsets.only(right: 10),
@@ -151,15 +151,15 @@ class _MainViewState extends State<MainView> {
             destinations: [
               NavigationDestination(
                 icon: Icon(Icons.download_rounded),
-                label: "活跃中",
+                label: "active".tr,
               ),
               NavigationDestination(
                 icon: Icon(Icons.download_done_rounded),
-                label: "已完成"
+                label: "finished".tr
               ),
               NavigationDestination(
                 icon: Icon(Icons.settings_rounded),
-                label: "设置"
+                label: "settings".tr
               )
             ],
             selectedIndex: statusGet.page.value.index,

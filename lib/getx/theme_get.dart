@@ -40,7 +40,7 @@ class ThemeGet extends GetxController{
       context: context, 
       builder: (context)=>AlertDialog(
         title: Text(
-          "深色模式",
+          "darkMode".tr,
         ),
         content: SizedBox(
           width: 200,
@@ -53,7 +53,7 @@ class ThemeGet extends GetxController{
                     SizedBox(
                       width: 150,
                       child: Text(
-                        "跟随系统",
+                        "auto".tr,
                       )
                     ),
                     const SizedBox(width: 10,),
@@ -83,7 +83,7 @@ class ThemeGet extends GetxController{
                     SizedBox(
                       width: 150,
                       child: Text(
-                        "启用深色模式",
+                        "darkMode".tr,
                       )
                     ),
                     const SizedBox(width: 10,),
@@ -112,7 +112,7 @@ class ThemeGet extends GetxController{
               autoDark.value=tmpAutoDark;
             }, 
             child: Text(
-              "取消",
+              "cancel".tr,
             )
           ),
           ElevatedButton(
@@ -123,7 +123,7 @@ class ThemeGet extends GetxController{
               prefs.setBool('autoDark', autoDark.value);
             }, 
             child: Text(
-              "好的",
+              "ok".tr,
             )
           )
         ],

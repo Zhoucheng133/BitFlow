@@ -28,7 +28,7 @@ class _SidebarState extends State<Sidebar> {
       child: Obx(
         ()=> Column(
           children: [
-            SidebarDivider(func: ()=>storeGet.addStore(context), label: '下载服务器', useAdd: true, addHint: "添加一个下载服务器",),
+            SidebarDivider(func: ()=>storeGet.addStore(context), label: 'downloadSerevr'.tr, useAdd: true, addHint: "addDownloader".tr,),
             if(storeGet.servers.isNotEmpty) DropdownButtonHideUnderline(
               child: DropdownButton2<String>(
                 buttonStyleData: ButtonStyleData(
@@ -110,12 +110,12 @@ class _SidebarState extends State<Sidebar> {
               ],
             ),
             const SizedBox(height: 10,),
-            SidebarDivider(label: "页面"),
-            SidebarButton(label: "活跃中", icon: Icons.download_rounded, func: ()=>statusGet.page.value=Pages.active, selected: statusGet.page.value==Pages.active,),
+            SidebarDivider(label: "pages".tr),
+            SidebarButton(label: "active".tr, icon: Icons.download_rounded, func: ()=>statusGet.page.value=Pages.active, selected: statusGet.page.value==Pages.active,),
             const SizedBox(height: 5,),
-            SidebarButton(label: "已完成", icon: Icons.download_done_rounded, func: ()=>statusGet.page.value=Pages.finish, selected: statusGet.page.value==Pages.finish,),
+            SidebarButton(label: "finished".tr, icon: Icons.download_done_rounded, func: ()=>statusGet.page.value=Pages.finish, selected: statusGet.page.value==Pages.finish,),
             Expanded(child: Container()),
-            SidebarButton(label: "设置", icon: Icons.settings_rounded, func: ()=>statusGet.page.value=Pages.settings, selected: statusGet.page.value==Pages.settings,),
+            SidebarButton(label: "settings".tr, icon: Icons.settings_rounded, func: ()=>statusGet.page.value=Pages.settings, selected: statusGet.page.value==Pages.settings,),
           ],
         ),
       ),

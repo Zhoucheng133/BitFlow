@@ -43,15 +43,15 @@ IconData menuIcon(FinishTaskMenuTypes menuType){
 String menuLabel(FinishTaskMenuTypes menuType){
   switch (menuType) {
     case FinishTaskMenuTypes.info:
-      return "任务详情";
+      return "taskInfo".tr;
     case FinishTaskMenuTypes.files:
-      return "文件列表";
+      return "fileList".tr;
     case FinishTaskMenuTypes.copy:
-      return "复制链接";
+      return "copyLink".tr;
     case FinishTaskMenuTypes.redownload:
-      return "重新下载";
+      return "redownload".tr;
     case FinishTaskMenuTypes.del:
-      return "删除";
+      return "delete".tr;
   }
 }
 

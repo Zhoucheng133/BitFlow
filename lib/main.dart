@@ -2,6 +2,9 @@ import 'package:bit_flow/getx/status_get.dart';
 import 'package:bit_flow/getx/store_get.dart';
 import 'package:bit_flow/getx/theme_get.dart';
 import 'package:bit_flow/desktop/main_window.dart';
+import 'package:bit_flow/lang/en_us.dart';
+import 'package:bit_flow/lang/zh_cn.dart';
+import 'package:bit_flow/lang/zh_tw.dart';
 import 'package:bit_flow/mobile/main_view.dart';
 import 'package:bit_flow/service/aria.dart';
 import 'package:bit_flow/service/funcs.dart';
@@ -17,11 +20,12 @@ import 'package:window_manager/window_manager.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Get.put(ThemeGet());
-  Get.put(StatusGet());
+  final status=Get.put(StatusGet());
   Get.put(AriaService());
   Get.put(QbitService());
   Get.put(StoreGet());
   final FuncsService funcsService=Get.put(FuncsService());
+  await status.initLang();
   if(funcsService.isDesktop()){
     await windowManager.ensureInitialized();
     await hotKeyManager.unregisterAll();
@@ -55,9 +59,19 @@ class MainApp extends StatefulWidget {
   State<MainApp> createState() => _MainAppState();
 }
 
+class MainTranslations extends Translations {
+  @override
+  Map<String, Map<String, String>> get keys => {
+    'en_US': enUS,
+    'zh_CN': zhCN,
+    'zh_TW': zhTW
+  };
+}
+
 class _MainAppState extends State<MainApp> {
   final ThemeGet themeGet=Get.find();
   final FuncsService funcsService=Get.find();
+  final StatusGet statusGet=Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -65,15 +79,15 @@ class _MainAppState extends State<MainApp> {
     themeGet.darkModeHandler(brightness==Brightness.dark);
 
     return GetMaterialApp(
+      translations: MainTranslations(), 
       debugShowCheckedModeBanner: false,
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate
       ],
-      supportedLocales: [
-        Locale('zh', 'CN'),
-      ],
+      locale: statusGet.lang.value.locale, 
+      supportedLocales: supportedLocales.map((item)=>item.locale).toList(),
       theme: brightness==Brightness.dark ? ThemeData.dark().copyWith(
         textTheme: GoogleFonts.notoSansScTextTheme().apply(
           bodyColor: Colors.white,

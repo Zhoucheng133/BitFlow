@@ -84,15 +84,15 @@ class TaskItem{
   String statusToText(TaskStatus status){
     switch (status) {
       case TaskStatus.download:
-        return "下载中";
+        return "downloading".tr;
       case TaskStatus.finish:
-        return "已完成/停止";
+        return "finished/stopped".tr;
       case TaskStatus.pause:
-        return "暂停中";
+        return "paused".tr;
       case TaskStatus.seeding:
-        return "做种中";
+        return "seeding".tr;
       case TaskStatus.wait:
-        return "等待中";
+        return "waiting".tr;
     }
   }
 
@@ -128,7 +128,7 @@ class TaskItem{
 
   String calTime(){
     if(status==TaskStatus.seeding){
-      return "做种中";
+      return "seeding".tr;
     }
     try {
       int sec=((size-completeBytes)/downloadSpeed).round();
@@ -159,7 +159,7 @@ class TaskItem{
       context: context, 
       builder: (context)=>AlertDialog(
         title: Text(
-          "任务信息",
+          "taskInfo".tr,
         ),
         content: SizedBox(
           width: 300,
@@ -173,7 +173,7 @@ class TaskItem{
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        '任务名称',
+                        'taskName'.tr,
                       )
                     )
                   ),
@@ -194,7 +194,7 @@ class TaskItem{
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        '下载位置',
+                        'downloadPath'.tr,
                       )
                     )
                   ),
@@ -215,7 +215,7 @@ class TaskItem{
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        '大小',
+                        'size'.tr,
                       )
                     )
                   ),
@@ -236,7 +236,7 @@ class TaskItem{
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        '已完成大小',
+                        'finishedSize'.tr,
                       )
                     )
                   ),
@@ -257,7 +257,7 @@ class TaskItem{
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        '已上传大小',
+                        'uploadedSize'.tr,
                       )
                     )
                   ),
@@ -278,7 +278,7 @@ class TaskItem{
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        '状态',
+                        'status'.tr,
                       )
                     )
                   ),
@@ -299,7 +299,7 @@ class TaskItem{
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        '错误代码',
+                        'errCode'.tr,
                       )
                     )
                   ),
@@ -320,7 +320,7 @@ class TaskItem{
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        '错误信息',
+                        'errInfo'.tr,
                       )
                     )
                   ),
@@ -342,11 +342,11 @@ class TaskItem{
               Navigator.pop(context);
               showFiles(context);
             }, 
-            child: const Text('文件列表')
+            child: Text('fileList'.tr)
           ),
           ElevatedButton(
             onPressed: ()=>Navigator.pop(context),
-            child: const Text('完成')
+            child: Text('close'.tr)
           )
         ],
       )
@@ -363,7 +363,7 @@ class TaskItem{
         context: context, 
         builder: (context)=>AlertDialog(
           title: Text(
-            '文件列表',
+            'fileList'.tr,
           ),
           content: SizedBox(
             width: 400,
@@ -401,7 +401,7 @@ class TaskItem{
           actions: [
             ElevatedButton(
               onPressed: ()=>Navigator.pop(context),
-              child: const Text('完成')
+              child: Text('close'.tr)
             )
           ],
         ),
@@ -437,12 +437,12 @@ class TaskItem{
 
   // 删除任务【总】
   Future<void> delTask(BuildContext context) async {
-    bool confirm=await showConfirmDialog(context, "删除这个任务", "确定要删除这个任务吗? 这个操作无法撤销!");
+    bool confirm=await showConfirmDialog(context, "deleteThisTask".tr, "deleteThisTaskContent".tr);
     bool delFile=false;
     if(confirm){
       if(type==StoreType.qbit){
         if(context.mounted){
-          delFile=await showConfirmDialog(context, "删除文件", "删除这个任务的同时删除文件?");
+          delFile=await showConfirmDialog(context, "deleteFile", "deleteFileContent".tr);
         }
       }
       if(status==TaskStatus.finish){
@@ -458,7 +458,7 @@ class TaskItem{
     if(status!=TaskStatus.finish){
       return;
     }
-    bool confirm=await showConfirmDialog(context, "重新下载这个任务", "将会从已完成任务中删除，并且重新添加为新的任务");
+    bool confirm=await showConfirmDialog(context, "redownloadTask".tr, "redownloadTaskContent".tr);
     if(confirm){
       await delFinishedTask(delFile: true);
       funcsService.addTaskHandler(link);

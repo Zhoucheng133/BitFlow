@@ -59,12 +59,12 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Header(name: '设置', page: Pages.settings,),
+        Header(name: 'settings'.tr, page: Pages.settings,),
         Expanded(
           child: ListView(
             children: [
               SettingItem(
-                label: '更新频率', 
+                label: 'updateFrequency'.tr, 
                 child: GestureDetector(
                   onTap: () async {
                     int oldFreq=storeGet.freq.value;
@@ -94,7 +94,7 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
               Obx(()=>
                 SettingDropDownItem(
-                  label: "默认活跃任务顺序", 
+                  label: "defaultActiveOrder".tr, 
                   selectedIcon: orderToIcon(storeGet.defaultActiveOrder.value), 
                   selectedText: orderToString(storeGet.defaultActiveOrder.value), 
                   func: (val){
@@ -107,7 +107,7 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
               Obx(()=>
                 SettingDropDownItem(
-                  label: "默认已完成任务顺序", 
+                  label: "defaultFinishedOrder".tr, 
                   selectedIcon: orderToIcon(storeGet.defaultFinishOrder.value), 
                   selectedText: orderToString(storeGet.defaultFinishOrder.value), 
                   func: (val){
@@ -120,7 +120,7 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
               Obx(()=>
                 SettingItem(
-                  label: "下载器地址", 
+                  label: 'downloaderURL'.tr, 
                   child: MouseRegion(
                     cursor: SystemMouseCursors.click,
                     onEnter: (_)=>setState(() {
@@ -134,7 +134,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         await FlutterClipboard.copy(storeGet.servers[statusGet.sevrerIndex.value].url);
                       },
                       child: Tooltip(
-                        message: storeGet.servers.isEmpty ? "" : "${storeGet.servers[statusGet.sevrerIndex.value].url}\n点击复制",
+                        message: storeGet.servers.isEmpty ? "" : "${storeGet.servers[statusGet.sevrerIndex.value].url}\n ${'clickToCopy'.tr}",
                         child: AnimatedDefaultTextStyle(
                           style: GoogleFonts.notoSansSc(
                             color: hoverUrl ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.primary.withAlpha(180)
@@ -151,7 +151,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 )
               ),
               SettingItem(
-                label: "下载器配置", 
+                label: "downloaderConfig".tr, 
                 child: GestureDetector(
                   onTap: ()=>settingComponents.downloaderConfig(context),
                   child: MouseRegion(
@@ -167,13 +167,13 @@ class _SettingsPageState extends State<SettingsPage> {
                         color: hoverConfig ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.primary.withAlpha(180)
                       ), 
                       duration: const Duration(milliseconds: 200),
-                      child: Obx(() => Text("配置${ storeGet.servers.isEmpty ? "" : storeGet.servers[statusGet.sevrerIndex.value].type==StoreType.aria?'Aria':'qBittorrent'}"))
+                      child: Obx(() => Text("${'config'.tr} ${ storeGet.servers.isEmpty ? "" : storeGet.servers[statusGet.sevrerIndex.value].type==StoreType.aria?'Aria':'qBittorrent'}"))
                     ),
                   ),
                 )
               ),
               SettingItem(
-                label: "深色模式", 
+                label: "darkMode".tr, 
                 child: GestureDetector(
                   onTap: ()=>themeGet.showDarkModeDialog(context),
                   child: MouseRegion(
@@ -189,13 +189,13 @@ class _SettingsPageState extends State<SettingsPage> {
                         color: hoverDark ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.primary.withAlpha(180)
                       ), 
                       duration: const Duration(milliseconds: 200),
-                      child: Obx(() => Text(themeGet.autoDark.value ? "自动" : themeGet.darkMode.value ? "深色" : "浅色"))
+                      child: Obx(() => Text(themeGet.autoDark.value ? "auto".tr : themeGet.darkMode.value ? "dark".tr : "light".tr))
                     ),
                   ),
                 )
               ),
               SettingItem(
-                label: "关于 BitFlow",
+                label: "${'about'.tr} BitFlow",
                 showDivider: false, 
                 child: GestureDetector(
                   onTap: ()=>showAbout(context),

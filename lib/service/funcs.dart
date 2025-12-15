@@ -139,7 +139,7 @@ class FuncsService extends GetxController{
   }
 
   Future<void> delAllFinishedTasks(BuildContext context) async {
-    bool confirm=await showConfirmDialog(context, "删除所有已完成的任务?", "这个操作不能撤销!");
+    bool confirm=await showConfirmDialog(context, "deleteAllFinishedTask".tr, "deleteAllFinishedTaskContent".tr);
     if(!confirm){
       return;
     }
@@ -158,10 +158,10 @@ class FuncsService extends GetxController{
 
   Future<void> delSelected(BuildContext context, Pages page) async {
     if(statusGet.selectList.isEmpty){
-      await showErrWarnDialog(context, "无效操作", "没有选择任何任务");
+      await showErrWarnDialog(context, "invalidOperation".tr, "noTaskSelected".tr);
       return;
     }
-    bool confirm=await showConfirmDialog(context, "删除这些任务?", "这个操作不能撤销!");
+    bool confirm=await showConfirmDialog(context, "deleteSelectedTask".tr, "deleteSelectedTaskContent".tr);
     if(!confirm) return;
     switch (storeGet.servers[statusGet.sevrerIndex.value].type) {
       case StoreType.aria:
@@ -176,7 +176,7 @@ class FuncsService extends GetxController{
       case StoreType.qbit:
         final String hashes=statusGet.selectList.map((item)=>item.id).toList().join('|');
         if(context.mounted){
-          final delFile=await showConfirmDialog(context, "同时删除文件吗", "是否要同时删除文件?");
+          final delFile=await showConfirmDialog(context, "deleteFile".tr, "deleteFileContent".tr);
           await qbitService.delActiveTask(storeGet.servers[statusGet.sevrerIndex.value], hashes, delFile: delFile);
         }
         break;
@@ -187,7 +187,7 @@ class FuncsService extends GetxController{
 
   Future<void> multiContinue(BuildContext context) async {
     if(statusGet.selectList.isEmpty){
-      await showErrWarnDialog(context, "无效操作", "没有选择任何任务");
+      await showErrWarnDialog(context, "invalidOperation".tr, "noTaskSelected".tr);
       return;
     }
     switch (storeGet.servers[statusGet.sevrerIndex.value].type) {
@@ -207,7 +207,7 @@ class FuncsService extends GetxController{
 
   Future<void> multiPause(BuildContext context) async {
     if(statusGet.selectList.isEmpty){
-      await showErrWarnDialog(context, "无效操作", "没有选择任何任务");
+      await showErrWarnDialog(context, "invalidOperation".tr, "noTaskSelected".tr);
       return;
     }
     switch (storeGet.servers[statusGet.sevrerIndex.value].type) {
@@ -226,7 +226,7 @@ class FuncsService extends GetxController{
   }
 
   Future<void> pauseAll(BuildContext context) async {
-    bool confirm=await showConfirmDialog(context, "暂停所有任务?", "确定要暂停所有活跃中的任务吗", okText: "继续");
+    bool confirm=await showConfirmDialog(context, "pauseAll".tr, "pauseAllContent".tr, okText: "pause".tr);
     if(!confirm) return;
     switch (storeGet.servers[statusGet.sevrerIndex.value].type) {
       case StoreType.aria:
@@ -243,7 +243,7 @@ class FuncsService extends GetxController{
   }
 
   Future<void> continueAll(BuildContext context) async {
-    bool confirm=await showConfirmDialog(context, "继续任务?", "确定要继续所有活跃中的任务吗", okText: "继续");
+    bool confirm=await showConfirmDialog(context, "resumeAll".tr, "resumeAllContent".tr, okText: "resume".tr);
     if(!confirm) return;
     switch (storeGet.servers[statusGet.sevrerIndex.value].type) {
       case StoreType.aria:
@@ -261,10 +261,10 @@ class FuncsService extends GetxController{
 
   Future<void> reDownloadSelected(BuildContext context) async {
     if(statusGet.selectList.isEmpty){
-      await showErrWarnDialog(context, "无效操作", "没有选择任何任务");
+      await showErrWarnDialog(context, "invalidOperation".tr, "noTaskSelected".tr);
       return;
     }
-    bool confirm=await showConfirmDialog(context, "重新下载这些任务?", "将会删除这些任务并重新添加为新的任务", okText: "继续");
+    bool confirm=await showConfirmDialog(context, "redownloadSelected".tr, "redownloadSelectedContent".tr, okText: "continue".tr);
     if(!confirm) return;
     switch (storeGet.servers[statusGet.sevrerIndex.value].type) {
       case StoreType.aria:
@@ -304,8 +304,8 @@ class FuncsService extends GetxController{
         if(context.mounted){
           await showErrWarnDialog(
             context, 
-            "请求下载服务器出错", 
-            "请求${storeGet.servers[statusGet.sevrerIndex.value].type==StoreType.aria ? 'Aria' : 'qBittorrent'}服务器出错"
+            "requestErr", 
+            "${'request'.tr} ${storeGet.servers[statusGet.sevrerIndex.value].type==StoreType.aria ? 'Aria' : 'qBittorrent'} ${'err'.tr}"
           );
         }
         return;

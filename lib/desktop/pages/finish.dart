@@ -19,7 +19,7 @@ class _FinishPageState extends State<FinishPage> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Header(name: "已完成", page: Pages.finish,),
+        Header(name: "finished".tr, page: Pages.finish,),
         Obx(()=>
           Expanded(
             child: ListView.builder(

@@ -46,17 +46,17 @@ IconData menuIcon(ActiveTaskMenuTypes menuType){
 String menuLabel(ActiveTaskMenuTypes menuType){
   switch (menuType) {
     case ActiveTaskMenuTypes.info:
-      return "任务详情";
+      return "taskInfo".tr;
     case ActiveTaskMenuTypes.files:
-      return "文件列表";
+      return "fileList".tr;
     case ActiveTaskMenuTypes.copy:
-      return "复制链接";
+      return "copyLink".tr;
     case ActiveTaskMenuTypes.del:
-      return "删除";
+      return "delete".tr;
     case ActiveTaskMenuTypes.pause:
-      return "暂停";
+      return "pause".tr;
     case ActiveTaskMenuTypes.cont:
-      return "继续";
+      return "resume".tr;
   }
 }
 

@@ -1,6 +1,7 @@
 import 'package:bit_flow/types/store_item.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AddItem extends StatefulWidget {
@@ -76,7 +77,7 @@ class _AddStoreState extends State<AddStore> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         AddItem(
-          label: '下载器类型',
+          label: 'type'.tr,
           content: Align(
             alignment: Alignment.centerLeft,
             child: DropdownButtonHideUnderline(
@@ -126,11 +127,11 @@ class _AddStoreState extends State<AddStore> {
         ),
         const SizedBox(height: 10,),
         AddItem(
-          label: '名称', 
+          label: 'name'.tr, 
           content: TextField(
             decoration: InputDecoration(
               border: OutlineInputBorder(),
-              hintText: '随意取一个',
+              hintText: 'pickRandom'.tr,
               hintStyle: GoogleFonts.notoSansSc(
                 color: Colors.grey
               ),
@@ -151,7 +152,7 @@ class _AddStoreState extends State<AddStore> {
         ),
         const SizedBox(height: 10,),
         AddItem(
-          label: '服务器地址', 
+          label: 'URL'.tr, 
           content: TextField(
             decoration: InputDecoration(
               border: OutlineInputBorder(),
@@ -176,7 +177,7 @@ class _AddStoreState extends State<AddStore> {
         ),
         if(type=='qBittorrent') const SizedBox(height: 10,),
         if(type=='qBittorrent') AddItem(
-          label: '用户名', 
+          label: 'username'.tr, 
           content: TextField(
             decoration: InputDecoration(
               border: OutlineInputBorder(),
@@ -200,7 +201,7 @@ class _AddStoreState extends State<AddStore> {
         ),
         const SizedBox(height: 10,),
         AddItem(
-          label: '密码', 
+          label: 'password'.tr, 
           content: TextField(
             decoration: InputDecoration(
               border: OutlineInputBorder(),

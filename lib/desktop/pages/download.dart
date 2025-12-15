@@ -19,7 +19,7 @@ class _DownloadPageState extends State<DownloadPage> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Header(name: "活跃中", page: Pages.active,),
+        Header(name: "active".tr, page: Pages.active,),
         Obx(()=>
           Expanded(
             child: ListView.builder(

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-Future<void> showErrWarnDialog(BuildContext context, String title, String content, {String okText="好的"}) async {
+Future<void> showErrWarnDialog(BuildContext context, String title, String content, {String okText=""}) async {
   await showDialog(
     context: context, 
     builder: (context)=>AlertDialog(
@@ -17,14 +18,14 @@ Future<void> showErrWarnDialog(BuildContext context, String title, String conten
       actions: [
         ElevatedButton(
           onPressed: () => Navigator.pop(context), 
-          child: Text(okText)
+          child: Text(okText.isEmpty ? "ok".tr : okText)
         )
       ],
     )
   );
 }
 
-Future<bool> showConfirmDialog(BuildContext context, String title, String content, {String okText="好的"}) async {
+Future<bool> showConfirmDialog(BuildContext context, String title, String content, {String okText=""}) async {
   bool ok=false;
   await showDialog(
     context: context, 
@@ -34,14 +35,14 @@ Future<bool> showConfirmDialog(BuildContext context, String title, String conten
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context), 
-          child: const Text("取消")
+          child: Text("cancel".tr)
         ),
         ElevatedButton(
           onPressed: (){
             ok=true;
             Navigator.pop(context);
           }, 
-          child: Text(okText)
+          child: Text(okText.isEmpty ? "ok".tr : okText)
         )
       ],
     )
@@ -55,7 +56,7 @@ Future<void> showAbout(BuildContext context) async {
     showDialog(
       context: context, 
       builder: (BuildContext context)=>AlertDialog(
-        title: Text('关于'),
+        title: Text('about'.tr),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -100,7 +101,7 @@ Future<void> showAbout(BuildContext context) async {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 2),
                       child: Text(
-                        '项目地址',
+                        'projUrl'.tr,
                         style: GoogleFonts.notoSansSc(
                           fontSize: 13,
                         ),
@@ -131,7 +132,7 @@ Future<void> showAbout(BuildContext context) async {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 2),
                       child: Text(
-                        "许可证",
+                        "license".tr,
                         style: GoogleFonts.notoSansSc(
                           fontSize: 13,
                         ),
@@ -148,7 +149,7 @@ Future<void> showAbout(BuildContext context) async {
             onPressed: (){
               Navigator.pop(context);
             }, 
-            child: Text('好的')
+            child: Text('ok'.tr)
           )
         ],
       ),
@@ -162,7 +163,7 @@ Future<int> freqDialogContent(BuildContext context, int storeFreq) async {
   await showDialog(
     context: context, 
     builder: (context)=>AlertDialog(
-      title: Text("设置更新频率"),
+      title: Text("updateFrequency".tr),
       content: StatefulBuilder(
         builder: (BuildContext context, StateSetter setState)=>SizedBox(
           width: 400,
@@ -170,9 +171,9 @@ Future<int> freqDialogContent(BuildContext context, int storeFreq) async {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("注意，推荐最小更新时间为1.5s (1500毫秒)\n更新频率过高在一些下载服务器中可能会触发缓存机制"),
+              Text("recommendFreq".tr),
               const SizedBox(height: 10,),
-              Text("$freq 毫秒 / ${freq/1000} 秒"),
+              Text("$freq ${'ms'.tr} / ${freq/1000} ${'s'.tr}"),
               const SizedBox(height: 5,),
               SliderTheme(
                 data: SliderThemeData(
@@ -200,11 +201,11 @@ Future<int> freqDialogContent(BuildContext context, int storeFreq) async {
             freq=storeFreq;
             Navigator.pop(context);
           }, 
-          child: const Text('取消')
+          child: Text('cancel'.tr)
         ),
         ElevatedButton(
           onPressed: ()=>Navigator.pop(context), 
-          child: const Text('完成')
+          child: Text('ok'.tr)
         )
       ],
     )

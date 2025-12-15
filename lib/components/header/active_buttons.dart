@@ -19,7 +19,7 @@ class ActiveButtons extends StatefulWidget {
 
 void addTaskHandler(BuildContext context, TextEditingController link, FuncsService funcs){
   if(!link.text.startsWith("http://") && !link.text.startsWith("https://") && !link.text.startsWith("magnet:?xt=urn:btih:")){
-    showErrWarnDialog(context, "添加任务失败", "链接不合法");
+    showErrWarnDialog(context, "addTaskFail".tr, "invalidLink".tr);
     return;
   }
   funcs.addTaskHandler(link.text);
@@ -41,7 +41,7 @@ Future<void> addTaskDialogM(BuildContext context) async {
       context: context, 
       builder: (BuildContext context) => AlertDialog(
         title: Text(
-          '添加任务',
+          'addTask'.tr,
         ),
         content: SizedBox(
           width: 400,
@@ -52,7 +52,7 @@ Future<void> addTaskDialogM(BuildContext context) async {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    '若要添加多个任务，用回车拆分',
+                    'multiTaskTip'.tr,
                   ),
                   const SizedBox(height: 5,),
                   ConstrainedBox(
@@ -92,7 +92,7 @@ Future<void> addTaskDialogM(BuildContext context) async {
               }
               Navigator.pop(context);
             }, 
-            child: Text('取消')
+            child: Text('cancel'.tr)
           ),
           TextButton(
             onPressed: () async {
@@ -109,7 +109,7 @@ Future<void> addTaskDialogM(BuildContext context) async {
                 funcs.addTorrentTaskHandler(filePath);
               }
             }, 
-            child: const Text('来自种子文件')
+            child: Text('fromTorrent'.tr)
           ),
           ElevatedButton(
             onPressed: (){
@@ -118,7 +118,7 @@ Future<void> addTaskDialogM(BuildContext context) async {
               }
               addTaskHandler(context, link, funcs);
             }, 
-            child: Text('添加')
+            child: Text('add'.tr)
           )
         ],
       )
@@ -141,7 +141,7 @@ Future<void> addTaskDialog(BuildContext context) async {
     showDialog(
       context: context, 
       builder: (BuildContext context) => AlertDialog(
-        title: Text('添加任务'),
+        title: Text('addTask'.tr),
         content: SizedBox(
           width: 400,
           child: StatefulBuilder(
@@ -162,7 +162,7 @@ Future<void> addTaskDialog(BuildContext context) async {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text('若要添加多个任务，用回车拆分'),
+                    Text('multiTaskTip'.tr),
                     const SizedBox(height: 5,),
                     ConstrainedBox(
                       constraints: BoxConstraints(
@@ -195,7 +195,7 @@ Future<void> addTaskDialog(BuildContext context) async {
           ),
         ),
         actions: [
-          TextButton(onPressed: ()=>Navigator.pop(context), child: Text('取消')),
+          TextButton(onPressed: ()=>Navigator.pop(context), child: Text('cancel'.tr)),
           TextButton(
             onPressed: () async {
               FilePickerResult? result = await FilePicker.platform.pickFiles(
@@ -208,11 +208,11 @@ Future<void> addTaskDialog(BuildContext context) async {
                 funcs.addTorrentTaskHandler(filePath);
               }
             }, 
-            child: const Text('来自种子文件')
+            child: Text('fromTorrent'.tr)
           ),
           ElevatedButton(
             onPressed: ()=>addTaskHandler(context, link, funcs), 
-            child: Text('添加')
+            child: Text('add'.tr)
           )
         ],
       )
@@ -241,15 +241,15 @@ class _ActiveButtonsState extends State<ActiveButtons> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Expanded(child: Container()),
-          HeaderButtonItem(buttonSide: ButtonSide.left, func: ()=>addTaskDialog(context), icon: Icons.add_rounded, text: "添加任务"),
-          HeaderButtonItem(buttonSide: ButtonSide.mid, func: ()=>statusGet.selectMode.value=!statusGet.selectMode.value, icon: statusGet.selectMode.value ? Icons.close_rounded : Icons.check_box_rounded, text: statusGet.selectMode.value ? "取消选择" : "选择"),
-          if(statusGet.selectMode.value) HeaderButtonItem(buttonSide: ButtonSide.mid, func: ()=>selectAllHandler(), icon: Icons.checklist_rounded, text: "全选"),
-          if(statusGet.selectMode.value) HeaderButtonItem(buttonSide: ButtonSide.mid, func: ()=>funcsService.multiPause(context), icon: Icons.pause_rounded, text: "暂停"),
-          if(statusGet.selectMode.value) HeaderButtonItem(buttonSide: ButtonSide.mid, func: ()=>funcsService.multiContinue(context), icon: Icons.play_arrow_rounded, text: "继续"),
-          if(statusGet.selectMode.value) HeaderButtonItem(buttonSide: ButtonSide.mid, func: ()=>funcsService.delSelected(context, Pages.active), icon: Icons.delete, text: "删除"),
+          HeaderButtonItem(buttonSide: ButtonSide.left, func: ()=>addTaskDialog(context), icon: Icons.add_rounded, text: "addTask".tr),
+          HeaderButtonItem(buttonSide: ButtonSide.mid, func: ()=>statusGet.selectMode.value=!statusGet.selectMode.value, icon: statusGet.selectMode.value ? Icons.close_rounded : Icons.check_box_rounded, text: statusGet.selectMode.value ? "unselect".tr : "select".tr),
+          if(statusGet.selectMode.value) HeaderButtonItem(buttonSide: ButtonSide.mid, func: ()=>selectAllHandler(), icon: Icons.checklist_rounded, text: "selectAll".tr),
+          if(statusGet.selectMode.value) HeaderButtonItem(buttonSide: ButtonSide.mid, func: ()=>funcsService.multiPause(context), icon: Icons.pause_rounded, text: "pause".tr),
+          if(statusGet.selectMode.value) HeaderButtonItem(buttonSide: ButtonSide.mid, func: ()=>funcsService.multiContinue(context), icon: Icons.play_arrow_rounded, text: "continue".tr),
+          if(statusGet.selectMode.value) HeaderButtonItem(buttonSide: ButtonSide.mid, func: ()=>funcsService.delSelected(context, Pages.active), icon: Icons.delete, text: "delete".tr),
           
-          if(!statusGet.selectMode.value) HeaderButtonItem(buttonSide: ButtonSide.mid, func: ()=>funcsService.pauseAll(context), icon: Icons.pause_rounded, text: "全部暂停"),
-          if(!statusGet.selectMode.value) HeaderButtonItem(buttonSide: ButtonSide.mid, func: ()=>funcsService.continueAll(context), icon: Icons.play_arrow_rounded, text: "全部继续"),
+          if(!statusGet.selectMode.value) HeaderButtonItem(buttonSide: ButtonSide.mid, func: ()=>funcsService.pauseAll(context), icon: Icons.pause_rounded, text: "pauseAll".tr),
+          if(!statusGet.selectMode.value) HeaderButtonItem(buttonSide: ButtonSide.mid, func: ()=>funcsService.continueAll(context), icon: Icons.play_arrow_rounded, text: "resumeAll".tr),
 
           HeaderButtonItem(
             buttonSide: ButtonSide.right, 

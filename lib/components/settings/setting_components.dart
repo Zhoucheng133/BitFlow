@@ -135,7 +135,7 @@ class SettingComponents {
         context: context, 
         builder: (context)=>AlertDialog(
           title: Text(
-            '配置Aria',
+            '${"config".tr} Aria',
           ),
           content: SizedBox(
             width: 350,
@@ -148,11 +148,11 @@ class SettingComponents {
                         Padding(
                           padding: const EdgeInsets.only(bottom: 10),
                           child: Text(
-                            "速度和大小单位为Byte(/s)",
+                            "sizeTip".tr,
                           ),
                         ),
                         ConfigItem(
-                          label: "允许下载覆盖", 
+                          label: "enableOverride".tr, 
                           child: Transform.scale(
                             scale: 0.8,
                             child: Switch(
@@ -167,36 +167,36 @@ class SettingComponents {
                           )
                         ),
                         ConfigItemWithTextField(
-                          label: "下载位置", 
+                          label: "downloadPath".tr, 
                           controller: dir,
                         ),
                         ConfigItemWithTextField(
-                          label: "同时下载个数", 
+                          label: "downloadCount".tr, 
                           controller: maxDownloads,
                           useInt: true,
                         ),
                         ConfigItemWithTextField(
-                          label: "做种时间", 
+                          label: "seedTime".tr, 
                           controller: seedTime,
                           useInt: true,
                         ),
                         ConfigItemWithTextField(
-                          label: "下载速度限制", 
+                          label: "downloadLimit".tr, 
                           controller: downloadLimit,
                           useInt: true,
                         ),
                         ConfigItemWithTextField(
-                          label: "上传速度限制", 
+                          label: "uploadLimit".tr, 
                           controller: uploadLimit,
                           useInt: true,
                         ),
                         ConfigItemWithTextField(
-                          label: "做种比率", 
+                          label: "seedRatio".tr, 
                           controller: seedRatio,
                           useDouble: true,
                         ),
                         ConfigItemWithTextField(
-                          label: "用户代理", 
+                          label: "userAgent".tr, 
                           controller: userAgent,
                           multiLine: true,
                         ),
@@ -210,7 +210,7 @@ class SettingComponents {
           actions: [
             TextButton(
               onPressed: ()=>Navigator.pop(context), 
-              child: const Text("取消"),
+              child: Text("cancel".tr),
             ),
             ElevatedButton(
               onPressed: (){
@@ -225,7 +225,7 @@ class SettingComponents {
                 });
                 Navigator.pop(context);
               },
-              child: const Text('完成')
+              child: Text('ok'.tr)
             )
           ],
         )
@@ -256,7 +256,7 @@ class SettingComponents {
         context: context, 
         builder: (context)=>AlertDialog(
           title: Text(
-            "配置qBittorrent",
+            "${'config'.tr} Bittorrent",
           ),
           content: SizedBox(
             width: 350,
@@ -269,20 +269,20 @@ class SettingComponents {
                         Padding(
                           padding: const EdgeInsets.only(bottom: 10),
                           child: Text(
-                            "速度和大小单位为Byte(/s)",
+                            "sizeTip".tr,
                           ),
                         ),
                         ConfigItemWithTextField(
-                          label: "下载位置", 
+                          label: "downloadPath".tr, 
                           controller: savePath,
                         ),
                         ConfigItemWithTextField(
-                          label: "同时下载个数", 
+                          label: "downloadCount".tr, 
                           controller: maxDownloadCount,
                           useInt: true,
                         ),
                         ConfigItem(
-                          label: "启用做种时间", 
+                          label: "seedTime".tr, 
                           child: Transform.scale(
                             scale: 0.8,
                             child: Switch(
@@ -297,12 +297,12 @@ class SettingComponents {
                           )
                         ),
                         ConfigItemWithTextField(
-                          label: "做种时间", 
+                          label: "seedTime".tr, 
                           controller: seedTime,
                           useInt: true,
                         ),
                         ConfigItem(
-                          label: "启用做种比率", 
+                          label: "enableSeedRatio".tr, 
                           child: Transform.scale(
                             scale: 0.8,
                             child: Switch(
@@ -317,17 +317,17 @@ class SettingComponents {
                           )
                         ),
                         ConfigItemWithTextField(
-                          label: "做种比率", 
+                          label: "seedRatio".tr, 
                           controller: seedRatio,
                           useInt: true,
                         ),
                         ConfigItemWithTextField(
-                          label: "下载速度限制", 
+                          label: "downloadLimit".tr, 
                           controller: downloadLimit,
                           useInt: true,
                         ),
                         ConfigItemWithTextField(
-                          label: "上传速度限制", 
+                          label: "uploadLimit".tr, 
                           controller: uploadLimit,
                           useInt: true,
                         ),
@@ -341,7 +341,7 @@ class SettingComponents {
           actions: [
             TextButton(
               onPressed: ()=>Navigator.pop(context), 
-              child: const Text('取消')
+              child: Text('cancel'.tr)
             ),
             ElevatedButton(
               onPressed: (){
@@ -352,7 +352,7 @@ class SettingComponents {
                 );
                 Navigator.pop(context);
               }, 
-              child: const Text('完成')
+              child: Text('ok'.tr)
             )
           ],
         )

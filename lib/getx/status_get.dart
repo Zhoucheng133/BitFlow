@@ -1,8 +1,11 @@
+import 'dart:ui';
+
 import 'package:bit_flow/types/store_item.dart';
 import 'package:bit_flow/types/task_item.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 enum Pages{
   active,
@@ -10,14 +13,21 @@ enum Pages{
   settings
 }
 
+class LanguageType{
+  String name;
+  Locale locale;
+
+  LanguageType(this.name, this.locale);
+}
+
 String pageToText(Pages page){
   switch (page) {
     case Pages.active:
-      return "活跃中";
+      return "active".tr;
     case Pages.finish:
-      return "已完成";
+      return "finished".tr;
     case Pages.settings:
-      return "设置";
+      return "settings".tr;
   }
 }
 
@@ -37,13 +47,13 @@ enum OrderTypes{
 String orderToString(OrderTypes type){
   switch (type) {
     case OrderTypes.addNew:
-      return "新的在前";
+      return "timeDesc".tr;
     case OrderTypes.addOld:
-      return "新的在后";
+      return "timeAsc".tr;
     case OrderTypes.nameAZ:
-      return "名称A到Z";
+      return "nameDesc".tr;
     case OrderTypes.nameZA:
-      return "名称Z到A";
+      return "nameAsc".tr;
   }
 }
 
@@ -59,6 +69,12 @@ IconData orderToIcon(OrderTypes type){
       return FontAwesomeIcons.arrowDownZA;
   }
 }
+
+List<LanguageType> get supportedLocales => [
+  LanguageType("English", const Locale("en", "US")),
+  LanguageType("简体中文", const Locale("zh", "CN")),
+  LanguageType("繁體中文", const Locale("zh", "TW")),
+];
 
 class StatusGet extends GetxController{
   RxBool initOk=false.obs;
@@ -147,6 +163,35 @@ class StatusGet extends GetxController{
       }
     }
     
+  }
+
+  Rx<LanguageType> lang=Rx(supportedLocales[0]);
+
+  late SharedPreferences prefs;
+
+  Future<void> initLang() async {
+    prefs=await SharedPreferences.getInstance();
+
+    int? langIndex=prefs.getInt("langIndex");
+
+    if(langIndex==null){
+      final deviceLocale=PlatformDispatcher.instance.locale;
+      final local=Locale(deviceLocale.languageCode, deviceLocale.countryCode);
+      int index=supportedLocales.indexWhere((element) => element.locale==local);
+      if(index!=-1){
+        lang.value=supportedLocales[index];
+        lang.refresh();
+      }
+    }else{
+      lang.value=supportedLocales[langIndex];
+    }
+  }
+
+  void changeLanguage(int index){
+    lang.value=supportedLocales[index];
+    prefs.setInt("langIndex", index);
+    lang.refresh();
+    Get.updateLocale(lang.value.locale);
   }
 
 }
