@@ -9,6 +9,7 @@ import 'package:bit_flow/types/store_item.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -314,6 +315,21 @@ class _SettingsMState extends State<SettingsM> {
             title: Text('darkMode'.tr),
             subtitle: Text(themeGet.autoDark.value ? "auto".tr : themeGet.darkMode.value ? "dark".tr : "light".tr),
             onTap: ()=>themeGet.showDarkModeDialog(context),
+          ),
+          ListTile(
+            title: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text('language'.tr),
+                const SizedBox(width: 10,),
+                FaIcon(
+                  FontAwesomeIcons.globe,
+                  size: 14,
+                )
+              ],
+            ),
+            subtitle: Text(statusGet.lang.value.name),
+            onTap: ()=>languageDialog(context),
           ),
           ListTile(
             title: Text('clearConfig'.tr),

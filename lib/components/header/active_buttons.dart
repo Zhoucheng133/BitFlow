@@ -245,7 +245,7 @@ class _ActiveButtonsState extends State<ActiveButtons> {
           HeaderButtonItem(buttonSide: ButtonSide.mid, func: ()=>statusGet.selectMode.value=!statusGet.selectMode.value, icon: statusGet.selectMode.value ? Icons.close_rounded : Icons.check_box_rounded, text: statusGet.selectMode.value ? "unselect".tr : "select".tr),
           if(statusGet.selectMode.value) HeaderButtonItem(buttonSide: ButtonSide.mid, func: ()=>selectAllHandler(), icon: Icons.checklist_rounded, text: "selectAll".tr),
           if(statusGet.selectMode.value) HeaderButtonItem(buttonSide: ButtonSide.mid, func: ()=>funcsService.multiPause(context), icon: Icons.pause_rounded, text: "pause".tr),
-          if(statusGet.selectMode.value) HeaderButtonItem(buttonSide: ButtonSide.mid, func: ()=>funcsService.multiContinue(context), icon: Icons.play_arrow_rounded, text: "continue".tr),
+          if(statusGet.selectMode.value) HeaderButtonItem(buttonSide: ButtonSide.mid, func: ()=>funcsService.multiContinue(context), icon: Icons.play_arrow_rounded, text: "resume".tr),
           if(statusGet.selectMode.value) HeaderButtonItem(buttonSide: ButtonSide.mid, func: ()=>funcsService.delSelected(context, Pages.active), icon: Icons.delete, text: "delete".tr),
           
           if(!statusGet.selectMode.value) HeaderButtonItem(buttonSide: ButtonSide.mid, func: ()=>funcsService.pauseAll(context), icon: Icons.pause_rounded, text: "pauseAll".tr),

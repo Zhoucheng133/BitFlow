@@ -9,6 +9,7 @@ import 'package:bit_flow/service/funcs.dart';
 import 'package:bit_flow/types/store_item.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -54,6 +55,7 @@ class _SettingsPageState extends State<SettingsPage> {
   bool hoverConfig=false;
   bool hoverDark=false;
   bool hoverUrl=false;
+  bool hoverLang=false;
 
   @override
   Widget build(BuildContext context) {
@@ -193,6 +195,41 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                   ),
                 )
+              ),
+              Obx(()=>
+                SettingItem(
+                  label: 'language'.tr, 
+                  child: GestureDetector(
+                    onTap: ()=>languageDialog(context),
+                    child: MouseRegion(
+                      onEnter: (_)=>setState(() {
+                        hoverLang=true;
+                      }),
+                      onExit: (_)=>setState(() {
+                        hoverLang=false;
+                      }),
+                      cursor: SystemMouseCursors.click,
+                      child: AnimatedDefaultTextStyle(
+                        style: GoogleFonts.notoSansSc(
+                          color: hoverLang ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.primary.withAlpha(180)
+                        ), 
+                        duration: const Duration(milliseconds: 200),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            FaIcon(
+                              FontAwesomeIcons.globe,
+                              size: 14,
+                            ),
+                            const SizedBox(width: 10,),
+                            Text(statusGet.lang.value.name),
+                          ],
+                        ),
+                      ),
+                    )
+                  ),
+                ),
               ),
               SettingItem(
                 label: "${'about'.tr} BitFlow",

@@ -40,7 +40,7 @@ class StoreGet extends GetxController{
   }
 
   Future<void> delStore(BuildContext context, int delIndex) async {
-    final ok=await showConfirmDialog(context, "deleteDownloader".tr, "${'deleteDownloader'.tr}: ${servers[delIndex].name}?");
+    final ok=await showConfirmDialog(context, "deleteDownloader".tr, "${'deleteDownloader'.tr}: ${servers[delIndex].name}?", okText: 'delete'.tr);
     if(ok){
       statusGet.sevrerIndex.value=0;
       servers.removeAt(delIndex);

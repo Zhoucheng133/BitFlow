@@ -29,7 +29,7 @@ class _SettingItemState extends State<SettingItem> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                width: 170,
+                width: 200,
                 child: Padding(
                   padding: const EdgeInsets.only(left: 5),
                   child: Text(

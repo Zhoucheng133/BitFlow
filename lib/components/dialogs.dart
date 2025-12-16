@@ -1,3 +1,5 @@
+import 'package:bit_flow/getx/status_get.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -212,4 +214,39 @@ Future<int> freqDialogContent(BuildContext context, int storeFreq) async {
   );
 
   return freq;
+}
+
+void languageDialog(BuildContext context){
+
+  final statusGet=Get.find<StatusGet>();
+
+  showDialog(
+    context: context, 
+    builder: (context)=>AlertDialog(
+      title: Text("language".tr),
+      content: DropdownButtonHideUnderline(
+        child: DropdownButton2<String>(
+          value: statusGet.lang.value.name,
+          items: supportedLocales.map((item)=>DropdownMenuItem<String>(
+            value: item.name,
+            child: Text(
+              item.name
+            ),
+          )).toList(),
+          onChanged: (val){
+            final index=supportedLocales.indexWhere((element) => element.name==val);
+            statusGet.changeLanguage(index);
+          },
+        ),
+      ),
+      actions: [
+        TextButton(
+          child: Text('ok'.tr),
+          onPressed: (){
+            Navigator.of(context).pop();
+          },
+        ),
+      ],
+    ),
+  );
 }

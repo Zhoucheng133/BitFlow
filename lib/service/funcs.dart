@@ -139,7 +139,7 @@ class FuncsService extends GetxController{
   }
 
   Future<void> delAllFinishedTasks(BuildContext context) async {
-    bool confirm=await showConfirmDialog(context, "deleteAllFinishedTask".tr, "deleteAllFinishedTaskContent".tr);
+    bool confirm=await showConfirmDialog(context, "deleteAllFinishedTask".tr, "deleteAllFinishedTaskContent".tr, okText: 'delete'.tr);
     if(!confirm){
       return;
     }

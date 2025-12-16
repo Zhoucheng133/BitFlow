@@ -67,7 +67,7 @@ const Map<String, String> enUS = {
   'nameDesc': 'Name A to Z',
   'nameAsc': 'Name Z to A',
 
-  'downloadSerevr': 'Download Server',
+  'downloadSerevr': 'Servers',
   'add': 'Add',
   'setDefault': 'Set as Default',
   'defaultActiveOrder': 'Default Active Task Order',
@@ -118,7 +118,7 @@ const Map<String, String> enUS = {
 
   'tasks': 'Tasks',
   'task': 'Task',
-  'addTask': 'Add Task',
+  'addTask': 'Add',
   'edit': 'Edit',
   'copy': 'Copy',
   'paste': 'Paste',
