@@ -210,7 +210,7 @@ class _MainWindowState extends State<MainWindow> with WindowListener {
                 ]
               ),
               PlatformMenu(
-                label: 'tasks'.tr,
+                label: 'pages'.tr,
                 menus: [
                   PlatformMenuItem(
                     label: 'active'.tr,

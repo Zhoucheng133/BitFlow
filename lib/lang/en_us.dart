@@ -128,4 +128,6 @@ const Map<String, String> enUS = {
 
   'license': 'License',
   'projUrl': 'Project URL',
+
+  'pages': 'Pages',
 };

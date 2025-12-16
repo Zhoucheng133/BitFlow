@@ -128,4 +128,6 @@ const Map<String, String> zhCN = {
 
   'license': '许可证',
   'projUrl': '项目地址',
+
+  'pages': '页面',
 };

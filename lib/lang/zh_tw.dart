@@ -128,4 +128,6 @@ const Map<String, String> zhTW = {
 
   'license': '授權',
   'projUrl': '專案網址',
+
+  'pages': '頁面',
 };
