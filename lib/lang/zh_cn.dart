@@ -84,6 +84,7 @@ const Map<String, String> zhCN = {
   'language': '语言',
   'clearConfig': '清除所有配置',
   'clearConfigContent': '这会清除所有BitFlow数据\n此操作不可撤销',
+  'clear': '清除',
   'type': '类型',
   'name': '名称',
   'pickRandom': '随意取一个',

@@ -335,7 +335,7 @@ class _SettingsMState extends State<SettingsM> {
             title: Text('clearConfig'.tr),
             subtitle: Text('initialize'.tr),
             onTap: () async {
-              final ok=await showConfirmDialog(context, "clearConfig".tr, "clearConfigContent".tr);
+              final ok=await showConfirmDialog(context, "clearConfig".tr, "clearConfigContent".tr, okText: 'clear'.tr);
               if(ok){
                 final prefs=await SharedPreferences.getInstance();
                 prefs.clear();

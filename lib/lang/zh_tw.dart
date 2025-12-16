@@ -84,6 +84,7 @@ const Map<String, String> zhTW = {
   'language': '語言',
   'clearConfig': '清除所有設定',
   'clearConfigContent': '這將清除所有 BitFlow 資料\n此操作無法復原',
+  'clear': '清除',
   'type': '類型',
   'name': '名稱',
   'pickRandom': '隨機選擇一個',

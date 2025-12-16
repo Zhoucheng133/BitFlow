@@ -84,6 +84,7 @@ const Map<String, String> enUS = {
   'language': 'Language',
   'clearConfig': 'Clear All Configuration',
   'clearConfigContent': 'This will clear all BitFlow data\nThis action cannot be undone',
+  'clear': 'Clear',
   'type': 'Type',
   'name': 'Name',
   'pickRandom': 'Pick a Random One',

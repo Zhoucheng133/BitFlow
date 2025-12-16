@@ -161,7 +161,7 @@ class FuncsService extends GetxController{
       await showErrWarnDialog(context, "invalidOperation".tr, "noTaskSelected".tr);
       return;
     }
-    bool confirm=await showConfirmDialog(context, "deleteSelectedTask".tr, "deleteSelectedTaskContent".tr);
+    bool confirm=await showConfirmDialog(context, "deleteSelectedTask".tr, "deleteSelectedTaskContent".tr, okText: 'delete'.tr);
     if(!confirm) return;
     switch (storeGet.servers[statusGet.sevrerIndex.value].type) {
       case StoreType.aria:
@@ -176,7 +176,7 @@ class FuncsService extends GetxController{
       case StoreType.qbit:
         final String hashes=statusGet.selectList.map((item)=>item.id).toList().join('|');
         if(context.mounted){
-          final delFile=await showConfirmDialog(context, "deleteFile".tr, "deleteFileContent".tr);
+          final delFile=await showConfirmDialog(context, "deleteFile".tr, "deleteFileContent".tr, okText: 'deleteFile'.tr);
           await qbitService.delActiveTask(storeGet.servers[statusGet.sevrerIndex.value], hashes, delFile: delFile);
         }
         break;

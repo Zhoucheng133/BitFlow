@@ -437,12 +437,12 @@ class TaskItem{
 
   // 删除任务【总】
   Future<void> delTask(BuildContext context) async {
-    bool confirm=await showConfirmDialog(context, "deleteThisTask".tr, "deleteThisTaskContent".tr);
+    bool confirm=await showConfirmDialog(context, "deleteThisTask".tr, "deleteThisTaskContent".tr, okText: 'delete'.tr);
     bool delFile=false;
     if(confirm){
       if(type==StoreType.qbit){
         if(context.mounted){
-          delFile=await showConfirmDialog(context, "deleteFile", "deleteFileContent".tr);
+          delFile=await showConfirmDialog(context, "deleteFile".tr, "deleteFileContent".tr, okText: 'delete'.tr);
         }
       }
       if(status==TaskStatus.finish){
@@ -458,7 +458,7 @@ class TaskItem{
     if(status!=TaskStatus.finish){
       return;
     }
-    bool confirm=await showConfirmDialog(context, "redownloadTask".tr, "redownloadTaskContent".tr);
+    bool confirm=await showConfirmDialog(context, "redownloadTask".tr, "redownloadTaskContent".tr, okText: 'redownload'.tr);
     if(confirm){
       await delFinishedTask(delFile: true);
       funcsService.addTaskHandler(link);
