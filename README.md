@@ -1,5 +1,7 @@
 # BitFlow
 
+Also available in English. Click [HERE](/documents/en.md) to view the English version of the README
+
 ## 简介
 
 <img src="icon/icon.png" width="100px">
@@ -19,8 +21,11 @@
 
 ## 桌面端
 
-![desktop](demo/demo1.png)
+
+<img src="demo/zh/1.png" width="600px">
+
+<img src="demo/zh/2.png" width="600px">
 
 ## 移动端
 
-<img src="demo/demo2.png" alt="demo2.jpg" width="300px" />
+<img src="demo/zh/m.png" alt="demo2.jpg" width="300px" />
