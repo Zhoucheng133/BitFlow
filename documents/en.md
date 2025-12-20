@@ -16,6 +16,13 @@ It supports Windows, macOS, iOS (requires manual packaging), and Android.
 ✅ qBittorrent  
 ✅ Aria
 
+## Contents
+- [Intro](#intro)
+- [Screenshots](#screenshots)
+  - [Desktop](#desktop)
+  - [Mobile](#mobile)
+- [Build on Your Device](#build-on-your-device)
+
 ## Screenshots
 
 ## Desktop
@@ -30,12 +37,12 @@ It supports Windows, macOS, iOS (requires manual packaging), and Android.
 
 ## Build on Your Device
 
+- Install Flutter. For installation steps, see [Flutter - Quick start](https://docs.flutter.cn/get-started/quick).  
 - If you need to run or debug on an Android device, you must install Android Studio.
   - Android SDK version used for development: `35.0.1`
   - Required NDK version: `27.2.12479018`
 - If you need to run or debug on an iOS device, you must use a Mac and install Xcode<sup>*</sup>.
   - Minimum Deployment Target: `iOS 12.0`
-- Install Flutter. For installation steps, see [Flutter - Quick start](https://docs.flutter.cn/get-started/quick).  
   The Flutter version used in this project is `3.32`.
 - For Windows and macOS, you can run the project directly.
 - It is recommended to open the project using Visual Studio Code.

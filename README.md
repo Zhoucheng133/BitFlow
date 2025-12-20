@@ -17,6 +17,14 @@ Also available in English. Click [HERE](/documents/en.md) to view the English ve
 ✅ qBittorrent  
 ✅ Aria
 
+## 目录
+
+- [简介](#简介)
+- [截图](#截图)
+  - [桌面端](#桌面端)
+  - [移动端](#移动端)
+- [在你的设备上构建](#在你的设备上构建)
+
 ## 截图
 
 ## 桌面端
@@ -32,12 +40,12 @@ Also available in English. Click [HERE](/documents/en.md) to view the English ve
 
 ## 在你的设备上构建
 
+- 安装Flutter，安装步骤见[Flutter - Quick start](https://docs.flutter.cn/get-started/quick)，本项目使用的Flutter版本为`3.32`
 - 如果你需要在Android设备上运行或者调试，需要安装Android Studio
   - 开发使用的Android SDK版本: `35.0.1`
   - 指定NDK版本: `27.2.12479018`
 - 如果你需要在iOS设备上运行或者调试，需要使用Mac，并且安装Xcode<sup>*</sup>
   - Minimum Deployment Target: `iOS 12.0`
-- 安装Flutter，安装步骤见[Flutter - Quick start](https://docs.flutter.cn/get-started/quick)，本项目使用的Flutter版本为`3.32`
 - 对于Windows和macOS，直接运行即可
 - 建议使用Visual Studio Code打开项目
   - 在Visual Studio Code的右下角找到`Device`按钮（也有可能显示为可用的设备），选择目标设备或者模拟器
