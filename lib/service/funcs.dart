@@ -304,7 +304,7 @@ class FuncsService extends GetxController{
         if(context.mounted){
           await showErrWarnDialog(
             context, 
-            "requestErr", 
+            "requestErr".tr, 
             "${'request'.tr} ${storeGet.servers[statusGet.sevrerIndex.value].type==StoreType.aria ? 'Aria' : 'qBittorrent'} ${'err'.tr}"
           );
         }
