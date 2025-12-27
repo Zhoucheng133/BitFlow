@@ -11,7 +11,6 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -84,7 +83,7 @@ class _SettingsMState extends State<SettingsM> {
                       value: name,
                       child: Text(
                         name,
-                        style: GoogleFonts.notoSansSc(
+                        style: TextStyle(
                           fontSize: 14,
                         ),
                         overflow: TextOverflow.ellipsis,

@@ -2,7 +2,6 @@ import 'package:bit_flow/types/store_item.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class AddItem extends StatefulWidget {
 
@@ -107,7 +106,7 @@ class _AddStoreState extends State<AddStore> {
                     value: str,
                     child: Text(
                       str,
-                      style: GoogleFonts.notoSansSc(
+                      style: TextStyle(
                         fontSize: 14,
                       ),
                     ),
@@ -132,14 +131,14 @@ class _AddStoreState extends State<AddStore> {
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               hintText: 'pickRandom'.tr,
-              hintStyle: GoogleFonts.notoSansSc(
+              hintStyle: TextStyle(
                 color: Colors.grey
               ),
               isCollapsed: true,
               contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12)
             ),
             controller: name,
-            style: GoogleFonts.notoSansSc(
+            style: TextStyle(
               fontSize: 14
             ),
             autocorrect: false,
@@ -157,14 +156,14 @@ class _AddStoreState extends State<AddStore> {
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               hintText: 'http(s)://',
-              hintStyle: GoogleFonts.notoSansSc(
+              hintStyle: TextStyle(
                 color: Colors.grey
               ),
               isCollapsed: true,
               contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12)
             ),
             controller: url,
-            style: GoogleFonts.notoSansSc(
+            style: TextStyle(
               fontSize: 14
             ),
             autocorrect: false,
@@ -181,14 +180,14 @@ class _AddStoreState extends State<AddStore> {
           content: TextField(
             decoration: InputDecoration(
               border: OutlineInputBorder(),
-              hintStyle: GoogleFonts.notoSansSc(
+              hintStyle: TextStyle(
                 color: Colors.grey
               ),
               isCollapsed: true,
               contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12)
             ),
             controller: username,
-            style: GoogleFonts.notoSansSc(
+            style: TextStyle(
               fontSize: 14
             ),
             autocorrect: false,
@@ -205,7 +204,7 @@ class _AddStoreState extends State<AddStore> {
           content: TextField(
             decoration: InputDecoration(
               border: OutlineInputBorder(),
-              hintStyle: GoogleFonts.notoSansSc(
+              hintStyle: TextStyle(
                 color: Colors.grey
               ),
               isCollapsed: true,
@@ -213,7 +212,7 @@ class _AddStoreState extends State<AddStore> {
             ),
             obscureText: true,
             controller: password,
-            style: GoogleFonts.notoSansSc(
+            style: TextStyle(
               fontSize: 14
             ),
             autocorrect: false,

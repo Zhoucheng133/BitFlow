@@ -6,7 +6,6 @@ import 'package:bit_flow/types/task_item.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class FinishTaskM extends StatefulWidget {
 
@@ -158,7 +157,7 @@ class _FinishTaskMState extends State<FinishTaskM> {
                                       Expanded(
                                         child: Text(
                                           widget.item.sizeString(widget.item.size),
-                                          style: GoogleFonts.notoSansSc(
+                                          style: TextStyle(
                                             fontSize: 12,
                                             color: Colors.grey
                                           ),
@@ -166,7 +165,7 @@ class _FinishTaskMState extends State<FinishTaskM> {
                                       ),
                                       Text(
                                         widget.item.addTimeGet()??"",
-                                        style: GoogleFonts.notoSansSc(
+                                        style: TextStyle(
                                           fontSize: 12,
                                           color: Colors.grey
                                         ),

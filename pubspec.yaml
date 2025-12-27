@@ -13,7 +13,6 @@ dependencies:
     sdk: flutter
   clipboard: ^0.1.3
   dropdown_button2: ^2.3.9
-  google_fonts: ^6.2.1
   path: ^1.9.1
   url_launcher: ^6.3.1
   file_picker: ^10.2.0
@@ -33,6 +32,10 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  fonts:
+    - family: "Noto"
+      fonts:
+        - asset: assets/NotoSansSC-Regular.ttf
   assets:
     - assets/
 

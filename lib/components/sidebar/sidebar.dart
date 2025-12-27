@@ -5,7 +5,6 @@ import 'package:bit_flow/types/store_item.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class Sidebar extends StatefulWidget {
   const Sidebar({super.key});
@@ -65,7 +64,7 @@ class _SidebarState extends State<Sidebar> {
                           Expanded(
                             child: Text(
                               storeGet.servers[statusGet.sevrerIndex.value].name,
-                              style: GoogleFonts.notoSansSc(
+                              style: TextStyle(
                                 fontSize: 14,
                               ),
                             )
@@ -86,7 +85,7 @@ class _SidebarState extends State<Sidebar> {
                     value: name,
                     child: Text(
                       name,
-                      style: GoogleFonts.notoSansSc(
+                      style: TextStyle(
                         fontSize: 14,
                       ),
                       overflow: TextOverflow.ellipsis,

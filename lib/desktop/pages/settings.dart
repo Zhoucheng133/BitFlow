@@ -11,7 +11,6 @@ import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -85,7 +84,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     }),
                     cursor: SystemMouseCursors.click,
                     child: AnimatedDefaultTextStyle(
-                      style: GoogleFonts.notoSansSc(
+                      style: TextStyle(
                         color: hoverFreq ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.primary.withAlpha(180)
                       ), 
                       duration: const Duration(milliseconds: 200),
@@ -138,7 +137,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       child: Tooltip(
                         message: storeGet.servers.isEmpty ? "" : "${storeGet.servers[statusGet.sevrerIndex.value].url}\n ${'clickToCopy'.tr}",
                         child: AnimatedDefaultTextStyle(
-                          style: GoogleFonts.notoSansSc(
+                          style: TextStyle(
                             color: hoverUrl ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.primary.withAlpha(180)
                           ),
                           duration: const Duration(milliseconds: 200),
@@ -165,7 +164,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       hoverConfig=false;
                     }),
                     child: AnimatedDefaultTextStyle(
-                      style: GoogleFonts.notoSansSc(
+                      style: TextStyle(
                         color: hoverConfig ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.primary.withAlpha(180)
                       ), 
                       duration: const Duration(milliseconds: 200),
@@ -187,7 +186,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       hoverDark=false;
                     }),
                     child: AnimatedDefaultTextStyle(
-                      style: GoogleFonts.notoSansSc(
+                      style: TextStyle(
                         color: hoverDark ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.primary.withAlpha(180)
                       ), 
                       duration: const Duration(milliseconds: 200),
@@ -210,7 +209,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       }),
                       cursor: SystemMouseCursors.click,
                       child: AnimatedDefaultTextStyle(
-                        style: GoogleFonts.notoSansSc(
+                        style: TextStyle(
                           color: hoverLang ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.primary.withAlpha(180)
                         ), 
                         duration: const Duration(milliseconds: 200),
@@ -246,7 +245,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     cursor: SystemMouseCursors.click,
                     // child: Text(version)
                     child: AnimatedDefaultTextStyle(
-                      style: GoogleFonts.notoSansSc(
+                      style: TextStyle(
                         color: hoverVersion ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.primary.withAlpha(180)
                       ), 
                       duration: const Duration(milliseconds: 200),

@@ -5,7 +5,6 @@ import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class ActiveTask extends StatefulWidget {
 
@@ -224,7 +223,7 @@ class _ActiveTaskState extends State<ActiveTask> {
                                     ),
                                     Text(
                                       widget.item.sizeString(widget.item.size),
-                                      style: GoogleFonts.notoSansSc(
+                                      style: TextStyle(
                                         fontSize: 12,
                                         color: Colors.grey
                                       ),
@@ -250,7 +249,7 @@ class _ActiveTaskState extends State<ActiveTask> {
                                       ),
                                       if(widget.item.uploadSpeed!=0) Text(
                                         widget.item.sizeString(widget.item.uploadSpeed, useSpeed: true),
-                                        style: GoogleFonts.notoSansSc(
+                                        style: TextStyle(
                                           fontSize: 12,
                                         ),
                                       ),
@@ -264,7 +263,7 @@ class _ActiveTaskState extends State<ActiveTask> {
                                       ),
                                       if(widget.item.downloadSpeed!=0) Text(
                                         widget.item.sizeString(widget.item.downloadSpeed, useSpeed: true),
-                                        style: GoogleFonts.notoSansSc(
+                                        style: TextStyle(
                                           fontSize: 12,
                                         ),
                                       )
@@ -272,7 +271,7 @@ class _ActiveTaskState extends State<ActiveTask> {
                                   ),
                                   Text(
                                     widget.item.calTime(),
-                                    style: GoogleFonts.notoSansSc(
+                                    style: TextStyle(
                                       fontSize: 12,
                                       color: Colors.grey
                                     ),

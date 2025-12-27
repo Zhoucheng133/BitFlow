@@ -2,7 +2,6 @@ import 'package:bit_flow/components/header/active_buttons.dart';
 import 'package:bit_flow/components/header/finished_buttons.dart';
 import 'package:bit_flow/getx/status_get.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class Header extends StatefulWidget {
 
@@ -27,7 +26,7 @@ class _HeaderState extends State<Header> {
             children: [
               Text(
                 widget.name,
-                style: GoogleFonts.notoSansSc(
+                style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                   color: Theme.of(context).colorScheme.primary

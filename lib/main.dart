@@ -13,7 +13,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hotkey_manager/hotkey_manager.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -89,18 +88,20 @@ class _MainAppState extends State<MainApp> {
         ],
         locale: statusGet.lang.value.locale, 
         supportedLocales: supportedLocales.map((item)=>item.locale).toList(),
-        theme: themeGet.darkMode.value ? ThemeData.dark().copyWith(
-          textTheme: GoogleFonts.notoSansScTextTheme().apply(
-            bodyColor: Colors.white,
-            displayColor: Colors.white, 
-          ),
+        theme: ThemeData(
+          brightness: brightness,
+          fontFamily: 'Noto', 
           colorScheme: ColorScheme.fromSeed(
             seedColor: Colors.orange,
-            brightness: Brightness.dark,
+            brightness: brightness,
           ),
-        ) : ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
-          textTheme: GoogleFonts.notoSansScTextTheme(),
+          textTheme: brightness==Brightness.dark ? ThemeData.dark().textTheme.apply(
+            fontFamily: 'Noto',
+            bodyColor: Colors.white,
+            displayColor: Colors.white,
+          ) : ThemeData.light().textTheme.apply(
+            fontFamily: 'Noto',
+          ),
         ),
         home: funcsService.isDesktop() ?  MainWindow() : MainView()
       ),

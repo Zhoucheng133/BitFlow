@@ -1,7 +1,6 @@
 import 'package:bit_flow/getx/theme_get.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class SidebarDivider extends StatefulWidget {
 
@@ -29,7 +28,7 @@ class _SidebarDividerState extends State<SidebarDivider> {
               Expanded(
                 child: Text(
                   widget.label,
-                  style: GoogleFonts.notoSansSc(
+                  style: TextStyle(
                     fontSize: 13,
                     color: Theme.of(context).colorScheme.primary
                   ),

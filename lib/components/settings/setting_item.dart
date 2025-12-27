@@ -1,6 +1,5 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class SettingItem extends StatefulWidget {
 
@@ -182,7 +181,7 @@ class _DropDownContentState extends State<DropDownContent> {
                   const SizedBox(width: 10,),
                   Text(
                     widget.selectedText,
-                    style: GoogleFonts.notoSansSc(
+                    style: TextStyle(
                       fontSize: 14,
                     ),
                   ),
@@ -210,7 +209,7 @@ class _DropDownContentState extends State<DropDownContent> {
                 SizedBox(width: 10,),
                 Text(
                   item.label,
-                  style: GoogleFonts.notoSansSc(
+                  style: TextStyle(
                     fontSize: 14,
                   ),
                 ),

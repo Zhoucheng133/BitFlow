@@ -8,7 +8,6 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class ActiveButtons extends StatefulWidget {
   const ActiveButtons({super.key});
@@ -64,7 +63,7 @@ Future<void> addTaskDialogM(BuildContext context) async {
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         hintText: 'http(s)://\nmagnet:?xt=urn:btih:', 
-                        hintStyle: GoogleFonts.notoSansSc(
+                        hintStyle: TextStyle(
                           color: Colors.grey,
                           fontSize: 13
                         ),
@@ -74,7 +73,7 @@ Future<void> addTaskDialogM(BuildContext context) async {
                       minLines: 3,
                       maxLines: null,
                       controller: link,
-                      style: GoogleFonts.notoSansSc(
+                      style: TextStyle(
                         fontSize: 13
                       ),
                     ),
@@ -173,7 +172,7 @@ Future<void> addTaskDialog(BuildContext context) async {
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           hintText: 'http(s)://\nmagnet:?xt=urn:btih:', 
-                          hintStyle: GoogleFonts.notoSansSc(
+                          hintStyle: TextStyle(
                             color: Colors.grey,
                             fontSize: 13
                           ),
@@ -183,7 +182,7 @@ Future<void> addTaskDialog(BuildContext context) async {
                         minLines: 3,
                         maxLines: null,
                         controller: link,
-                        style: GoogleFonts.notoSansSc(
+                        style: TextStyle(
                           fontSize: 13
                         ),
                       ),
