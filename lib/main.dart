@@ -89,13 +89,13 @@ class _MainAppState extends State<MainApp> {
         locale: statusGet.lang.value.locale, 
         supportedLocales: supportedLocales.map((item)=>item.locale).toList(),
         theme: ThemeData(
-          brightness: brightness,
+          brightness: themeGet.darkMode.value ? Brightness.dark : Brightness.light,
           fontFamily: 'Noto', 
           colorScheme: ColorScheme.fromSeed(
             seedColor: Colors.orange,
-            brightness: brightness,
+            brightness: themeGet.darkMode.value ? Brightness.dark : Brightness.light,
           ),
-          textTheme: brightness==Brightness.dark ? ThemeData.dark().textTheme.apply(
+          textTheme: themeGet.darkMode.value ? ThemeData.dark().textTheme.apply(
             fontFamily: 'Noto',
             bodyColor: Colors.white,
             displayColor: Colors.white,
