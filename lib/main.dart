@@ -78,30 +78,32 @@ class _MainAppState extends State<MainApp> {
     final Brightness brightness = MediaQuery.of(context).platformBrightness;
     themeGet.darkModeHandler(brightness==Brightness.dark);
 
-    return GetMaterialApp(
-      translations: MainTranslations(), 
-      debugShowCheckedModeBanner: false,
-      localizationsDelegates: [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate
-      ],
-      locale: statusGet.lang.value.locale, 
-      supportedLocales: supportedLocales.map((item)=>item.locale).toList(),
-      theme: brightness==Brightness.dark ? ThemeData.dark().copyWith(
-        textTheme: GoogleFonts.notoSansScTextTheme().apply(
-          bodyColor: Colors.white,
-          displayColor: Colors.white, 
+    return Obx(
+      ()=> GetMaterialApp(
+        translations: MainTranslations(), 
+        debugShowCheckedModeBanner: false,
+        localizationsDelegates: [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate
+        ],
+        locale: statusGet.lang.value.locale, 
+        supportedLocales: supportedLocales.map((item)=>item.locale).toList(),
+        theme: themeGet.darkMode.value ? ThemeData.dark().copyWith(
+          textTheme: GoogleFonts.notoSansScTextTheme().apply(
+            bodyColor: Colors.white,
+            displayColor: Colors.white, 
+          ),
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.orange,
+            brightness: Brightness.dark,
+          ),
+        ) : ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
+          textTheme: GoogleFonts.notoSansScTextTheme(),
         ),
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.orange,
-          brightness: Brightness.dark,
-        ),
-      ) : ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
-        textTheme: GoogleFonts.notoSansScTextTheme(),
+        home: funcsService.isDesktop() ?  MainWindow() : MainView()
       ),
-      home: funcsService.isDesktop() ?  MainWindow() : MainView()
     );
   }
 }
