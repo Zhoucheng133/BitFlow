@@ -56,40 +56,9 @@ class FuncsService extends GetxController{
     selectListener.dispose();
   }
 
-  Future<void> parseStore(BuildContext context) async {
-    final storePrefs=prefs.getString('store');
-    if(storePrefs!=null){
-      try {
-        List<StoreItem> store=(jsonDecode(storePrefs) as List).map((item)=>StoreItem(item['name'], StoreType.values[item['type']], item['url'], item['username'], item['password'])).toList();
-        storeGet.servers.value=store;
-        statusGet.initOk.value=true;
-      } catch (_) {
-        await storeGet.addStore(context, init: true);
-      }
-    }else{
+  Future<void> initStore(BuildContext context) async {
+    if(storeGet.servers.isEmpty){
       await storeGet.addStore(context, init: true);
-    }
-    final starPrefs=prefs.getInt("star");
-    if(starPrefs!=null && starPrefs<storeGet.servers.length){
-      storeGet.starIndex.value=starPrefs;
-      statusGet.sevrerIndex.value=starPrefs;
-    }
-    int? activeOrder=prefs.getInt("defaultActiveOrder");
-    int? finishedOrder=prefs.getInt("defaultFinishOrder");
-    
-    if(activeOrder!=null){
-      statusGet.activeOrder.value=OrderTypes.values[activeOrder];
-      storeGet.defaultActiveOrder.value=OrderTypes.values[activeOrder];
-    }
-
-    if(finishedOrder!=null){
-      statusGet.finishOrder.value=OrderTypes.values[finishedOrder];
-      storeGet.defaultFinishOrder.value=OrderTypes.values[finishedOrder];
-    }
-
-    final int? freq=prefs.getInt("freq");
-    if(freq!=null){
-      storeGet.freq.value=freq;
     }
   }
 
@@ -288,7 +257,7 @@ class FuncsService extends GetxController{
   Future<void> init(BuildContext context) async {
     prefs=await SharedPreferences.getInstance();
     if(context.mounted){
-      await parseStore(context);
+      await initStore(context);
     }
     if(storeGet.servers.isNotEmpty){
       String? check;

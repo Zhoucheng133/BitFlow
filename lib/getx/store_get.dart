@@ -27,12 +27,35 @@ class StoreGet extends GetxController{
 
   late SharedPreferences prefs;
 
-
-  init() async {
+  Future<void> init() async {
     prefs=await SharedPreferences.getInstance();
-  }
-  StoreGet(){
-    init();
+    final storePrefs=prefs.getString('store');
+    if(storePrefs!=null){
+      try {
+        List<StoreItem> store=(jsonDecode(storePrefs) as List).map((item)=>StoreItem(item['name'], StoreType.values[item['type']], item['url'], item['username'], item['password'])).toList();
+        servers.value=store;
+        statusGet.initOk.value=true;
+      } catch (_) {}
+    }
+    final starPrefs=prefs.getInt("star");
+    if(starPrefs!=null && starPrefs<servers.length){
+      starIndex.value=starPrefs;
+      statusGet.sevrerIndex.value=starPrefs;
+    }
+    int? activeOrder=prefs.getInt("defaultActiveOrder");
+    int? finishedOrder=prefs.getInt("defaultFinishOrder");
+     if(activeOrder!=null){
+      statusGet.activeOrder.value=OrderTypes.values[activeOrder];
+      defaultActiveOrder.value=OrderTypes.values[activeOrder];
+    }
+    if(finishedOrder!=null){
+      statusGet.finishOrder.value=OrderTypes.values[finishedOrder];
+      defaultFinishOrder.value=OrderTypes.values[finishedOrder];
+    }
+     final int? freq=prefs.getInt("freq");
+    if(freq!=null){
+      this.freq.value=freq;
+    }
   }
 
   Future<void> saveStore() async {
