@@ -90,17 +90,17 @@ class _MainAppState extends State<MainApp> {
         supportedLocales: supportedLocales.map((item)=>item.locale).toList(),
         theme: ThemeData(
           brightness: themeGet.darkMode.value ? Brightness.dark : Brightness.light,
-          fontFamily: 'Noto', 
+          fontFamily: 'PuHui', 
           colorScheme: ColorScheme.fromSeed(
             seedColor: Colors.orange,
             brightness: themeGet.darkMode.value ? Brightness.dark : Brightness.light,
           ),
           textTheme: themeGet.darkMode.value ? ThemeData.dark().textTheme.apply(
-            fontFamily: 'Noto',
+            fontFamily: 'PuHui',
             bodyColor: Colors.white,
             displayColor: Colors.white,
           ) : ThemeData.light().textTheme.apply(
-            fontFamily: 'Noto',
+            fontFamily: 'PuHui',
           ),
         ),
         home: funcsService.isDesktop() ?  MainWindow() : MainView()
