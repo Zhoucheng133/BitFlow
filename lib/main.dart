@@ -18,13 +18,14 @@ import 'package:window_manager/window_manager.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Get.put(ThemeGet());
+  final theme=Get.put(ThemeGet());
   final status=Get.put(StatusGet());
   Get.put(AriaService());
   Get.put(QbitService());
   Get.put(StoreGet());
   final FuncsService funcsService=Get.put(FuncsService());
   await status.initLang();
+  await theme.init();
   if(funcsService.isDesktop()){
     await windowManager.ensureInitialized();
     await hotKeyManager.unregisterAll();

@@ -32,6 +32,14 @@ class ThemeGet extends GetxController{
     }
   }
 
+  late SharedPreferences prefs;
+
+  Future<void> init() async {
+    prefs=await SharedPreferences.getInstance();
+    darkMode.value=prefs.getBool('darkMode') ?? false;
+    autoDark.value=prefs.getBool('autoDark') ?? true;
+  }
+
   void showDarkModeDialog(BuildContext context){
     bool tmpDarkMode=darkMode.value;
     bool tmpAutoDark=autoDark.value;
@@ -118,7 +126,6 @@ class ThemeGet extends GetxController{
           ElevatedButton(
             onPressed: () async {
               Navigator.pop(context);
-              final prefs=await SharedPreferences.getInstance();
               prefs.setBool('darkMode', darkMode.value);
               prefs.setBool('autoDark', autoDark.value);
             }, 
