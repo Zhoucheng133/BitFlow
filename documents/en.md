@@ -43,7 +43,7 @@ It supports Windows, macOS, iOS (requires manual packaging), and Android.
   - Required NDK version: `27.2.12479018`
 - If you need to run or debug on an iOS device, you must use a Mac and install Xcode<sup>*</sup>.
   - Minimum Deployment Target: `iOS 12.0`
-  The Flutter version used in this project is `3.32`.
+  The Flutter version used in this project is `3.38`.
 - For Windows and macOS, you can run the project directly.
 - It is recommended to open the project using Visual Studio Code.
   - In the bottom-right corner of Visual Studio Code, find the `Device` button (it may also display available devices), and select the target device or emulator.
