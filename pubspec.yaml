@@ -23,6 +23,7 @@ dependencies:
   get: ^4.7.2
   font_awesome_flutter: ^10.8.0
   hotkey_manager: ^0.2.3
+  msix: ^3.16.12
 
 dev_dependencies:
   flutter_test:
@@ -40,3 +41,15 @@ flutter:
           weight: 700
   assets:
     - assets/
+
+msix_config:
+  display_name: Bit Flow
+  publisher_display_name: ZhouCheng
+  identity_name: ZhouCheng.BitFlow
+  msix_version: 1.2.1.0
+  logo_path: assets/icon.png
+  trim_logo: false
+  capabilities: internetClient, internetClientServer
+  languages: zh-cn, zh-tw, en-us
+  publisher: # Publisher HERE
+  store: true
