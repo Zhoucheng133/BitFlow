@@ -22,9 +22,20 @@ class _DownloadPageState extends State<DownloadPage> {
         Header(name: "active".tr, page: Pages.active,),
         Obx(()=>
           Expanded(
-            child: ListView.builder(
-              itemCount: statusGet.activeTasks.length,
-              itemBuilder: (BuildContext context, int index)=>ActiveTask(item: statusGet.activeTasks[index])
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 200),
+              child: statusGet.loadOk.value ?  ListView.builder(
+                key: Key("default"),
+                itemCount: statusGet.activeTasks.length,
+                itemBuilder: (BuildContext context, int index)=>ActiveTask(item: statusGet.activeTasks[index])
+              ) : Center(
+                key: Key("loading"),
+                child: SizedBox(
+                  height: 30,
+                  width: 30,
+                  child: CircularProgressIndicator()
+                ),
+              ),
             ),
           )
         )

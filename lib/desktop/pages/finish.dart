@@ -22,9 +22,20 @@ class _FinishPageState extends State<FinishPage> {
         Header(name: "finished".tr, page: Pages.finish,),
         Obx(()=>
           Expanded(
-            child: ListView.builder(
-              itemCount: statusGet.finishedTask.length,
-              itemBuilder: (BuildContext context, int index)=>FinishTask(item: statusGet.finishedTask[index])
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 200),
+              child: statusGet.loadOk.value ? ListView.builder(
+                key: Key("default"),
+                itemCount: statusGet.finishedTask.length,
+                itemBuilder: (BuildContext context, int index)=>FinishTask(item: statusGet.finishedTask[index])
+              )  : Center(
+                key: Key("loading"),
+                child: SizedBox(
+                  height: 30,
+                  width: 30,
+                  child: CircularProgressIndicator()
+                ),
+              ),
             ),
           )
         )

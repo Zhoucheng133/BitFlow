@@ -17,10 +17,21 @@ class _FinishMState extends State<FinishM> {
   @override
   Widget build(BuildContext context) {
     return Obx(()=>
-      ListView.builder(
-        itemCount: statusGet.finishedTask.length,
-        padding: const EdgeInsets.only(bottom: 70),
-        itemBuilder: (BuildContext context, int index)=>FinishTaskM(item: statusGet.finishedTask[index])
+      AnimatedSwitcher(
+        duration: const Duration(milliseconds: 200),
+        child: statusGet.loadOk.value ?  ListView.builder(
+          key: Key("default"),
+          itemCount: statusGet.finishedTask.length,
+          padding: const EdgeInsets.only(bottom: 70),
+          itemBuilder: (BuildContext context, int index)=>FinishTaskM(item: statusGet.finishedTask[index])
+        ) : Center(
+          key: Key("loading"),
+          child: SizedBox(
+            height: 30,
+            width: 30,
+            child: CircularProgressIndicator()
+          ),
+        ),
       )
     );
   }

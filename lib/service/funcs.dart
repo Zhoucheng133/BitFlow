@@ -33,6 +33,7 @@ class FuncsService extends GetxController{
 
     serverListener=ever(statusGet.sevrerIndex, (_) async {
       statusGet.selectMode.value=false;
+      statusGet.loadOk.value=false;
       statusGet.activeTasks.value=[];
       statusGet.finishedTask.value=[];
       if(storeGet.servers[statusGet.sevrerIndex.value].type==StoreType.qbit){
@@ -105,6 +106,7 @@ class FuncsService extends GetxController{
         statusGet.makeTasks(await qbitService.getTasks(statusGet.page.value, storeGet.servers[statusGet.sevrerIndex.value]), storeGet.servers[statusGet.sevrerIndex.value].type);
         break;
     }
+    statusGet.loadOk.value=true;
   }
 
   Future<void> delAllFinishedTasks(BuildContext context) async {
