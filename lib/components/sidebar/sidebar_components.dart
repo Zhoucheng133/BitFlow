@@ -87,7 +87,6 @@ class _SidebarSmallButtonState extends State<SidebarSmallButton> {
     return GestureDetector(
       onTap: widget.disable ? null : widget.func,
       child: MouseRegion(
-        cursor: widget.disable ? SystemMouseCursors.forbidden : SystemMouseCursors.click,
         onEnter: widget.disable ? null : (_)=>setState(() {
           hover=true;
         }),
@@ -143,7 +142,6 @@ class _SidebarButtonState extends State<SidebarButton> {
         onExit: (_)=>setState(() {
           hover=false;
         }),
-        cursor: SystemMouseCursors.click,
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
           height: 35,
