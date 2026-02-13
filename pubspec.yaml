@@ -1,7 +1,7 @@
 name: bit_flow
 description: "Downloader Manager"
 publish_to: 'none'
-version: 1.2.1
+version: 1.2.2
 
 environment:
   sdk: ^3.8.1
@@ -46,7 +46,7 @@ msix_config:
   display_name: Bit Flow
   publisher_display_name: ZhouCheng
   identity_name: ZhouCheng.BitFlow
-  msix_version: 1.2.1.0
+  msix_version: 1.2.2.0
   logo_path: assets/icon.png
   trim_logo: false
   capabilities: internetClient, internetClientServer
