@@ -40,7 +40,7 @@ Also available in English. Click [HERE](/documents/en.md) to view the English ve
 
 ## 在你的设备上构建
 
-- 安装Flutter，安装步骤见[Flutter - Quick start](https://docs.flutter.cn/get-started/quick)，本项目使用的Flutter版本为`3.38`
+- 安装Flutter，安装步骤见[Flutter - Quick start](https://docs.flutter.cn/get-started/quick)，本项目使用的Flutter版本为`3.41`
 - 如果你需要在Android设备上运行或者调试，需要安装Android Studio
   - 开发使用的Android SDK版本: `35.0.1`
   - 指定NDK版本: `27.2.12479018`
