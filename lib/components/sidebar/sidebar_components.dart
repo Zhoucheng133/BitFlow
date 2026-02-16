@@ -16,6 +16,9 @@ class SidebarDivider extends StatefulWidget {
 }
 
 class _SidebarDividerState extends State<SidebarDivider> {
+
+  bool hoverAdd=false;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -39,11 +42,22 @@ class _SidebarDividerState extends State<SidebarDivider> {
                 child: GestureDetector(
                   onTap: widget.func,
                   child: MouseRegion(
-                    cursor: SystemMouseCursors.click,
-                    child: Icon(
-                      Icons.add,
-                      size: 16,
-                      color: Theme.of(context).colorScheme.primary,
+                    onEnter: (_){
+                      setState(() {
+                        hoverAdd=true;
+                      });
+                    },
+                    onExit: (_)=>setState(() {
+                      hoverAdd=false;
+                    }),
+                    child: TweenAnimationBuilder(
+                      tween: ColorTween(end: hoverAdd ? Theme.of(context).colorScheme.primary.withAlpha(150) : Theme.of(context).colorScheme.primary), 
+                      duration: const Duration(milliseconds: 200), 
+                      builder: (_, value, __) => Icon(
+                        Icons.add,
+                        size: 18,
+                        color: value,
+                      )
                     ),
                   ),
                 ),

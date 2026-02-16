@@ -156,6 +156,7 @@ class SettingComponents {
                           child: Transform.scale(
                             scale: 0.8,
                             child: Switch(
+                              mouseCursor: SystemMouseCursors.basic,
                               splashRadius: 0,
                               value: allowOverwrite, 
                               onChanged: (bool val){
@@ -286,6 +287,7 @@ class SettingComponents {
                           child: Transform.scale(
                             scale: 0.8,
                             child: Switch(
+                              mouseCursor: SystemMouseCursors.basic,
                               splashRadius: 0,
                               value: seedTimeEnable, 
                               onChanged: (bool val){
@@ -306,6 +308,7 @@ class SettingComponents {
                           child: Transform.scale(
                             scale: 0.8,
                             child: Switch(
+                              mouseCursor: SystemMouseCursors.basic,
                               splashRadius: 0,
                               value: ratioEnable, 
                               onChanged: (bool val){

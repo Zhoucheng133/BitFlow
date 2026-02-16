@@ -82,7 +82,6 @@ class _SettingsPageState extends State<SettingsPage> {
                     onExit: (_)=>setState(() {
                       hoverFreq=false;
                     }),
-                    cursor: SystemMouseCursors.click,
                     child: AnimatedDefaultTextStyle(
                       style: TextStyle(
                         color: hoverFreq ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.primary.withAlpha(180)
@@ -123,7 +122,6 @@ class _SettingsPageState extends State<SettingsPage> {
                 SettingItem(
                   label: 'downloaderURL'.tr, 
                   child: MouseRegion(
-                    cursor: SystemMouseCursors.click,
                     onEnter: (_)=>setState(() {
                       hoverUrl=true;
                     }),
@@ -156,7 +154,6 @@ class _SettingsPageState extends State<SettingsPage> {
                 child: GestureDetector(
                   onTap: ()=>settingComponents.downloaderConfig(context),
                   child: MouseRegion(
-                    cursor: SystemMouseCursors.click,
                     onEnter: (_)=>setState(() {
                       hoverConfig=true;
                     }),
@@ -178,7 +175,6 @@ class _SettingsPageState extends State<SettingsPage> {
                 child: GestureDetector(
                   onTap: ()=>themeGet.showDarkModeDialog(context),
                   child: MouseRegion(
-                    cursor: SystemMouseCursors.click,
                     onEnter: (_)=>setState(() {
                       hoverDark=true;
                     }),
@@ -207,7 +203,6 @@ class _SettingsPageState extends State<SettingsPage> {
                       onExit: (_)=>setState(() {
                         hoverLang=false;
                       }),
-                      cursor: SystemMouseCursors.click,
                       child: AnimatedDefaultTextStyle(
                         style: TextStyle(
                           color: hoverLang ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.primary.withAlpha(180)
@@ -242,7 +237,6 @@ class _SettingsPageState extends State<SettingsPage> {
                     onExit: (_)=>setState(() {
                       hoverVersion=false;
                     }),
-                    cursor: SystemMouseCursors.click,
                     // child: Text(version)
                     child: AnimatedDefaultTextStyle(
                       style: TextStyle(

@@ -69,6 +69,7 @@ class ThemeGet extends GetxController{
                     Transform.scale(
                       scale: 0.7,
                       child: Switch(
+                        mouseCursor: SystemMouseCursors.basic,
                         splashRadius: 0,
                         value: autoDark.value, 
                         onChanged: (val) async {
@@ -99,6 +100,7 @@ class ThemeGet extends GetxController{
                     Transform.scale(
                       scale: 0.7,
                       child: Switch(
+                        mouseCursor: SystemMouseCursors.basic,
                         splashRadius: 0,
                         value: darkMode.value, 
                         onChanged: autoDark.value ? null : (val) async {
