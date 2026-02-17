@@ -178,7 +178,8 @@ Future<int> freqDialogContent(BuildContext context, int storeFreq) async {
               const SizedBox(height: 5,),
               SliderTheme(
                 data: SliderThemeData(
-                  overlayColor: Colors.transparent
+                  overlayColor: Colors.transparent,
+                  mouseCursor: WidgetStatePropertyAll(SystemMouseCursors.basic)
                 ),
                 child: Slider(
                   value: freq.toDouble(), 
