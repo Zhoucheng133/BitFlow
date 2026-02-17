@@ -159,6 +159,7 @@ class _DropDownContentState extends State<DropDownContent> {
           )
         ),
         customButton: MouseRegion(
+          cursor: SystemMouseCursors.basic,
           onEnter: (_) => setState(() => hover = true),
           onExit: (_) => setState(() => hover = false),
           child: AnimatedContainer(

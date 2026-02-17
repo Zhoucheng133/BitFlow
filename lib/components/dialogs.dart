@@ -232,6 +232,32 @@ void languageDialog(BuildContext context){
               item.name
             ),
           )).toList(),
+          customButton: SizedBox(
+            height: 45,
+            child: MouseRegion(
+              cursor: SystemMouseCursors.basic,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      statusGet.lang.value.name,
+                      style: TextStyle(
+                        fontSize: 14,
+                      ),
+                    ),
+                    Expanded(child: Container()),
+                    Icon(
+                      Icons.arrow_drop_down,
+                      size: 22,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
           onChanged: (val){
             final index=supportedLocales.indexWhere((element) => element.name==val);
             statusGet.changeLanguage(index);

@@ -29,73 +29,76 @@ class _SidebarState extends State<Sidebar> {
           children: [
             SidebarDivider(func: ()=>storeGet.addStore(context), label: 'downloadSerevr'.tr, useAdd: true, addHint: "addDownloader".tr,),
             if(storeGet.servers.isNotEmpty) DropdownButtonHideUnderline(
-              child: DropdownButton2<String>(
-                buttonStyleData: ButtonStyleData(
-                  overlayColor: WidgetStateProperty.all(Colors.transparent)
-                ),
-                menuItemStyleData: const MenuItemStyleData(
-                  height: 40,
-                  padding: EdgeInsets.only(left: 10, right: 10),
-                ),
-                dropdownStyleData: DropdownStyleData(
-                  padding: const EdgeInsets.all(0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Theme.of(context).colorScheme.surface
-                  )
-                ),
-                isExpanded: true,
-                customButton: MouseRegion(
-                  onEnter: (_) => setState(() => hover = true),
-                  onExit: (_) => setState(() => hover = false),
-                  child: AnimatedContainer(
-                    width: double.infinity,
-                    height: 35,
-                    duration: const Duration(milliseconds: 200),
+              child: MouseRegion(
+                child: DropdownButton2<String>(
+                  buttonStyleData: ButtonStyleData(
+                    overlayColor: WidgetStateProperty.all(Colors.transparent),
+                  ),
+                  menuItemStyleData: const MenuItemStyleData(
+                    height: 40,
+                    padding: EdgeInsets.only(left: 10, right: 10),
+                  ),
+                  dropdownStyleData: DropdownStyleData(
+                    padding: const EdgeInsets.all(0),
                     decoration: BoxDecoration(
-                      color: hover ? Theme.of(context).colorScheme.primary.withAlpha(12) : Theme.of(context).colorScheme.primary.withAlpha(0),
                       borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Expanded(
-                            child: Text(
-                              storeGet.servers[statusGet.sevrerIndex.value].name,
-                              style: TextStyle(
-                                fontSize: 14,
-                              ),
-                            )
-                          ),
-                          Icon(
-                            Icons.arrow_drop_down,
-                            size: 22,
-                          ),
-                        ],
+                      color: Theme.of(context).colorScheme.surface
+                    )
+                  ),
+                  isExpanded: true,
+                  customButton: MouseRegion(
+                    cursor: SystemMouseCursors.basic,
+                    onEnter: (_) => setState(() => hover = true),
+                    onExit: (_) => setState(() => hover = false),
+                    child: AnimatedContainer(
+                      width: double.infinity,
+                      height: 35,
+                      duration: const Duration(milliseconds: 200),
+                      decoration: BoxDecoration(
+                        color: hover ? Theme.of(context).colorScheme.primary.withAlpha(12) : Theme.of(context).colorScheme.primary.withAlpha(0),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 10, right: 10),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                storeGet.servers[statusGet.sevrerIndex.value].name,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                ),
+                              )
+                            ),
+                            Icon(
+                              Icons.arrow_drop_down,
+                              size: 22,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-                value: storeGet.servers[statusGet.sevrerIndex.value].name,
-                items: storeGet.servers.map((StoreItem item) {
-                  final name=item.name;
-                  return DropdownMenuItem<String>(
-                    value: name,
-                    child: Text(
-                      name,
-                      style: TextStyle(
-                        fontSize: 14,
+                  value: storeGet.servers[statusGet.sevrerIndex.value].name,
+                  items: storeGet.servers.map((StoreItem item) {
+                    final name=item.name;
+                    return DropdownMenuItem<String>(
+                      value: name,
+                      child: Text(
+                        name,
+                        style: TextStyle(
+                          fontSize: 14,
+                        ),
+                        overflow: TextOverflow.ellipsis,
                       ),
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  );
-                }).toList(),
-                onChanged: (val){
-                  int index=storeGet.servers.indexWhere((item)=>item.name==val);
-                  statusGet.sevrerIndex.value=index;
-                },
+                    );
+                  }).toList(),
+                  onChanged: (val){
+                    int index=storeGet.servers.indexWhere((item)=>item.name==val);
+                    statusGet.sevrerIndex.value=index;
+                  },
+                ),
               ),
             ),
             // const SizedBox(height: 5,),
