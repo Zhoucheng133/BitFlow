@@ -67,7 +67,7 @@ class SettingDivider extends StatelessWidget {
     return Align(
       alignment: Alignment.center,
       child: SizedBox(
-        width: 360,
+        width: 380,
         child: Divider(
           height: 3,
           color: Theme.of(context).colorScheme.primary.withAlpha(30),
@@ -139,40 +139,47 @@ class _DropDownContentState extends State<DropDownContent> {
 
   @override
   Widget build(BuildContext context) {
-    return DropdownButtonHideUnderline(
-      child: DropdownButton(
-        value: widget.selected,
-        isExpanded: false,
-        focusColor: Colors.transparent,
+    return Material(
+      borderRadius: BorderRadius.circular(5),
+      color: Theme.of(context).brightness==Brightness.light ? Colors.white : Colors.grey[850],
+      child: InkWell(
         borderRadius: BorderRadius.circular(5),
-        padding: EdgeInsets.symmetric(horizontal: 5),
-        items: widget.list.map((item)=>
-          DropdownMenuItem(
-            value: item.key,
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  item.icon,
-                  size: 15,
-                ),
-                SizedBox(width: 10,),
-                Text(
-                  item.label,
-                  style: TextStyle(
-                    fontSize: 14,
-                  ),
-                ),
-              ],
-            )
+        child: DropdownButtonHideUnderline(
+          child: DropdownButton(
+            value: widget.selected,
+            isExpanded: false,
+            focusColor: Colors.transparent,
+            borderRadius: BorderRadius.circular(5),
+            padding: EdgeInsets.symmetric(horizontal: 5),
+            items: widget.list.map((item)=>
+              DropdownMenuItem(
+                value: item.key,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      item.icon,
+                      size: 15,
+                    ),
+                    SizedBox(width: 10,),
+                    Text(
+                      item.label,
+                      style: TextStyle(
+                        fontSize: 14,
+                      ),
+                    ),
+                  ],
+                )
+              )
+            ).toList(),
+            onChanged: (val){
+              if(val!=null){
+                widget.func(val);
+              }
+            },
           )
-        ).toList(),
-        onChanged: (val){
-          if(val!=null){
-            widget.func(val);
-          }
-        },
-      )
+        ),
+      ),
     );
   }
 }
