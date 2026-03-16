@@ -1,5 +1,4 @@
 import 'package:bit_flow/types/store_item.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -80,53 +79,11 @@ class _AddStoreState extends State<AddStore> {
           content: Align(
             alignment: Alignment.centerLeft,
             child: DropdownButtonHideUnderline(
-              child: DropdownButton2<String>(
-                buttonStyleData: ButtonStyleData(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                ),
-                customButton: MouseRegion(
-                  cursor: SystemMouseCursors.basic,
-                  child: Container(
-                    width: 150,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Expanded(
-                            child: Text(
-                              type,
-                              style: TextStyle(
-                                fontSize: 14,
-                              ),
-                            )
-                          ),
-                          Icon(
-                            Icons.arrow_drop_down,
-                            size: 22,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                menuItemStyleData: const MenuItemStyleData(
-                  height: 40,
-                  padding: EdgeInsets.only(left: 10, right: 10),
-                ),
-                dropdownStyleData: DropdownStyleData(
-                  padding: const EdgeInsets.symmetric(vertical: 0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    color: Theme.of(context).colorScheme.surface
-                  )
-                ),
+              child: DropdownButton<String>(
+                focusColor: Colors.transparent,
+                isDense: true,
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                borderRadius: BorderRadius.circular(5),
                 isExpanded: false,
                 value: type,
                 items: StoreType.values.map((StoreType type) {

@@ -7,7 +7,6 @@ import 'package:bit_flow/getx/theme_get.dart';
 import 'package:bit_flow/service/funcs.dart';
 import 'package:bit_flow/types/store_item.dart';
 import 'package:clipboard/clipboard.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -62,19 +61,7 @@ class _SettingsMState extends State<SettingsM> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                DropdownButton2<String>(
-                  buttonStyleData: ButtonStyleData(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5)
-                    )
-                  ),
-                  dropdownStyleData: DropdownStyleData(
-                    padding: const EdgeInsets.symmetric(vertical: 0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: Theme.of(context).colorScheme.surface
-                    )
-                  ),
+                DropdownButton<String>(
                   isExpanded: true,
                   value: storeGet.servers[serverIndex].name,
                   items: storeGet.servers.map((StoreItem item) {
@@ -169,7 +156,7 @@ class _SettingsMState extends State<SettingsM> {
         content: StatefulBuilder(
           builder: (context, setState) {
             return DropDownContent(
-              selected: null,
+              selected: type,
               selectedIcon: orderToIcon(type), 
               selectedText: orderToString(type), 
               func: (val){
@@ -222,7 +209,7 @@ class _SettingsMState extends State<SettingsM> {
         content: StatefulBuilder(
           builder: (context, setState) {
             return DropDownContent(
-              selected: null,
+              selected: type,
               selectedIcon: orderToIcon(type), 
               selectedText: orderToString(type), 
               func: (val){

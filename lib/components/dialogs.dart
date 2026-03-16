@@ -1,5 +1,4 @@
 import 'package:bit_flow/getx/status_get.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -227,12 +226,10 @@ void languageDialog(BuildContext context){
       content: StatefulBuilder(
         builder: (context, setState) {
           return DropdownButtonHideUnderline(
-            child: DropdownButton2<String>(
-              buttonStyleData: ButtonStyleData(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
+            child: DropdownButton<String>(
+              focusColor: Colors.transparent,
+              borderRadius: BorderRadius.circular(10),
+              padding: EdgeInsets.symmetric(horizontal: 10),
               value: statusGet.lang.value.name,
               items: supportedLocales.map((item)=>DropdownMenuItem<String>(
                 value: item.name,
@@ -240,37 +237,6 @@ void languageDialog(BuildContext context){
                   item.name
                 ),
               )).toList(),
-              customButton: MouseRegion(
-                cursor: SystemMouseCursors.basic,
-                child: AnimatedContainer(
-                  width: double.infinity,
-                  height: 45,
-                  duration: const Duration(milliseconds: 200),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 10, right: 10),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Expanded(
-                          child: Text(
-                            statusGet.lang.value.name,
-                            style: TextStyle(
-                              fontSize: 14,
-                            ),
-                          )
-                        ),
-                        Icon(
-                          Icons.arrow_drop_down,
-                          size: 22,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
               onChanged: (val){
                 final index=supportedLocales.indexWhere((element) => element.name==val);
                 statusGet.changeLanguage(index);

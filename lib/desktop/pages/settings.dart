@@ -94,6 +94,7 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
               Obx(()=>
                 SettingDropDownItem(
+                  selected: storeGet.defaultActiveOrder.value,
                   label: "defaultActiveOrder".tr, 
                   selectedIcon: orderToIcon(storeGet.defaultActiveOrder.value), 
                   selectedText: orderToString(storeGet.defaultActiveOrder.value), 
@@ -107,6 +108,7 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
               Obx(()=>
                 SettingDropDownItem(
+                  selected: storeGet.defaultFinishOrder.value,
                   label: "defaultFinishedOrder".tr, 
                   selectedIcon: orderToIcon(storeGet.defaultFinishOrder.value), 
                   selectedText: orderToString(storeGet.defaultFinishOrder.value), 

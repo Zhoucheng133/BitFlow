@@ -2,7 +2,6 @@ import 'package:bit_flow/components/sidebar/sidebar_components.dart';
 import 'package:bit_flow/getx/status_get.dart';
 import 'package:bit_flow/getx/store_get.dart';
 import 'package:bit_flow/types/store_item.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -30,56 +29,12 @@ class _SidebarState extends State<Sidebar> {
             SidebarDivider(func: ()=>storeGet.addStore(context), label: 'downloadSerevr'.tr, useAdd: true, addHint: "addDownloader".tr,),
             if(storeGet.servers.isNotEmpty) DropdownButtonHideUnderline(
               child: MouseRegion(
-                child: DropdownButton2<String>(
-                  buttonStyleData: ButtonStyleData(
-                    overlayColor: WidgetStateProperty.all(Colors.transparent),
-                  ),
-                  menuItemStyleData: const MenuItemStyleData(
-                    height: 40,
-                    padding: EdgeInsets.all(10),
-                  ),
-                  dropdownStyleData: DropdownStyleData(
-                    padding: const EdgeInsets.all(0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Theme.of(context).colorScheme.surface
-                    )
-                  ),
+                child: DropdownButton<String>(
                   isExpanded: true,
-                  customButton: MouseRegion(
-                    cursor: SystemMouseCursors.basic,
-                    onEnter: (_) => setState(() => hover = true),
-                    onExit: (_) => setState(() => hover = false),
-                    child: AnimatedContainer(
-                      width: double.infinity,
-                      height: 40,
-                      duration: const Duration(milliseconds: 200),
-                      decoration: BoxDecoration(
-                        color: hover ? Theme.of(context).colorScheme.primary.withAlpha(12) : Theme.of(context).colorScheme.primary.withAlpha(0),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 10, right: 10),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Expanded(
-                              child: Text(
-                                storeGet.servers[statusGet.sevrerIndex.value].name,
-                                style: TextStyle(
-                                  fontSize: 14,
-                                ),
-                              )
-                            ),
-                            Icon(
-                              Icons.arrow_drop_down,
-                              size: 22,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                  isDense: true,
+                  focusColor: Colors.transparent, 
+                  borderRadius: BorderRadius.circular(10),
                   value: storeGet.servers[statusGet.sevrerIndex.value].name,
                   items: storeGet.servers.map((StoreItem item) {
                     final name=item.name;
