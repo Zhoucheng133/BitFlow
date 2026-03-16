@@ -36,7 +36,7 @@ class _SidebarState extends State<Sidebar> {
                   ),
                   menuItemStyleData: const MenuItemStyleData(
                     height: 40,
-                    padding: EdgeInsets.only(left: 10, right: 10),
+                    padding: EdgeInsets.all(10),
                   ),
                   dropdownStyleData: DropdownStyleData(
                     padding: const EdgeInsets.all(0),
@@ -52,7 +52,7 @@ class _SidebarState extends State<Sidebar> {
                     onExit: (_) => setState(() => hover = false),
                     child: AnimatedContainer(
                       width: double.infinity,
-                      height: 35,
+                      height: 40,
                       duration: const Duration(milliseconds: 200),
                       decoration: BoxDecoration(
                         color: hover ? Theme.of(context).colorScheme.primary.withAlpha(12) : Theme.of(context).colorScheme.primary.withAlpha(0),

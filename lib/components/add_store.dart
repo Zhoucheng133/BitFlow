@@ -83,10 +83,39 @@ class _AddStoreState extends State<AddStore> {
               child: DropdownButton2<String>(
                 buttonStyleData: ButtonStyleData(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5)
-                  )
+                    borderRadius: BorderRadius.circular(5),
+                  ),
                 ),
-                
+                customButton: MouseRegion(
+                  cursor: SystemMouseCursors.basic,
+                  child: Container(
+                    width: 150,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              type,
+                              style: TextStyle(
+                                fontSize: 14,
+                              ),
+                            )
+                          ),
+                          Icon(
+                            Icons.arrow_drop_down,
+                            size: 22,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
                 menuItemStyleData: const MenuItemStyleData(
                   height: 40,
                   padding: EdgeInsets.only(left: 10, right: 10),

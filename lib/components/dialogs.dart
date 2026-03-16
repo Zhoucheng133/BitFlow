@@ -224,46 +224,60 @@ void languageDialog(BuildContext context){
     context: context, 
     builder: (context)=>AlertDialog(
       title: Text("language".tr),
-      content: DropdownButtonHideUnderline(
-        child: DropdownButton2<String>(
-          value: statusGet.lang.value.name,
-          items: supportedLocales.map((item)=>DropdownMenuItem<String>(
-            value: item.name,
-            child: Text(
-              item.name
-            ),
-          )).toList(),
-          customButton: SizedBox(
-            height: 45,
-            child: MouseRegion(
-              cursor: SystemMouseCursors.basic,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      statusGet.lang.value.name,
-                      style: TextStyle(
-                        fontSize: 14,
-                      ),
-                    ),
-                    Expanded(child: Container()),
-                    Icon(
-                      Icons.arrow_drop_down,
-                      size: 22,
-                    ),
-                  ],
+      content: StatefulBuilder(
+        builder: (context, setState) {
+          return DropdownButtonHideUnderline(
+            child: DropdownButton2<String>(
+              buttonStyleData: ButtonStyleData(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
                 ),
               ),
+              value: statusGet.lang.value.name,
+              items: supportedLocales.map((item)=>DropdownMenuItem<String>(
+                value: item.name,
+                child: Text(
+                  item.name
+                ),
+              )).toList(),
+              customButton: MouseRegion(
+                cursor: SystemMouseCursors.basic,
+                child: AnimatedContainer(
+                  width: double.infinity,
+                  height: 45,
+                  duration: const Duration(milliseconds: 200),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10, right: 10),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            statusGet.lang.value.name,
+                            style: TextStyle(
+                              fontSize: 14,
+                            ),
+                          )
+                        ),
+                        Icon(
+                          Icons.arrow_drop_down,
+                          size: 22,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              onChanged: (val){
+                final index=supportedLocales.indexWhere((element) => element.name==val);
+                statusGet.changeLanguage(index);
+              },
             ),
-          ),
-          onChanged: (val){
-            final index=supportedLocales.indexWhere((element) => element.name==val);
-            statusGet.changeLanguage(index);
-          },
-        ),
+          );
+        }
       ),
       actions: [
         TextButton(
