@@ -22,6 +22,9 @@ class StoreGet extends GetxController{
   // 默认在已完成页面，新的在前，旧的在后
   Rx<OrderTypes> defaultFinishOrder=OrderTypes.addNew.obs;
 
+  // 菜单栏宽度
+  RxDouble sidebarWidth=150.0.obs;
+
   // 更新频率 (单位: 毫秒)
   RxInt freq=1500.obs;
 
@@ -52,10 +55,16 @@ class StoreGet extends GetxController{
       statusGet.finishOrder.value=OrderTypes.values[finishedOrder];
       defaultFinishOrder.value=OrderTypes.values[finishedOrder];
     }
-     final int? freq=prefs.getInt("freq");
+    final int? freq=prefs.getInt("freq");
     if(freq!=null){
       this.freq.value=freq;
     }
+    sidebarWidth.value=prefs.getDouble("sidebarWidth")??150.0;
+  }
+
+  void saveSideBarWidth(double width) async {
+    prefs.setDouble("sidebarWidth", width);
+    sidebarWidth.value=width;
   }
 
   Future<void> saveStore() async {

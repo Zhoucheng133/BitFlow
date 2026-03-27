@@ -41,8 +41,9 @@ class _MainWindowState extends State<MainWindow> with WindowListener {
   @override
   void initState() {
     super.initState();
+    sidebarWidth=storeGet.sidebarWidth.value;
     windowManager.addListener(this);
-    WidgetsBinding.instance.addPostFrameCallback((_){
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       funcsService.init(context);
       if(Platform.isWindows){
         initHotKey(context);
@@ -82,6 +83,8 @@ class _MainWindowState extends State<MainWindow> with WindowListener {
   final StoreGet storeGet=Get.find();
   final StatusGet statusGet=Get.find();
 
+  double sidebarWidth=150.0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -115,36 +118,62 @@ class _MainWindowState extends State<MainWindow> with WindowListener {
             ),
           ),
           Expanded(
-            child: Row(
+            child: Stack(
               children: [
-                SizedBox(
-                  width: 150,
-                  child: Sidebar(),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 10, bottom: 10, top: 5),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).brightness==Brightness.dark ? Colors.grey[850] : Colors.white,
-                        borderRadius: BorderRadius.circular(10)
-                      ),
+                Row(
+                  children: [
+                    SizedBox(
+                      width: sidebarWidth,
+                      child: Sidebar(),
+                    ),
+                    Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.all(15),
-                        child: Obx(()=>
-                          IndexedStack(
-                            index: statusGet.page.value.index,
-                            children: [
-                              DownloadPage(),
-                              FinishPage(),
-                              SettingsPage()
-                            ],
+                        padding: const EdgeInsets.only(right: 10, bottom: 10, top: 5),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).brightness==Brightness.dark ? Colors.grey[850] : Colors.white,
+                            borderRadius: BorderRadius.circular(10)
                           ),
-                        )
+                          child: Padding(
+                            padding: const EdgeInsets.all(15),
+                            child: Obx(()=>
+                              IndexedStack(
+                                index: statusGet.page.value.index,
+                                children: [
+                                  DownloadPage(),
+                                  FinishPage(),
+                                  SettingsPage()
+                                ],
+                              ),
+                            )
+                          ),
+                        ),
+                      )
+                    )
+                  ],
+                ),
+                Transform.translate(
+                  offset: Offset(sidebarWidth-5, 0),
+                  child: GestureDetector(
+                    behavior: HitTestBehavior.translucent,
+                    onHorizontalDragUpdate: (details) {
+                      setState(() {
+                        sidebarWidth += details.delta.dx;
+                        sidebarWidth = sidebarWidth.clamp(150, 300);
+                      });
+                    },
+                    onHorizontalDragEnd: (details) {
+                      storeGet.saveSideBarWidth(sidebarWidth);
+                    },
+                    child: MouseRegion(
+                      cursor: SystemMouseCursors.resizeLeftRight,
+                      child: Container(
+                        width: 10,
+                        color: Colors.transparent,
                       ),
                     ),
-                  )
-                )
+                  ),
+                ),
               ],
             ),
           ),
