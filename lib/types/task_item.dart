@@ -418,6 +418,9 @@ class TaskItem{
       case StoreType.qbit:
         await qbitService.delFinishedTask(storeGet.servers[statusGet.sevrerIndex.value], id, delFile: delFile);
         break;
+      case StoreType.transmission:
+        // TODO
+        break;
     }
     funcsService.getTasks();
   }
@@ -430,6 +433,9 @@ class TaskItem{
         break;
       case StoreType.qbit:
         await qbitService.delActiveTask(storeGet.servers[statusGet.sevrerIndex.value], id, delFile: delFile);
+        break;
+      case StoreType.transmission:
+        // TODO
         break;
     }
     funcsService.getTasks();
@@ -475,6 +481,9 @@ class TaskItem{
       case StoreType.qbit:
         await qbitService.pauseTask(storeGet.servers[statusGet.sevrerIndex.value], id);
         break;
+      case StoreType.transmission:
+        // TODO
+        break;
     }
     funcsService.getTasks();
   }
@@ -487,6 +496,9 @@ class TaskItem{
         break;
       case StoreType.qbit:
         await qbitService.continueTask(storeGet.servers[statusGet.sevrerIndex.value], id);
+        break;
+      case StoreType.transmission:
+        // TODO
         break;
     }
     funcsService.getTasks();

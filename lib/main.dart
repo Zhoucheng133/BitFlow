@@ -9,6 +9,7 @@ import 'package:bit_flow/mobile/main_view.dart';
 import 'package:bit_flow/service/aria.dart';
 import 'package:bit_flow/service/funcs.dart';
 import 'package:bit_flow/service/qbit.dart';
+import 'package:bit_flow/service/trans.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -20,6 +21,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final theme=Get.put(ThemeGet());
   final status=Get.put(StatusGet());
+  Get.put(TransmissionService());
   Get.put(AriaService());
   Get.put(QbitService());
   final store=Get.put(StoreGet());

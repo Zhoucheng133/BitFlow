@@ -50,12 +50,14 @@ class _AddStoreState extends State<AddStore> {
   StoreItem item=StoreItem("", StoreType.aria, "", "", "");
 
   String convertType(StoreType type){
-    if(type==StoreType.aria){
-      return "Aria";
-    }else if(type==StoreType.qbit){
-      return "qBittorrent";
+    switch (type) {
+      case StoreType.aria:
+        return "Aria";
+      case StoreType.qbit:
+        return "qBittorrent";
+      case StoreType.transmission:
+        return "Transmission";
     }
-    return "";
   }
 
   void toEnumType(String? type){
@@ -65,6 +67,21 @@ class _AddStoreState extends State<AddStore> {
         break;
       case "qBittorrent":
         item.type=StoreType.qbit;
+        return;
+      case "Transmission":
+        item.type=StoreType.transmission;
+        return;
+    }
+  }
+
+  String linkHintText(){
+    switch (item.type) {
+      case StoreType.aria:
+        return "http(s)://.../jsonrpc";
+      case StoreType.qbit:
+        return "http(s)://";
+      case StoreType.transmission:
+        return "http(s)://.../transmission/rpc";
     }
   }
 
@@ -141,7 +158,7 @@ class _AddStoreState extends State<AddStore> {
           content: TextField(
             decoration: InputDecoration(
               border: OutlineInputBorder(),
-              hintText: 'http(s)://',
+              hintText: linkHintText(),
               hintStyle: TextStyle(
                 color: Colors.grey
               ),
@@ -160,8 +177,8 @@ class _AddStoreState extends State<AddStore> {
             },
           )
         ),
-        if(type=='qBittorrent') const SizedBox(height: 10,),
-        if(type=='qBittorrent') AddItem(
+        if(type=='qBittorrent' || type=='Transmission') const SizedBox(height: 10,),
+        if(type=='qBittorrent' || type=='Transmission') AddItem(
           label: 'username'.tr, 
           content: TextField(
             decoration: InputDecoration(

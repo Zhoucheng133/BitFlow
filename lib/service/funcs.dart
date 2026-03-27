@@ -79,6 +79,9 @@ class FuncsService extends GetxController{
           qbitService.addTask(urlItem, storeGet.servers[statusGet.sevrerIndex.value]);
         }
         break;
+      case StoreType.transmission:
+        // TODO
+        break;
     }
     getTasks();
   }
@@ -94,6 +97,9 @@ class FuncsService extends GetxController{
       case StoreType.qbit:
         qbitService.addTorrentTask(filePath, storeGet.servers[statusGet.sevrerIndex.value]);
         break;
+      case StoreType.transmission:
+        // TODO
+        break;
     }
   }
 
@@ -104,6 +110,9 @@ class FuncsService extends GetxController{
         break;
       case StoreType.qbit:
         statusGet.makeTasks(await qbitService.getTasks(statusGet.page.value, storeGet.servers[statusGet.sevrerIndex.value]), storeGet.servers[statusGet.sevrerIndex.value].type);
+        break;
+      case StoreType.transmission:
+        // TODO
         break;
     }
     statusGet.loadOk.value=true;
@@ -122,6 +131,9 @@ class FuncsService extends GetxController{
         final List<String> finishedList=statusGet.finishedTask.map((item)=>item.id).toList();
         final hashes=finishedList.join('|');
         qbitService.delFinishedTask(storeGet.servers[statusGet.sevrerIndex.value], hashes);
+        break;
+      case StoreType.transmission:
+        // TODO
         break;
     }
     getTasks();
@@ -151,6 +163,9 @@ class FuncsService extends GetxController{
           await qbitService.delActiveTask(storeGet.servers[statusGet.sevrerIndex.value], hashes, delFile: delFile);
         }
         break;
+      case StoreType.transmission:
+        // TODO
+        break;
     }
     getTasks();
     statusGet.selectMode.value=false;
@@ -170,6 +185,9 @@ class FuncsService extends GetxController{
       case StoreType.qbit:
         final String hashes=statusGet.selectList.map((item)=>item.id).toList().join('|');
         await qbitService.continueTask(storeGet.servers[statusGet.sevrerIndex.value], hashes);
+        break;
+      case StoreType.transmission:
+        // TODO
         break;
     }
     getTasks();
@@ -191,6 +209,9 @@ class FuncsService extends GetxController{
         final String hashes=statusGet.selectList.map((item)=>item.id).toList().join('|');
         await qbitService.pauseTask(storeGet.servers[statusGet.sevrerIndex.value], hashes);
         break;
+      case StoreType.transmission:
+        // TODO
+        break;
     }
     getTasks();
     statusGet.selectMode.value=false;
@@ -209,6 +230,9 @@ class FuncsService extends GetxController{
         final String hashes=statusGet.activeTasks.map((item)=>item.id).toList().join('|');
         await qbitService.pauseTask(storeGet.servers[statusGet.sevrerIndex.value], hashes);
         break;
+      case StoreType.transmission:
+        // TODO
+        break;
     }
     getTasks();
   }
@@ -225,6 +249,9 @@ class FuncsService extends GetxController{
       case StoreType.qbit:
         final String hashes=statusGet.activeTasks.map((item)=>item.id).toList().join('|');
         await qbitService.continueTask(storeGet.servers[statusGet.sevrerIndex.value], hashes);
+        break;
+      case StoreType.transmission:
+        // TODO
         break;
     }
     getTasks();
@@ -251,6 +278,9 @@ class FuncsService extends GetxController{
           await qbitService.addTask(item.link, storeGet.servers[statusGet.sevrerIndex.value]);
         }
         break;
+      case StoreType.transmission:
+        // TODO
+        break;
     }
     getTasks();
     statusGet.selectMode.value=false;
@@ -270,6 +300,9 @@ class FuncsService extends GetxController{
         case StoreType.qbit:
           check=await qbitService.getCookie(storeGet.servers[statusGet.sevrerIndex.value]);
           break;
+        case StoreType.transmission:
+        // TODO
+        break;
       }
       if(check==null){
         if(context.mounted){
