@@ -7,6 +7,7 @@ import 'package:bit_flow/getx/status_get.dart';
 import 'package:bit_flow/getx/store_get.dart';
 import 'package:bit_flow/service/aria.dart';
 import 'package:bit_flow/service/qbit.dart';
+import 'package:bit_flow/service/trans.dart';
 import 'package:bit_flow/types/store_item.dart';
 import 'package:bit_flow/types/task_item.dart';
 import 'package:flutter/material.dart';
@@ -20,10 +21,22 @@ class FuncsService extends GetxController{
   final StatusGet statusGet=Get.find();
   final AriaService ariaService=Get.find();
   final QbitService qbitService=Get.find();
+  final TransmissionService transmissionService=Get.find();
 
   late Worker pageListener;
   late Worker serverListener;
   late Worker selectListener;
+
+  String convertType(StoreType type){
+    switch (type) {
+      case StoreType.aria:
+        return "Aria";
+      case StoreType.qbit:
+        return "qBittorrent";
+      case StoreType.transmission:
+        return "Transmission";
+    }
+  }
 
   FuncsService(){
     pageListener=ever(statusGet.page, (_) async {
@@ -112,7 +125,7 @@ class FuncsService extends GetxController{
         statusGet.makeTasks(await qbitService.getTasks(statusGet.page.value, storeGet.servers[statusGet.sevrerIndex.value]), storeGet.servers[statusGet.sevrerIndex.value].type);
         break;
       case StoreType.transmission:
-        // TODO
+        statusGet.makeTasks(await transmissionService.getTasks(statusGet.page.value, storeGet.servers[statusGet.sevrerIndex.value]), storeGet.servers[statusGet.sevrerIndex.value].type);
         break;
     }
     statusGet.loadOk.value=true;
@@ -301,15 +314,15 @@ class FuncsService extends GetxController{
           check=await qbitService.getCookie(storeGet.servers[statusGet.sevrerIndex.value]);
           break;
         case StoreType.transmission:
-        // TODO
-        break;
+          check=await transmissionService.check(storeGet.servers[statusGet.sevrerIndex.value])==true ? "ok" : null;
+          break;
       }
       if(check==null){
         if(context.mounted){
           await showErrWarnDialog(
             context, 
             "requestErr".tr, 
-            "${'request'.tr} ${storeGet.servers[statusGet.sevrerIndex.value].type==StoreType.aria ? 'Aria' : 'qBittorrent'} ${'err'.tr}"
+            "${'request'.tr} ${convertType(storeGet.servers[statusGet.sevrerIndex.value].type)} ${'err'.tr}"
           );
         }
         return;
