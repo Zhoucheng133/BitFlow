@@ -232,7 +232,7 @@ class _ActiveTaskState extends State<ActiveTask> {
                                 )
                               ),
                               const SizedBox(width: 10,),
-                              if(widget.item.status==TaskStatus.download) Column(
+                              if(widget.item.status==TaskStatus.download || widget.item.status==TaskStatus.seeding) Column(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
