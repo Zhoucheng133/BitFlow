@@ -79,6 +79,24 @@ class TaskItem{
   // 错误信息
   late String? errorMessage;
 
+  TaskItem({
+    required this.name, 
+    required this.size, 
+    required this.files, 
+    required this.status, 
+    required this.link, 
+    required this.path, 
+    required this.downloadSpeed, 
+    required this.uploadSpeed, 
+    required this.completeBytes, 
+    required this.id, 
+    required this.addTime, 
+    required this.uploaded, 
+    required this.type, 
+    required this.errorCode, 
+    required this.errorMessage
+  });
+
   bool selected=false;
 
   String statusToText(TaskStatus status){
@@ -503,6 +521,5 @@ class TaskItem{
     }
     funcsService.getTasks();
   }
-  TaskItem(this.name, this.size, this.files, this.status, this.link, this.path, this.downloadSpeed, this.uploadSpeed, this.completeBytes, this.id, this.addTime, this.uploaded, this.type, this.errorCode, this.errorMessage);
   
 }

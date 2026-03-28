@@ -81,7 +81,6 @@ class QbitService extends GetxController {
   }
 
   Future<List<TaskItem>?> getAll(StoreItem item) async{
-    // final cookie=await getCookie(item);
     if(cookie.isEmpty){
       final temp=await getCookie(item);
       if(temp==null){
@@ -135,7 +134,24 @@ class QbitService extends GetxController {
         String id=data['hash'];
         int addedOn=data['added_on'];
         int uploaded=data['uploaded'];
-        tasks.add(TaskItem(name, size, [], status, link, path, downloadSpeed, uploadSpeed, completeBytes, id, addedOn, uploaded, StoreType.qbit, null, null));
+        // tasks.add(TaskItem(name, size, [], status, link, path, downloadSpeed, uploadSpeed, completeBytes, id, addedOn, uploaded, StoreType.qbit, null, null));
+        tasks.add(TaskItem(
+          name: name,
+          size: size,
+          files: [],
+          status: status,
+          link: link,
+          path: path,
+          downloadSpeed: downloadSpeed,
+          uploadSpeed: uploadSpeed,
+          completeBytes: completeBytes,
+          id: id,
+          addTime: addedOn,
+          uploaded: uploaded,
+          type: StoreType.qbit,
+          errorCode: null,
+          errorMessage: null,
+        ));
       }
       return tasks;
     } catch (e) {

@@ -86,7 +86,23 @@ class AriaService extends GetxController{
         int uploaded=int.parse(task['uploadLength']);
         String errorCode=task['errorCode']??"";
         String errorMessage=task['errorMessage']??"";
-        ls.add(TaskItem(name, size, files, status, link, path, downloadSpeed, uploadSpeed, completeBytes, gid, null, uploaded, StoreType.aria, errorCode, errorMessage));
+        ls.add(TaskItem(
+          name: name, 
+          size: size, 
+          files: files, 
+          status: status, 
+          link: link, 
+          path: path, 
+          downloadSpeed: downloadSpeed, 
+          uploadSpeed: uploadSpeed, 
+          completeBytes: completeBytes, 
+          id: gid, 
+          addTime: null, 
+          uploaded: uploaded, 
+          type: StoreType.aria, 
+          errorCode: errorCode, 
+          errorMessage: errorMessage
+        ));
       }
       return ls;
     } catch (_) {}
@@ -129,7 +145,23 @@ class AriaService extends GetxController{
         int uploaded=int.parse(task['uploadLength']);
         String errorCode=task['errorCode']??"";
         String errorMessage=task['errorMessage']??"";
-        ls.add(TaskItem(name, size, files, status, link, path, downloadSpeed, uploadSpeed, completeBytes, gid, null, uploaded, StoreType.aria, errorCode, errorMessage));
+        ls.add(TaskItem(
+          name: name, 
+          size: size, 
+          files: files, 
+          status: status, 
+          link: link, 
+          path: path, 
+          downloadSpeed: downloadSpeed, 
+          uploadSpeed: uploadSpeed, 
+          completeBytes: completeBytes, 
+          id: gid, 
+          addTime: null, 
+          uploaded: uploaded, 
+          type: StoreType.aria, 
+          errorCode: errorCode, 
+          errorMessage: errorMessage
+        ));
       }
       return ls;
     } catch (e) {
@@ -173,7 +205,23 @@ class AriaService extends GetxController{
         int uploaded=int.parse(task['uploadLength']);
         String errorCode=task['errorCode']??"";
         String errorMessage=task['errorMessage']??"";
-        ls.add(TaskItem(name, size, files, status, link, path, downloadSpeed, uploadSpeed, completeBytes, gid, null, uploaded, StoreType.aria, errorCode, errorMessage));
+        ls.add(TaskItem(
+          name: name, 
+          size: size, 
+          files: files, 
+          status: status, 
+          link: link, 
+          path: path, 
+          downloadSpeed: downloadSpeed, 
+          uploadSpeed: uploadSpeed, 
+          completeBytes: completeBytes, 
+          id: gid, 
+          addTime: null, 
+          uploaded: uploaded, 
+          type: StoreType.aria, 
+          errorCode: errorCode, 
+          errorMessage: errorMessage
+        ));
       }
       return ls;
     } catch (_) {}
