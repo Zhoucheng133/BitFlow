@@ -6,6 +6,7 @@ import 'package:bit_flow/getx/store_get.dart';
 import 'package:bit_flow/service/aria.dart';
 import 'package:bit_flow/service/funcs.dart';
 import 'package:bit_flow/service/qbit.dart';
+import 'package:bit_flow/service/trans.dart';
 import 'package:bit_flow/types/store_item.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -39,6 +40,7 @@ class TaskItem{
   final StoreGet storeGet=Get.find();
   final FuncsService funcsService=Get.find();
   final QbitService qbitService=Get.find();
+  final TransmissionService transmissionService=Get.find();
 
   @override
   bool operator ==(Object other) {
@@ -437,7 +439,7 @@ class TaskItem{
         await qbitService.delFinishedTask(storeGet.servers[statusGet.sevrerIndex.value], id, delFile: delFile);
         break;
       case StoreType.transmission:
-        // TODO
+        await transmissionService.delFinishedTask(storeGet.servers[statusGet.sevrerIndex.value], id, delFile: delFile);
         break;
     }
     funcsService.getTasks();
@@ -453,7 +455,7 @@ class TaskItem{
         await qbitService.delActiveTask(storeGet.servers[statusGet.sevrerIndex.value], id, delFile: delFile);
         break;
       case StoreType.transmission:
-        // TODO
+        await transmissionService.delActiveTask(storeGet.servers[statusGet.sevrerIndex.value], id, delFile: delFile);
         break;
     }
     funcsService.getTasks();
@@ -464,7 +466,7 @@ class TaskItem{
     bool confirm=await showConfirmDialog(context, "deleteThisTask".tr, "deleteThisTaskContent".tr, okText: 'delete'.tr);
     bool delFile=false;
     if(confirm){
-      if(type==StoreType.qbit){
+      if(type==StoreType.qbit || type==StoreType.transmission){
         if(context.mounted){
           delFile=await showConfirmDialog(context, "deleteFile".tr, "deleteFileContent".tr, okText: 'delete'.tr);
         }

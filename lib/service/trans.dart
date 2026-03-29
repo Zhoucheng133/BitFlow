@@ -207,6 +207,44 @@ class TransmissionService extends GetxController {
     } catch (_) {}
   }
   
+  Future<void> delActiveTask(StoreItem item, String id, {bool delFile=false}) async {
+    if(sessionId.isEmpty){
+      await getSession(item);
+      if(sessionId.isEmpty){
+        return;
+      }
+    }
+
+    try {
+      String basicAuth = 'Basic ${base64Encode(utf8.encode('${item.username}:${item.password}'))}';
+      final response=await http.post(Uri.parse("${item.url}/transmission/rpc"),
+        headers: {
+          "X-Transmission-Session-Id": sessionId,
+          "Authorization": basicAuth,
+          "Content-Type": "application/json",
+        },
+        body: jsonEncode({
+          "method": "torrent-remove",
+          "arguments": {
+            "ids": [int.parse(id)],
+            "delete-local-data": delFile
+          }
+        }),
+      );
+      if (response.statusCode == 409) {
+        sessionId = response.headers['x-transmission-session-id'] ?? "";
+        return delActiveTask(item, id, delFile: delFile);
+      }
+      final Map<String, dynamic> fullJson = json.decode(utf8.decode(response.bodyBytes));
+
+      if (fullJson['result'] != 'success') return;
+    } catch (_) {}
+  }
+
+  Future<void> delFinishedTask(StoreItem item, String id, {bool delFile=false}) async {
+    delActiveTask(item, id, delFile: delFile);
+  }
+  
   Future<bool> check(StoreItem item) async {
     if(item.type!=StoreType.transmission){
       return false;
