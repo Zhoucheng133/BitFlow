@@ -143,6 +143,70 @@ class TransmissionService extends GetxController {
     return [];
   }
 
+  Future<void> addTask(String downloadUrl, StoreItem item) async {
+    if(sessionId.isEmpty){
+      await getSession(item);
+      if(sessionId.isEmpty){
+        return;
+      }
+    }
+    try {
+      String basicAuth = 'Basic ${base64Encode(utf8.encode('${item.username}:${item.password}'))}';
+      final response=await http.post(Uri.parse("${item.url}/transmission/rpc"),
+        headers: {
+          "X-Transmission-Session-Id": sessionId,
+          "Authorization": basicAuth,
+          "Content-Type": "application/json",
+        },
+        body: jsonEncode({
+          "method": "torrent-add",
+          "arguments": {
+            "filename": downloadUrl
+          }
+        }),
+      );
+      if (response.statusCode == 409) {
+        sessionId = response.headers['x-transmission-session-id'] ?? "";
+        return addTask(downloadUrl, item);
+      }
+      final Map<String, dynamic> fullJson = json.decode(utf8.decode(response.bodyBytes));
+
+      if (fullJson['result'] != 'success') return;
+    } catch (_) {}
+  }
+
+  Future<void> addTorrentTask(String base64, StoreItem item) async {
+    if(sessionId.isEmpty){
+      await getSession(item);
+      if(sessionId.isEmpty){
+        return;
+      }
+    }
+    try {
+      String basicAuth = 'Basic ${base64Encode(utf8.encode('${item.username}:${item.password}'))}';
+      final response=await http.post(Uri.parse("${item.url}/transmission/rpc"),
+        headers: {
+          "X-Transmission-Session-Id": sessionId,
+          "Authorization": basicAuth,
+          "Content-Type": "application/json",
+        },
+        body: jsonEncode({
+          "method": "torrent-add",
+          "arguments": {
+            "metainfo": base64
+          }
+        }),
+      );
+      if (response.statusCode == 409) {
+        sessionId = response.headers['x-transmission-session-id'] ?? "";
+        return addTorrentTask(base64, item);
+      }
+      final Map<String, dynamic> fullJson = json.decode(utf8.decode(response.bodyBytes));
+
+      if (fullJson['result'] != 'success') return;
+    } catch (_) {}
+  }
+  
   Future<bool> check(StoreItem item) async {
     if(item.type!=StoreType.transmission){
       return false;

@@ -93,7 +93,9 @@ class FuncsService extends GetxController{
         }
         break;
       case StoreType.transmission:
-        // TODO
+        for(String urlItem in splitUrls(url)){
+          transmissionService.addTask(urlItem, storeGet.servers[statusGet.sevrerIndex.value]);
+        }
         break;
     }
     getTasks();
@@ -111,7 +113,10 @@ class FuncsService extends GetxController{
         qbitService.addTorrentTask(filePath, storeGet.servers[statusGet.sevrerIndex.value]);
         break;
       case StoreType.transmission:
-        // TODO
+        File file = File(filePath);
+        final bytes = await file.readAsBytes();
+        final base64Torrent = base64Encode(bytes);
+        transmissionService.addTorrentTask(base64Torrent, storeGet.servers[statusGet.sevrerIndex.value]);
         break;
     }
   }
