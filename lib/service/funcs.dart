@@ -151,7 +151,8 @@ class FuncsService extends GetxController{
         qbitService.delFinishedTask(storeGet.servers[statusGet.sevrerIndex.value], hashes);
         break;
       case StoreType.transmission:
-        // TODO
+        final List<String> finishedList=statusGet.finishedTask.map((item)=>item.id).toList();
+        transmissionService.delFinishedTask(storeGet.servers[statusGet.sevrerIndex.value], finishedList);
         break;
     }
     getTasks();
@@ -182,7 +183,8 @@ class FuncsService extends GetxController{
         }
         break;
       case StoreType.transmission:
-        // TODO
+        List<String> ids=statusGet.selectList.map((item)=>item.id).toList();
+        await transmissionService.delActiveTask(storeGet.servers[statusGet.sevrerIndex.value], ids);
         break;
     }
     getTasks();
@@ -205,7 +207,8 @@ class FuncsService extends GetxController{
         await qbitService.continueTask(storeGet.servers[statusGet.sevrerIndex.value], hashes);
         break;
       case StoreType.transmission:
-        // TODO
+        final List<String> ids=statusGet.selectList.map((item)=>item.id).toList();
+        await transmissionService.continueTask(storeGet.servers[statusGet.sevrerIndex.value], ids);
         break;
     }
     getTasks();
@@ -228,7 +231,8 @@ class FuncsService extends GetxController{
         await qbitService.pauseTask(storeGet.servers[statusGet.sevrerIndex.value], hashes);
         break;
       case StoreType.transmission:
-        // TODO
+        final List<String> ids=statusGet.selectList.map((item)=>item.id).toList();
+        await transmissionService.pauseTask(storeGet.servers[statusGet.sevrerIndex.value], ids);
         break;
     }
     getTasks();
@@ -249,7 +253,8 @@ class FuncsService extends GetxController{
         await qbitService.pauseTask(storeGet.servers[statusGet.sevrerIndex.value], hashes);
         break;
       case StoreType.transmission:
-        // TODO
+        final List<String> ids=statusGet.activeTasks.map((item)=>item.id).toList();
+        await transmissionService.pauseTask(storeGet.servers[statusGet.sevrerIndex.value], ids);
         break;
     }
     getTasks();
@@ -269,7 +274,8 @@ class FuncsService extends GetxController{
         await qbitService.continueTask(storeGet.servers[statusGet.sevrerIndex.value], hashes);
         break;
       case StoreType.transmission:
-        // TODO
+        final List<String> ids=statusGet.activeTasks.map((item)=>item.id).toList();
+        await transmissionService.continueTask(storeGet.servers[statusGet.sevrerIndex.value], ids);
         break;
     }
     getTasks();
@@ -297,7 +303,11 @@ class FuncsService extends GetxController{
         }
         break;
       case StoreType.transmission:
-        // TODO
+        final List<String> ids=statusGet.selectList.map((item)=>item.id).toList();
+        await transmissionService.delFinishedTask(storeGet.servers[statusGet.sevrerIndex.value], ids, delFile: true);
+        for(TaskItem item in statusGet.selectList){
+          await transmissionService.addTask(item.link, storeGet.servers[statusGet.sevrerIndex.value]);
+        }
         break;
     }
     getTasks();
