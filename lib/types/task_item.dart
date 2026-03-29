@@ -439,7 +439,7 @@ class TaskItem{
         await qbitService.delFinishedTask(storeGet.servers[statusGet.sevrerIndex.value], id, delFile: delFile);
         break;
       case StoreType.transmission:
-        await transmissionService.delFinishedTask(storeGet.servers[statusGet.sevrerIndex.value], id, delFile: delFile);
+        await transmissionService.delFinishedTask(storeGet.servers[statusGet.sevrerIndex.value], [id], delFile: delFile);
         break;
     }
     funcsService.getTasks();
@@ -455,7 +455,7 @@ class TaskItem{
         await qbitService.delActiveTask(storeGet.servers[statusGet.sevrerIndex.value], id, delFile: delFile);
         break;
       case StoreType.transmission:
-        await transmissionService.delActiveTask(storeGet.servers[statusGet.sevrerIndex.value], id, delFile: delFile);
+        await transmissionService.delActiveTask(storeGet.servers[statusGet.sevrerIndex.value], [id], delFile: delFile);
         break;
     }
     funcsService.getTasks();
@@ -502,7 +502,7 @@ class TaskItem{
         await qbitService.pauseTask(storeGet.servers[statusGet.sevrerIndex.value], id);
         break;
       case StoreType.transmission:
-        await transmissionService.pauseTask(storeGet.servers[statusGet.sevrerIndex.value], id);
+        await transmissionService.pauseTask(storeGet.servers[statusGet.sevrerIndex.value], [id]);
         break;
     }
     funcsService.getTasks();
@@ -518,7 +518,7 @@ class TaskItem{
         await qbitService.continueTask(storeGet.servers[statusGet.sevrerIndex.value], id);
         break;
       case StoreType.transmission:
-        await transmissionService.continueTask(storeGet.servers[statusGet.sevrerIndex.value], id);
+        await transmissionService.continueTask(storeGet.servers[statusGet.sevrerIndex.value], [id]);
         break;
     }
     funcsService.getTasks();

@@ -207,7 +207,7 @@ class TransmissionService extends GetxController {
     } catch (_) {}
   }
   
-  Future<void> delActiveTask(StoreItem item, String id, {bool delFile=false}) async {
+  Future<void> delActiveTask(StoreItem item, List<String> ids, {bool delFile=false}) async {
     if(sessionId.isEmpty){
       await getSession(item);
       if(sessionId.isEmpty){
@@ -226,14 +226,14 @@ class TransmissionService extends GetxController {
         body: jsonEncode({
           "method": "torrent-remove",
           "arguments": {
-            "ids": [int.parse(id)],
+            "ids": ids.map((item)=>int.parse(item)).toList(),
             "delete-local-data": delFile
           }
         }),
       );
       if (response.statusCode == 409) {
         sessionId = response.headers['x-transmission-session-id'] ?? "";
-        return delActiveTask(item, id, delFile: delFile);
+        return delActiveTask(item, ids, delFile: delFile);
       }
       final Map<String, dynamic> fullJson = json.decode(utf8.decode(response.bodyBytes));
 
@@ -241,11 +241,11 @@ class TransmissionService extends GetxController {
     } catch (_) {}
   }
 
-  Future<void> delFinishedTask(StoreItem item, String id, {bool delFile=false}) async {
-    delActiveTask(item, id, delFile: delFile);
+  Future<void> delFinishedTask(StoreItem item, List<String> ids, {bool delFile=false}) async {
+    delActiveTask(item, ids, delFile: delFile);
   }
 
-  Future<void> pauseTask(StoreItem item, String id) async{
+  Future<void> pauseTask(StoreItem item, List<String> ids) async{
     if(sessionId.isEmpty){
       await getSession(item);
       if(sessionId.isEmpty){
@@ -264,13 +264,13 @@ class TransmissionService extends GetxController {
         body: jsonEncode({
           "method": "torrent-stop",
           "arguments": {
-            "ids": [int.parse(id)],
+            "ids": ids.map((item)=>int.parse(item)).toList(),
           }
         }),
       );
       if (response.statusCode == 409) {
         sessionId = response.headers['x-transmission-session-id'] ?? "";
-        return pauseTask(item, id);
+        return pauseTask(item, ids);
       }
       final Map<String, dynamic> fullJson = json.decode(utf8.decode(response.bodyBytes));
 
@@ -278,7 +278,7 @@ class TransmissionService extends GetxController {
     } catch (_) {}
   }
 
-  Future<void> continueTask(StoreItem item, String id) async{
+  Future<void> continueTask(StoreItem item, List<String> ids) async{
     if(sessionId.isEmpty){
       await getSession(item);
       if(sessionId.isEmpty){
@@ -297,13 +297,13 @@ class TransmissionService extends GetxController {
         body: jsonEncode({
           "method": "torrent-start",
           "arguments": {
-            "ids": [int.parse(id)],
+            "ids": ids.map((item)=>int.parse(item)).toList(),
           }
         }),
       );
       if (response.statusCode == 409) {
         sessionId = response.headers['x-transmission-session-id'] ?? "";
-        return continueTask(item, id);
+        return continueTask(item, ids);
       }
       final Map<String, dynamic> fullJson = json.decode(utf8.decode(response.bodyBytes));
 
