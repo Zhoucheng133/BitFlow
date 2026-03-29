@@ -246,7 +246,7 @@ void languageDialog(BuildContext context){
         }
       ),
       actions: [
-        TextButton(
+        ElevatedButton(
           child: Text('ok'.tr),
           onPressed: (){
             Navigator.of(context).pop();
