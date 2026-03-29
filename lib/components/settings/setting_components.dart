@@ -351,7 +351,16 @@ class SettingComponents {
                 qbitService.saveConfig(
                   storeGet.servers[statusGet.sevrerIndex.value], 
                   config, 
-                  QbitConfig(savePath.text, int.parse(maxDownloadCount.text), seedTimeEnable, int.parse(seedTime.text), ratioEnable, int.parse(seedRatio.text), int.parse(downloadLimit.text), int.parse(uploadLimit.text))
+                  QbitConfig(
+                    savePath: savePath.text, 
+                    maxDownloadCount: int.parse(maxDownloadCount.text), 
+                    seedTimeEnable: seedTimeEnable, 
+                    seedTime: int.parse(seedTime.text), 
+                    ratioEnable: ratioEnable, 
+                    seedRatio: int.parse(seedRatio.text), 
+                    downloadLimit: int.parse(downloadLimit.text), 
+                    uploadLimit: int.parse(uploadLimit.text)
+                  )
                 );
                 Navigator.pop(context);
               }, 

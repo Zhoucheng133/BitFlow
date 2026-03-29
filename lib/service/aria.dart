@@ -25,7 +25,16 @@ class AriaConfig{
   // 做种比率【seed-ratio】
   double seedRatio;
 
-  AriaConfig(this.allowOverwrite, this.dir, this.maxDownloads, this.seedTime, this.downloadLimit, this.uploadLimit, this.userAgent, this.seedRatio);
+  AriaConfig({
+    required this.allowOverwrite, 
+    required this.dir,
+    required this.maxDownloads,
+    required this.seedTime,
+    required this.downloadLimit,
+    required this.uploadLimit,
+    required this.userAgent,
+    required this.seedRatio
+  });
 }
 
 class AriaService extends GetxController{
@@ -342,7 +351,16 @@ class AriaService extends GetxController{
         "id":"bitflow",
         "params":["token:${item.password}"]
       }, item.url))['result'];
-      return AriaConfig(data['allow-overwrite']=='true', data['dir'], int.parse(data['max-concurrent-downloads']), int.parse(data['seed-time']), int.parse(data['max-overall-download-limit']), int.parse(data['max-overall-upload-limit']), data['user-agent'], double.parse(data['seed-ratio']));
+      return AriaConfig(
+        allowOverwrite: data['allow-overwrite']=='true',
+        dir: data['dir'],
+        maxDownloads: int.parse(data['max-concurrent-downloads']), 
+        seedTime: int.parse(data['seed-time']), 
+        downloadLimit: int.parse(data['max-overall-download-limit']), 
+        uploadLimit: int.parse(data['max-overall-upload-limit']), 
+        userAgent: data['user-agent'], 
+        seedRatio: double.parse(data['seed-ratio'])
+      );
     } catch (_) {
       return null;
     }

@@ -22,7 +22,16 @@ class QbitConfig{
   // 上传速度限制【up_rate_limit】=> transfer/info
   int uploadLimit;
 
-  QbitConfig(this.savePath, this.maxDownloadCount, this.seedTimeEnable, this.seedTime, this.ratioEnable, this.seedRatio, this.downloadLimit, this.uploadLimit);
+  QbitConfig({
+    required this.savePath, 
+    required this.maxDownloadCount,
+    required this.seedTimeEnable,
+    required this.seedTime,
+    required this.ratioEnable,
+    required this.seedRatio,
+    required this.downloadLimit,
+    required this.uploadLimit
+  });
 
   @override
   bool operator ==(Object other) {
@@ -388,7 +397,16 @@ class QbitService extends GetxController {
     final appConfig=await getAppConfig(item);
     final transferConfig=await getTransferConfig(item);
     
-    return QbitConfig(appConfig['save_path'], appConfig['max_active_downloads'], appConfig['max_seeding_time_enabled'], appConfig['max_seeding_time'], appConfig['max_ratio_enabled'], appConfig['max_ratio'], transferConfig['dl_rate_limit'], transferConfig['up_rate_limit']);
+    return QbitConfig(
+      savePath: appConfig['save_path'], 
+      maxDownloadCount: appConfig['max_active_downloads'], 
+      seedTimeEnable: appConfig['max_seeding_time_enabled'], 
+      seedTime: appConfig['max_seeding_time'], 
+      ratioEnable: appConfig['max_ratio_enabled'], 
+      seedRatio: appConfig['max_ratio'], 
+      downloadLimit: transferConfig['dl_rate_limit'], 
+      uploadLimit: transferConfig['up_rate_limit']
+    );
   }
 
   bool samePreference(QbitConfig config1, QbitConfig config2){

@@ -311,6 +311,11 @@ class TransmissionService extends GetxController {
     } catch (_) {}
   }
   
+  TransmissionConfig getConfig(){
+    return TransmissionConfig();
+    // TODO
+  }
+
   Future<bool> check(StoreItem item) async {
     if(item.type!=StoreType.transmission){
       return false;
