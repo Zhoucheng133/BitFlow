@@ -6,7 +6,6 @@ import 'package:bit_flow/getx/status_get.dart';
 import 'package:bit_flow/getx/store_get.dart';
 import 'package:bit_flow/getx/theme_get.dart';
 import 'package:bit_flow/service/funcs.dart';
-import 'package:bit_flow/types/store_item.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -167,7 +166,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         color: hoverConfig ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.primary.withAlpha(180)
                       ), 
                       duration: const Duration(milliseconds: 200),
-                      child: Obx(() => Text("${'config'.tr} ${ storeGet.servers.isEmpty ? "" : storeGet.servers[statusGet.sevrerIndex.value].type==StoreType.aria?'Aria':'qBittorrent'}"))
+                      child: Obx(() => Text("${'config'.tr} ${ storeGet.servers.isEmpty ? "" : funcsService.convertType(storeGet.servers[statusGet.sevrerIndex.value].type)}"))
                     ),
                   ),
                 )

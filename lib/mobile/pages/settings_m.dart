@@ -283,7 +283,7 @@ class _SettingsMState extends State<SettingsM> {
           ),
           ListTile(
             title: Text("downloaderConfig".tr),
-            subtitle: Text("${'config'.tr} ${ storeGet.servers.isEmpty ? "" : storeGet.servers[statusGet.sevrerIndex.value].type==StoreType.aria?'Aria':'qBittorrent'}"),
+            subtitle: Text("${'config'.tr} ${ storeGet.servers.isEmpty ? "" : funcsService.convertType(storeGet.servers[statusGet.sevrerIndex.value].type)}"),
             onTap: ()=>settingComponents.downloaderConfig(context),
           ),
           ListTile(

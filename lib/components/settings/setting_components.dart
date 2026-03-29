@@ -364,10 +364,16 @@ class SettingComponents {
   }
 
   Future<void> downloaderConfig(BuildContext context) async {
-    if(storeGet.servers[statusGet.sevrerIndex.value].type==StoreType.aria){
-      await ariaConfig(context);
-    }else if(storeGet.servers[statusGet.sevrerIndex.value].type==StoreType.qbit){
-      await qbitConfig(context);
+    switch (storeGet.servers[statusGet.sevrerIndex.value].type) {
+      case StoreType.aria:
+        await ariaConfig(context);
+        break;
+      case StoreType.qbit:
+        await qbitConfig(context);
+        break;
+      case StoreType.transmission:
+        // TODO
+        break;
     }
   }
 }

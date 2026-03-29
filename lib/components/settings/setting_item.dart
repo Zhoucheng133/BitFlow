@@ -28,7 +28,7 @@ class _SettingItemState extends State<SettingItem> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                width: 200,
+                width: 240,
                 child: Padding(
                   padding: const EdgeInsets.only(left: 5),
                   child: Text(
@@ -38,7 +38,7 @@ class _SettingItemState extends State<SettingItem> {
               ),
               const SizedBox(width: 10,),
               SizedBox(
-                width: 180,
+                width: 200,
                 child: Padding(
                   padding: EdgeInsets.only(right: widget.paddingRight),
                   child: Align(
