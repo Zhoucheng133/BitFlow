@@ -502,7 +502,7 @@ class TaskItem{
         await qbitService.pauseTask(storeGet.servers[statusGet.sevrerIndex.value], id);
         break;
       case StoreType.transmission:
-        // TODO
+        await transmissionService.pauseTask(storeGet.servers[statusGet.sevrerIndex.value], id);
         break;
     }
     funcsService.getTasks();
@@ -518,7 +518,7 @@ class TaskItem{
         await qbitService.continueTask(storeGet.servers[statusGet.sevrerIndex.value], id);
         break;
       case StoreType.transmission:
-        // TODO
+        await transmissionService.continueTask(storeGet.servers[statusGet.sevrerIndex.value], id);
         break;
     }
     funcsService.getTasks();

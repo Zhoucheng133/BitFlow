@@ -244,6 +244,72 @@ class TransmissionService extends GetxController {
   Future<void> delFinishedTask(StoreItem item, String id, {bool delFile=false}) async {
     delActiveTask(item, id, delFile: delFile);
   }
+
+  Future<void> pauseTask(StoreItem item, String id) async{
+    if(sessionId.isEmpty){
+      await getSession(item);
+      if(sessionId.isEmpty){
+        return;
+      }
+    }
+
+    try {
+      String basicAuth = 'Basic ${base64Encode(utf8.encode('${item.username}:${item.password}'))}';
+      final response=await http.post(Uri.parse("${item.url}/transmission/rpc"),
+        headers: {
+          "X-Transmission-Session-Id": sessionId,
+          "Authorization": basicAuth,
+          "Content-Type": "application/json",
+        },
+        body: jsonEncode({
+          "method": "torrent-stop",
+          "arguments": {
+            "ids": [int.parse(id)],
+          }
+        }),
+      );
+      if (response.statusCode == 409) {
+        sessionId = response.headers['x-transmission-session-id'] ?? "";
+        return pauseTask(item, id);
+      }
+      final Map<String, dynamic> fullJson = json.decode(utf8.decode(response.bodyBytes));
+
+      if (fullJson['result'] != 'success') return;
+    } catch (_) {}
+  }
+
+  Future<void> continueTask(StoreItem item, String id) async{
+    if(sessionId.isEmpty){
+      await getSession(item);
+      if(sessionId.isEmpty){
+        return;
+      }
+    }
+
+    try {
+      String basicAuth = 'Basic ${base64Encode(utf8.encode('${item.username}:${item.password}'))}';
+      final response=await http.post(Uri.parse("${item.url}/transmission/rpc"),
+        headers: {
+          "X-Transmission-Session-Id": sessionId,
+          "Authorization": basicAuth,
+          "Content-Type": "application/json",
+        },
+        body: jsonEncode({
+          "method": "torrent-start",
+          "arguments": {
+            "ids": [int.parse(id)],
+          }
+        }),
+      );
+      if (response.statusCode == 409) {
+        sessionId = response.headers['x-transmission-session-id'] ?? "";
+        return continueTask(item, id);
+      }
+      final Map<String, dynamic> fullJson = json.decode(utf8.decode(response.bodyBytes));
+
+      if (fullJson['result'] != 'success') return;
+    } catch (_) {}
+  }
   
   Future<bool> check(StoreItem item) async {
     if(item.type!=StoreType.transmission){
