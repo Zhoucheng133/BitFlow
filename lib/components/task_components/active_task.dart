@@ -240,6 +240,12 @@ class _ActiveTaskState extends State<ActiveTask> {
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     crossAxisAlignment: CrossAxisAlignment.center,
                                     children: [
+                                      Text(
+                                        " ",
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                        ),
+                                      ),
                                       if(widget.item.uploadSpeed!=0) Padding(
                                         padding: const EdgeInsets.only(top: 3),
                                         child: Icon(
