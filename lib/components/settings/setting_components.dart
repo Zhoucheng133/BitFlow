@@ -2,6 +2,7 @@ import 'package:bit_flow/getx/status_get.dart';
 import 'package:bit_flow/getx/store_get.dart';
 import 'package:bit_flow/service/aria.dart';
 import 'package:bit_flow/service/qbit.dart';
+import 'package:bit_flow/service/trans.dart';
 import 'package:bit_flow/types/store_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -106,6 +107,7 @@ class SettingComponents {
   final StatusGet statusGet=Get.find();
   final AriaService ariaService=Get.find();
   final QbitService qbitService=Get.find();
+  final TransmissionService transmissionService=Get.find();
   
   Future<void> ariaConfig(BuildContext context) async {
     final AriaConfig? config=await ariaService.getGlobalSettings(storeGet.servers[statusGet.sevrerIndex.value]);
@@ -372,6 +374,10 @@ class SettingComponents {
     }
   }
 
+  Future<void> transConfig(BuildContext context) async { 
+    transmissionService.getConfig(storeGet.servers[statusGet.sevrerIndex.value]);
+  }
+
   Future<void> downloaderConfig(BuildContext context) async {
     switch (storeGet.servers[statusGet.sevrerIndex.value].type) {
       case StoreType.aria:
@@ -381,7 +387,7 @@ class SettingComponents {
         await qbitConfig(context);
         break;
       case StoreType.transmission:
-        // TODO
+        await transConfig(context);
         break;
     }
   }

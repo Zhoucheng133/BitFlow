@@ -8,6 +8,82 @@ import 'package:http/http.dart' as http;
 
 class TransmissionConfig{
 
+  // 下载位置【download-dir】
+  String dir="";
+  // 最大下载数【download-queue-size】
+  int maxDownloadCount=0;
+  // 最大做种数【seed-queue-size】
+  int maxSeedCount=0;
+  // 启用做种限制【seedRatioLimited】
+  bool enableSeedRatio=false;
+  // 做种限制【seedRatioLimit】
+  int seedRatioLimit=0;
+  // 启用下载速度限制【speed-limit-down-enabled】
+  bool enableDownloadSpeedLimit=false;
+  // 下载速度限制【speed-limit-down】
+  int downloadSpeedLimit=0;
+  // 启用上传速度限制【speed-limit-up-enabled】
+  bool enableUploadSpeedLimit=false;
+  // 上传速度限制【speed-limit-up】
+  int uploadSpeedLimit=0;
+
+  factory TransmissionConfig.init(Map json){
+    return TransmissionConfig(
+      dir: json["download-dir"],
+      maxDownloadCount: json["download-queue-size"],
+      maxSeedCount: json["seed-queue-size"],
+      enableSeedRatio: json["seedRatioLimited"],
+      seedRatioLimit: json["seedRatioLimit"],
+      enableDownloadSpeedLimit: json["speed-limit-down-enabled"],
+      downloadSpeedLimit: json["speed-limit-down"],
+      enableUploadSpeedLimit: json["speed-limit-up-enabled"],
+      uploadSpeedLimit: json["speed-limit-up"],
+    );
+  }
+
+  TransmissionConfig({
+    required this.dir,
+    required this.maxDownloadCount,
+    required this.maxSeedCount,
+    required this.enableSeedRatio,
+    required this.seedRatioLimit,
+    required this.enableDownloadSpeedLimit,
+    required this.downloadSpeedLimit,
+    required this.enableUploadSpeedLimit,
+    required this.uploadSpeedLimit,
+  });
+
+  Map toJson(){
+    return {
+      "download-dir": dir,
+      "download-queue-size": maxDownloadCount,
+      "seed-queue-size": maxSeedCount,
+      "seedRatioLimited": enableSeedRatio,
+      "seedRatioLimit": seedRatioLimit,
+      "speed-limit-down-enabled": enableDownloadSpeedLimit,
+      "speed-limit-down": downloadSpeedLimit,
+      "speed-limit-up-enabled": enableUploadSpeedLimit,
+      "speed-limit-up": uploadSpeedLimit,
+    };
+  }
+
+  @override
+  bool operator ==(Object other){
+    if (identical(this, other)) return true;
+    return other is TransmissionConfig &&
+      other.dir==dir &&
+      other.maxDownloadCount==maxDownloadCount &&
+      other.maxSeedCount==maxSeedCount &&
+      other.enableSeedRatio==enableSeedRatio &&
+      other.seedRatioLimit==seedRatioLimit &&
+      other.enableDownloadSpeedLimit==enableDownloadSpeedLimit &&
+      other.downloadSpeedLimit==downloadSpeedLimit &&
+      other.enableUploadSpeedLimit==enableUploadSpeedLimit &&
+      other.uploadSpeedLimit==uploadSpeedLimit;
+  }
+
+  @override
+  int get hashCode => Object.hash(dir, maxDownloadCount, maxSeedCount, enableSeedRatio, seedRatioLimit, enableDownloadSpeedLimit, downloadSpeedLimit, enableUploadSpeedLimit, uploadSpeedLimit);
 }
 
 class TransmissionService extends GetxController {
@@ -311,9 +387,40 @@ class TransmissionService extends GetxController {
     } catch (_) {}
   }
   
-  TransmissionConfig getConfig(){
-    return TransmissionConfig();
-    // TODO
+  Future<TransmissionConfig?> getConfig(StoreItem item) async {
+    if(sessionId.isEmpty){
+      await getSession(item);
+      if(sessionId.isEmpty){
+        return null;
+      }
+    }
+
+    try {
+      String basicAuth = 'Basic ${base64Encode(utf8.encode('${item.username}:${item.password}'))}';
+      final response=await http.post(Uri.parse("${item.url}/transmission/rpc"),
+        headers: {
+          "X-Transmission-Session-Id": sessionId,
+          "Authorization": basicAuth,
+          "Content-Type": "application/json",
+        },
+        body: jsonEncode({
+          "method": "session-get",
+          "arguments": {}
+        }),
+      );
+      if (response.statusCode == 409) {
+        sessionId = response.headers['x-transmission-session-id'] ?? "";
+        return getConfig(item);
+      }
+      final Map<String, dynamic> fullJson = json.decode(utf8.decode(response.bodyBytes));
+      try {
+        return TransmissionConfig.init(fullJson['arguments']);
+      } catch (_) {
+        return null;
+      }
+    } catch (_) {
+      return null;
+    }
   }
 
   Future<bool> check(StoreItem item) async {
