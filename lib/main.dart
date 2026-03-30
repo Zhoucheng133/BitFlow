@@ -25,7 +25,7 @@ Future<void> main() async {
   Get.put(AriaService());
   Get.put(QbitService());
   final store=Get.put(StoreGet());
-  store.init();
+  await store.init();
   final FuncsService funcsService=Get.put(FuncsService());
   await status.initLang();
   await theme.init();
