@@ -93,7 +93,7 @@ class TransmissionService extends GetxController {
   Future<void> getSession(StoreItem item) async {
     String basicAuth = 'Basic ${base64Encode(utf8.encode('${item.username}:${item.password}'))}';
     try {
-      final response=await http.post(Uri.parse("${item.url}/transmission/rpc"),
+      final response=await http.post(Uri.parse(item.url),
         headers: {
           "X-Transmission-Session-Id": sessionId,
           "Authorization": basicAuth,
@@ -116,7 +116,7 @@ class TransmissionService extends GetxController {
     }
     try {
       String basicAuth = 'Basic ${base64Encode(utf8.encode('${item.username}:${item.password}'))}';
-      final url = Uri.parse("${item.url}/transmission/rpc");
+      final url = Uri.parse(item.url);
       final response = await http.post(
         url,
         headers: {
@@ -228,7 +228,7 @@ class TransmissionService extends GetxController {
     }
     try {
       String basicAuth = 'Basic ${base64Encode(utf8.encode('${item.username}:${item.password}'))}';
-      final response=await http.post(Uri.parse("${item.url}/transmission/rpc"),
+      final response=await http.post(Uri.parse(item.url),
         headers: {
           "X-Transmission-Session-Id": sessionId,
           "Authorization": basicAuth,
@@ -260,7 +260,7 @@ class TransmissionService extends GetxController {
     }
     try {
       String basicAuth = 'Basic ${base64Encode(utf8.encode('${item.username}:${item.password}'))}';
-      final response=await http.post(Uri.parse("${item.url}/transmission/rpc"),
+      final response=await http.post(Uri.parse(item.url),
         headers: {
           "X-Transmission-Session-Id": sessionId,
           "Authorization": basicAuth,
@@ -293,7 +293,7 @@ class TransmissionService extends GetxController {
 
     try {
       String basicAuth = 'Basic ${base64Encode(utf8.encode('${item.username}:${item.password}'))}';
-      final response=await http.post(Uri.parse("${item.url}/transmission/rpc"),
+      final response=await http.post(Uri.parse(item.url),
         headers: {
           "X-Transmission-Session-Id": sessionId,
           "Authorization": basicAuth,
@@ -331,7 +331,7 @@ class TransmissionService extends GetxController {
 
     try {
       String basicAuth = 'Basic ${base64Encode(utf8.encode('${item.username}:${item.password}'))}';
-      final response=await http.post(Uri.parse("${item.url}/transmission/rpc"),
+      final response=await http.post(Uri.parse(item.url),
         headers: {
           "X-Transmission-Session-Id": sessionId,
           "Authorization": basicAuth,
@@ -364,7 +364,7 @@ class TransmissionService extends GetxController {
 
     try {
       String basicAuth = 'Basic ${base64Encode(utf8.encode('${item.username}:${item.password}'))}';
-      final response=await http.post(Uri.parse("${item.url}/transmission/rpc"),
+      final response=await http.post(Uri.parse(item.url),
         headers: {
           "X-Transmission-Session-Id": sessionId,
           "Authorization": basicAuth,
@@ -397,7 +397,7 @@ class TransmissionService extends GetxController {
 
     try {
       String basicAuth = 'Basic ${base64Encode(utf8.encode('${item.username}:${item.password}'))}';
-      final response=await http.post(Uri.parse("${item.url}/transmission/rpc"),
+      final response=await http.post(Uri.parse(item.url),
         headers: {
           "X-Transmission-Session-Id": sessionId,
           "Authorization": basicAuth,
@@ -421,6 +421,45 @@ class TransmissionService extends GetxController {
     } catch (_) {
       return null;
     }
+  }
+
+  void saveConfig(StoreItem item, TransmissionConfig config) async { 
+    if(sessionId.isEmpty){
+      await getSession(item);
+      if(sessionId.isEmpty){
+        return;
+      }
+    }
+    try {
+      String basicAuth = 'Basic ${base64Encode(utf8.encode('${item.username}:${item.password}'))}';
+      final response=await http.post(Uri.parse(item.url),
+        headers: {
+          "X-Transmission-Session-Id": sessionId,
+          "Authorization": basicAuth,
+          "Content-Type": "application/json",
+        },
+        body: jsonEncode({
+          "method": "session-set",
+          "arguments": {
+            "download-dir": config.dir,
+            "download-queue-size": config.maxDownloadCount,
+            "seed-queue-size": config.maxSeedCount,
+            "seedRatioLimited": config.enableSeedRatio,
+            "seedRatioLimit": config.seedRatioLimit,
+            "speed-limit-down-enabled": config.enableDownloadSpeedLimit,
+            "speed-limit-down": config.downloadSpeedLimit,
+            "speed-limit-up-enabled": config.enableUploadSpeedLimit,
+            "speed-limit-up": config.uploadSpeedLimit,
+          }
+        })
+      );
+      if (response.statusCode == 409) {
+        sessionId = response.headers['x-transmission-session-id'] ?? "";
+        return saveConfig(item, config);
+      }
+      final Map<String, dynamic> fullJson = json.decode(utf8.decode(response.bodyBytes));
+      if (fullJson['result'] != 'success') return;
+    } catch (_) {}
   }
 
   Future<bool> check(StoreItem item) async {

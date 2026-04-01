@@ -509,14 +509,31 @@ class SettingComponents {
           ),
           actions: [
             TextButton(
-              onPressed: () => Navigator.of(context).pop(),
+              onPressed: () => Navigator.pop(context),
               child: Text(
                 "cancel".tr,
               ),
             ),
             ElevatedButton(
-              onPressed: (){
-                // TODO
+              onPressed: () async {
+                TransmissionConfig newConfig=TransmissionConfig(
+                  dir: savePath.text, 
+                  maxDownloadCount: int.parse(maxDownloadCount.text), 
+                  maxSeedCount: int.parse(maxSeedCount.text), 
+                  enableSeedRatio: enableSeedRatio, 
+                  seedRatioLimit: int.parse(seedRatioLimit.text), 
+                  enableDownloadSpeedLimit: enableDownloadSpeedLimit, 
+                  downloadSpeedLimit: int.parse(downloadSpeedLimit.text), 
+                  enableUploadSpeedLimit: enableUploadSpeedLimit, 
+                  uploadSpeedLimit: int.parse(uploadSpeedLimit.text)
+                );
+                if(newConfig!=config){
+                  transmissionService.saveConfig(
+                    storeGet.servers[statusGet.sevrerIndex.value], 
+                    newConfig
+                  );
+                }
+                Navigator.pop(context);
               }, 
               child: Text(
                 'ok'.tr
