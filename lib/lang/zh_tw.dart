@@ -131,4 +131,7 @@ const Map<String, String> zhTW = {
   'projUrl': '專案網址',
 
   'pages': '頁面',
+  'seedCount': '做種數量',
+  'enableDownloadLimit': '啟用下載速度限制',
+  'enableUploadLimit': '啟用上傳速度限制',
 };

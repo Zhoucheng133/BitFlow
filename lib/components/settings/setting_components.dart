@@ -1,6 +1,7 @@
 import 'package:bit_flow/getx/status_get.dart';
 import 'package:bit_flow/getx/store_get.dart';
 import 'package:bit_flow/service/aria.dart';
+import 'package:bit_flow/service/funcs.dart';
 import 'package:bit_flow/service/qbit.dart';
 import 'package:bit_flow/service/trans.dart';
 import 'package:bit_flow/types/store_item.dart';
@@ -20,6 +21,9 @@ class ConfigItem extends StatefulWidget {
 }
 
 class _ConfigItemState extends State<ConfigItem> {
+
+  FuncsService funcsService=Get.find();
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -27,7 +31,7 @@ class _ConfigItemState extends State<ConfigItem> {
       child: Row(
         children: [
           SizedBox(
-            width: 100,
+            width: funcsService.isDesktop() ? 150 : 100,
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(widget.label)
@@ -53,14 +57,18 @@ class ConfigItemWithTextField extends StatefulWidget {
   final bool useDouble;
   final bool useInt;
   final bool multiLine;
+  final bool enabled;
 
-  const ConfigItemWithTextField({super.key, required this.label, required this.controller, this.useDouble=false, this.useInt=false, this.multiLine=false});
+  const ConfigItemWithTextField({super.key, required this.label, required this.controller, this.useDouble=false, this.useInt=false, this.multiLine=false, this.enabled=true});
 
   @override
   State<ConfigItemWithTextField> createState() => _ConfigItemWithTextFieldState();
 }
 
 class _ConfigItemWithTextFieldState extends State<ConfigItemWithTextField> {
+
+  FuncsService funcsService=Get.find();
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -68,7 +76,7 @@ class _ConfigItemWithTextFieldState extends State<ConfigItemWithTextField> {
       child: Row(
         children: [
           SizedBox(
-            width: 100,
+            width: funcsService.isDesktop() ? 150 : 100,
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -81,6 +89,7 @@ class _ConfigItemWithTextFieldState extends State<ConfigItemWithTextField> {
             child: Align(
               alignment: Alignment.centerLeft,
               child: TextField(
+                enabled: widget.enabled,
                 inputFormatters: widget.useInt ? [
                   FilteringTextInputFormatter.digitsOnly,
                 ] : widget.useDouble ? [
@@ -140,7 +149,7 @@ class SettingComponents {
             '${"config".tr} Aria',
           ),
           content: SizedBox(
-            width: 350,
+            width: 400,
             child: StatefulBuilder(
               builder: (BuildContext context, StateSetter setState)=>Column(
                 children: [
@@ -262,7 +271,7 @@ class SettingComponents {
             "${'config'.tr} Bittorrent",
           ),
           content: SizedBox(
-            width: 350,
+            width: 400,
             child: StatefulBuilder(
               builder: (BuildContext context, StateSetter setState)=>Column(
                 children: [
@@ -375,7 +384,148 @@ class SettingComponents {
   }
 
   Future<void> transConfig(BuildContext context) async { 
-    transmissionService.getConfig(storeGet.servers[statusGet.sevrerIndex.value]);
+    final TransmissionConfig? config= await transmissionService.getConfig(storeGet.servers[statusGet.sevrerIndex.value]);
+    if(config==null){
+      return;
+    }
+
+    TextEditingController savePath=TextEditingController(text: config.dir);
+    TextEditingController maxDownloadCount=TextEditingController(text: config.maxDownloadCount.toString());
+    TextEditingController maxSeedCount=TextEditingController(text: config.maxSeedCount.toString());
+    bool enableSeedRatio=config.enableSeedRatio;
+    TextEditingController seedRatioLimit=TextEditingController(text: config.seedRatioLimit.toString());
+    bool enableDownloadSpeedLimit=config.enableDownloadSpeedLimit;
+    TextEditingController downloadSpeedLimit=TextEditingController(text: config.downloadSpeedLimit.toString());
+    bool enableUploadSpeedLimit=config.enableUploadSpeedLimit;
+    TextEditingController uploadSpeedLimit=TextEditingController(text: config.uploadSpeedLimit.toString());
+
+    if(context.mounted){
+      await showDialog(
+        context: context, 
+        builder: (context)=>AlertDialog(
+          title: Text(
+            "${'config'.tr} Transmission",
+          ),
+          content: SizedBox(
+            width: 400,
+            child: StatefulBuilder(
+              builder: (BuildContext context, StateSetter setState)=>Column(
+                children: [
+                  Expanded(
+                    child: ListView(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: Text(
+                            "sizeTip".tr,
+                          ),
+                        ),
+                        ConfigItemWithTextField(
+                          label: "downloadPath".tr, 
+                          controller: savePath,
+                        ),
+                        ConfigItemWithTextField(
+                          label: "downloadCount".tr, 
+                          controller: maxDownloadCount,
+                          useInt: true,
+                        ),
+                        ConfigItemWithTextField(
+                          label: "seedCount".tr, 
+                          controller: maxSeedCount,
+                          useInt: true,
+                        ),
+                        ConfigItem(
+                          label: "enableSeedRatio".tr, 
+                          child: Transform.scale(
+                            scale: 0.8,
+                            child: Switch(
+                              mouseCursor: SystemMouseCursors.basic,
+                              splashRadius: 0,
+                              value: enableSeedRatio, 
+                              onChanged: (bool val){
+                                setState((){
+                                  enableSeedRatio=val;
+                                });
+                              }
+                            )
+                          )
+                        ),
+                        ConfigItemWithTextField(
+                          enabled: enableSeedRatio,
+                          label: "seedRatio".tr, 
+                          controller: seedRatioLimit,
+                          useInt: true,
+                        ),
+                        ConfigItem(
+                          label: "enableDownloadLimit".tr, 
+                          child: Transform.scale(
+                            scale: 0.8,
+                            child: Switch(
+                              mouseCursor: SystemMouseCursors.basic,
+                              splashRadius: 0,
+                              value: enableDownloadSpeedLimit, 
+                              onChanged: (bool val){
+                                setState((){
+                                  enableDownloadSpeedLimit=val;
+                                });
+                              }
+                            )
+                          )
+                        ),
+                        ConfigItemWithTextField(
+                          enabled: enableDownloadSpeedLimit,
+                          label: "downloadLimit".tr, 
+                          controller: downloadSpeedLimit,
+                          useInt: true,
+                        ),
+                        ConfigItem(
+                          label: "enableUploadLimit".tr, 
+                          child: Transform.scale(
+                            scale: 0.8,
+                            child: Switch(
+                              mouseCursor: SystemMouseCursors.basic,
+                              splashRadius: 0,
+                              value: enableUploadSpeedLimit, 
+                              onChanged: (bool val){
+                                setState((){
+                                  enableUploadSpeedLimit=val;
+                                });
+                              }
+                            )
+                          )
+                        ),
+                        ConfigItemWithTextField(
+                          enabled: enableUploadSpeedLimit,
+                          label: "uploadLimit".tr, 
+                          controller: uploadSpeedLimit,
+                          useInt: true,
+                        ),
+                      ]
+                    )
+                  )
+                ]
+              )
+            )
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text(
+                "cancel".tr,
+              ),
+            ),
+            ElevatedButton(
+              onPressed: (){
+                // TODO
+              }, 
+              child: Text(
+                'ok'.tr
+              )
+            )
+          ],
+        )
+      );
+    }
   }
 
   Future<void> downloaderConfig(BuildContext context) async {

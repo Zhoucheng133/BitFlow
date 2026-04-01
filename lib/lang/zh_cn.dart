@@ -131,4 +131,7 @@ const Map<String, String> zhCN = {
   'projUrl': '项目地址',
 
   'pages': '页面',
+  'seedCount': '做种数',
+  'enableDownloadLimit': '启用下载速度限制',
+  'enableUploadLimit': '启用上传速度限制',
 };

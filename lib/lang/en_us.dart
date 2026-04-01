@@ -131,4 +131,7 @@ const Map<String, String> enUS = {
   'projUrl': 'Project URL',
 
   'pages': 'Pages',
+  'seedCount': 'Seed Count',
+  'enableDownloadLimit': 'Enable Download Limit',
+  'enableUploadLimit': 'Enable Upload Limit',
 };
