@@ -16,6 +16,7 @@ Also available in English. Click [HERE](/documents/en.md) to view the English ve
 
 ✅ qBittorrent  
 ✅ Aria
+✅ Transmission
 
 ## 目录
 

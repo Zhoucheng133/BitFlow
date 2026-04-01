@@ -15,6 +15,7 @@ It supports Windows, macOS, iOS (requires manual packaging), and Android.
 
 ✅ qBittorrent  
 ✅ Aria
+✅ Transmission
 
 ## Contents
 - [Intro](#intro)
