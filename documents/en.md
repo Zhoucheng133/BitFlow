@@ -10,7 +10,7 @@
 	<img src="https://get.microsoft.com/images/en-us%20dark.svg" width="200"/>
 </a>
 
-This is a desktop remote control app that supports multiple downloaders.  
+This is a remote control app that supports multiple downloaders.  
 It supports Windows, macOS, iOS (requires manual packaging), and Android.
 
 ✅ qBittorrent  
