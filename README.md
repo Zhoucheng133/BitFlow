@@ -15,7 +15,7 @@ Also available in English. Click [HERE](/documents/en.md) to view the English ve
 这是一个支持多下载器的桌面端远程控制App，支持Windows，macOS，iOS（需要自行打包）和Android
 
 ✅ qBittorrent  
-✅ Aria
+✅ Aria  
 ✅ Transmission
 
 ## 目录
