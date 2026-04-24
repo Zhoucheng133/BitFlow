@@ -14,7 +14,7 @@ This is a desktop remote control app that supports multiple downloaders.
 It supports Windows, macOS, iOS (requires manual packaging), and Android.
 
 ✅ qBittorrent  
-✅ Aria
+✅ Aria  
 ✅ Transmission
 
 ## Contents
