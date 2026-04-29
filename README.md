@@ -25,6 +25,7 @@ Also available in English. Click [HERE](/documents/en.md) to view the English ve
   - [桌面端](#桌面端)
   - [移动端](#移动端)
 - [在你的设备上构建](#在你的设备上构建)
+- [赞助](#赞助)
 
 ## 截图
 
@@ -55,3 +56,7 @@ Also available in English. Click [HERE](/documents/en.md) to view the English ve
 <sup>*</sup>**注意**，你需要通过Xcode（使用Xcode打开文件`ios/Runner.xcworkspace`可以自动获取）获取证书，非开发者账户的证书的有效期为一个星期，也就是说一个星期之后你需要重新打开Xcode获取证书
 
 <sup>**</sup>**注意**，模拟器无法使用`Release`模式，实体iPhone无法使用`Debug`模式
+
+## 赞助
+
+如果有帮助到了你，欢迎[给我投喂](https://blog.z-server.top/sponsor/)谢谢 🙏

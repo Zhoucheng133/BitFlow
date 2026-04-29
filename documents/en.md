@@ -23,6 +23,7 @@ It supports Windows, macOS, iOS (requires manual packaging), and Android.
   - [Desktop](#desktop)
   - [Mobile](#mobile)
 - [Build on Your Device](#build-on-your-device)
+- [Sponsor](#sponsor)
 
 ## Screenshots
 
@@ -55,3 +56,7 @@ It supports Windows, macOS, iOS (requires manual packaging), and Android.
 Certificates for non-developer accounts are valid for one week, which means you need to reopen Xcode to obtain a new certificate after one week.
 
 <sup>**</sup> **Note:** Simulators cannot use `Release` mode, and physical iPhones cannot use `Debug` mode.
+
+## Sponsor
+
+If this project was helpful, consider [buying me a coffee](https://blog.z-server.top/sponsor/). Cheers! ☕
