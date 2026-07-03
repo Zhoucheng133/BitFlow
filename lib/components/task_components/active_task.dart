@@ -66,15 +66,14 @@ class _ActiveTaskState extends State<ActiveTask> {
   final StatusGet statusGet=Get.find();
 
   Future<void> showActiveTaskMenu(BuildContext context, TapDownDetails details) async {
-    final RenderBox overlay = Overlay.of(context).context.findRenderObject() as RenderBox;
-    final Offset position = overlay.localToGlobal(details.globalPosition);
+    final tapPosition = details.globalPosition;
     ActiveTaskMenuTypes? val=await showMenu(
       context: context,
       position: RelativeRect.fromLTRB(
-        position.dx,
-        position.dy,
-        position.dx + 50,
-        position.dy + 50,
+        tapPosition.dx,
+        tapPosition.dy,
+        tapPosition.dx,
+        tapPosition.dy,
       ),
       color: Theme.of(context).colorScheme.surface,
       items: ActiveTaskMenuTypes.values.where((item) {

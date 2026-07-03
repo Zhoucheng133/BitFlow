@@ -60,15 +60,14 @@ class _FinishTaskState extends State<FinishTask> {
   final StatusGet statusGet=Get.find();
 
   Future<void> showFinishTaskMenu(BuildContext context, TapDownDetails details) async {
-    final RenderBox overlay = Overlay.of(context).context.findRenderObject() as RenderBox;
-    final Offset position = overlay.localToGlobal(details.globalPosition);
+    final tapPosition = details.globalPosition;
     FinishTaskMenuTypes? val=await showMenu(
       context: context,
       position: RelativeRect.fromLTRB(
-        position.dx,
-        position.dy,
-        position.dx + 50,
-        position.dy + 50,
+        tapPosition.dx,
+        tapPosition.dy,
+        tapPosition.dx,
+        tapPosition.dy,
       ),
       color: Theme.of(context).colorScheme.surface,
       items: FinishTaskMenuTypes.values.map((FinishTaskMenuTypes item){
