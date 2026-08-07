@@ -87,146 +87,148 @@ class _AddStoreState extends State<AddStore> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        AddItem(
-          label: 'type'.tr,
-          content: Align(
-            alignment: Alignment.centerLeft,
-            child: DropdownButtonHideUnderline(
-              child: DropdownButton<String>(
-                focusColor: Colors.transparent,
-                isDense: true,
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                borderRadius: BorderRadius.circular(5),
-                isExpanded: false,
-                value: type,
-                items: StoreType.values.map((StoreType type) {
-                  final str = convertType(type);
-                  return DropdownMenuItem<String>(
-                    value: str,
-                    child: Text(
-                      str,
-                      style: TextStyle(
-                        fontSize: 14,
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          AddItem(
+            label: 'type'.tr,
+            content: Align(
+              alignment: Alignment.centerLeft,
+              child: DropdownButtonHideUnderline(
+                child: DropdownButton<String>(
+                  focusColor: Colors.transparent,
+                  isDense: true,
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  borderRadius: BorderRadius.circular(5),
+                  isExpanded: false,
+                  value: type,
+                  items: StoreType.values.map((StoreType type) {
+                    final str = convertType(type);
+                    return DropdownMenuItem<String>(
+                      value: str,
+                      child: Text(
+                        str,
+                        style: TextStyle(
+                          fontSize: 14,
+                        ),
                       ),
-                    ),
-                  );
-                })
-                .toList(),
-                onChanged: (String? val){
-                  setState((){
-                    type=val!;
-                  });
-                  toEnumType(val);
-                  widget.valCallback(item);
-                },
+                    );
+                  })
+                  .toList(),
+                  onChanged: (String? val){
+                    setState((){
+                      type=val!;
+                    });
+                    toEnumType(val);
+                    widget.valCallback(item);
+                  },
+                ),
               ),
             ),
           ),
-        ),
-        const SizedBox(height: 10,),
-        AddItem(
-          label: 'name'.tr, 
-          content: TextField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              hintText: 'pickRandom'.tr,
-              hintStyle: TextStyle(
-                color: Colors.grey
+          const SizedBox(height: 10,),
+          AddItem(
+            label: 'name'.tr, 
+            content: TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'pickRandom'.tr,
+                hintStyle: TextStyle(
+                  color: Colors.grey
+                ),
+                isCollapsed: true,
+                contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12)
               ),
-              isCollapsed: true,
-              contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12)
-            ),
-            controller: name,
-            style: TextStyle(
-              fontSize: 14
-            ),
-            autocorrect: false,
-            enableSuggestions: false,
-            onChanged: (val){
-              item.name=val;
-              widget.valCallback(item);
-            },
-          )
-        ),
-        const SizedBox(height: 10,),
-        AddItem(
-          label: 'URL'.tr, 
-          content: TextField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              hintText: linkHintText(),
-              hintStyle: TextStyle(
-                color: Colors.grey
+              controller: name,
+              style: TextStyle(
+                fontSize: 14
               ),
-              isCollapsed: true,
-              contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12)
-            ),
-            controller: url,
-            style: TextStyle(
-              fontSize: 14
-            ),
-            autocorrect: false,
-            enableSuggestions: false,
-            onChanged: (val){
-              item.url=val;
-              widget.valCallback(item);
-            },
-          )
-        ),
-        if(type=='qBittorrent' || type=='Transmission') const SizedBox(height: 10,),
-        if(type=='qBittorrent' || type=='Transmission') AddItem(
-          label: 'username'.tr, 
-          content: TextField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              hintStyle: TextStyle(
-                color: Colors.grey
+              autocorrect: false,
+              enableSuggestions: false,
+              onChanged: (val){
+                item.name=val;
+                widget.valCallback(item);
+              },
+            )
+          ),
+          const SizedBox(height: 10,),
+          AddItem(
+            label: 'URL'.tr, 
+            content: TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: linkHintText(),
+                hintStyle: TextStyle(
+                  color: Colors.grey
+                ),
+                isCollapsed: true,
+                contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12)
               ),
-              isCollapsed: true,
-              contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12)
-            ),
-            controller: username,
-            style: TextStyle(
-              fontSize: 14
-            ),
-            autocorrect: false,
-            enableSuggestions: false,
-            onChanged: (val){
-              item.username=val;
-              widget.valCallback(item);
-            },
-          )
-        ),
-        const SizedBox(height: 10,),
-        AddItem(
-          label: 'password'.tr, 
-          content: TextField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              hintStyle: TextStyle(
-                color: Colors.grey
+              controller: url,
+              style: TextStyle(
+                fontSize: 14
               ),
-              isCollapsed: true,
-              contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12)
-            ),
-            obscureText: true,
-            controller: password,
-            style: TextStyle(
-              fontSize: 14
-            ),
-            autocorrect: false,
-            enableSuggestions: false,
-            onChanged: (val){
-              item.password=val;
-              widget.valCallback(item);
-            },
-          )
-        ),
-      ],
+              autocorrect: false,
+              enableSuggestions: false,
+              onChanged: (val){
+                item.url=val;
+                widget.valCallback(item);
+              },
+            )
+          ),
+          if(type=='qBittorrent' || type=='Transmission') const SizedBox(height: 10,),
+          if(type=='qBittorrent' || type=='Transmission') AddItem(
+            label: 'username'.tr, 
+            content: TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                hintStyle: TextStyle(
+                  color: Colors.grey
+                ),
+                isCollapsed: true,
+                contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12)
+              ),
+              controller: username,
+              style: TextStyle(
+                fontSize: 14
+              ),
+              autocorrect: false,
+              enableSuggestions: false,
+              onChanged: (val){
+                item.username=val;
+                widget.valCallback(item);
+              },
+            )
+          ),
+          const SizedBox(height: 10,),
+          AddItem(
+            label: 'password'.tr, 
+            content: TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                hintStyle: TextStyle(
+                  color: Colors.grey
+                ),
+                isCollapsed: true,
+                contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12)
+              ),
+              obscureText: true,
+              controller: password,
+              style: TextStyle(
+                fontSize: 14
+              ),
+              autocorrect: false,
+              enableSuggestions: false,
+              onChanged: (val){
+                item.password=val;
+                widget.valCallback(item);
+              },
+            )
+          ),
+        ],
+      ),
     );
   }
 }
