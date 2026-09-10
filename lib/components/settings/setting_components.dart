@@ -155,7 +155,7 @@ class SettingComponents {
         context: context, 
         builder: (context)=>AlertDialog(
           title: Text(
-            '${"config".tr} Aria2',
+            "config".trParams({"downloader": "Aria"})
           ),
           content: SizedBox(
             width: 450,
@@ -393,7 +393,7 @@ class SettingComponents {
         context: context, 
         builder: (context)=>AlertDialog(
           title: Text(
-            "${'config'.tr} qBittorrent",
+            "config".trParams({"downloader": "qBittorrent"})
           ),
           content: SizedBox(
             width: 450,
@@ -622,7 +622,7 @@ class SettingComponents {
         context: context, 
         builder: (context)=>AlertDialog(
           title: Text(
-            "${'config'.tr} Transmission",
+            "config".trParams({"downloader": "Transmission"})
           ),
           content: SizedBox(
             width: 450,

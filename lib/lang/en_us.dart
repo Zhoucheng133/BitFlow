@@ -76,7 +76,7 @@ const Map<String, String> enUS = {
   'downloaderConfig': 'Downloader Configuration',
   'downloaderURL': 'Downlaoder URL',
   'URL': 'URL',
-  'config': 'Configuration',
+  'config': '@downloader Configuration',
   'darkMode': 'Dark Mode',
   'auto': 'Auto',
   'dark': 'Dark',

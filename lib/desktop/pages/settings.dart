@@ -166,7 +166,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         color: hoverConfig ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.primary.withAlpha(180)
                       ), 
                       duration: const Duration(milliseconds: 200),
-                      child: Obx(() => Text("${'config'.tr} ${ storeGet.servers.isEmpty ? "" : funcsService.convertType(storeGet.servers[statusGet.sevrerIndex.value].type)}"))
+                      child: Obx(()=>Text("config".trParams({"downloader": storeGet.servers.isEmpty ? "" : funcsService.convertType(storeGet.servers[statusGet.sevrerIndex.value].type)}))),
                     ),
                   ),
                 )

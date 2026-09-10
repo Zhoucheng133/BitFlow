@@ -76,7 +76,7 @@ const Map<String, String> zhCN = {
   'downloaderConfig': '下载器配置',
   'downloaderURL': '下载器地址',
   'URL': '地址',
-  'config': '配置',
+  'config': '配置 @downloader',
   'darkMode': '深色模式',
   'auto': '自动',
   'dark': '深色',

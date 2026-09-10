@@ -76,7 +76,7 @@ const Map<String, String> zhTW = {
   'downloaderConfig': '下載器設定',
   'downloaderURL': '下載器位址',
   'URL': '位址',
-  'config': '設定',
+  'config': '設定 @downloader',
   'darkMode': '深色模式',
   'auto': '自動',
   'dark': '深色',
