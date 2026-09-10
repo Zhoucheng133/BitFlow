@@ -67,7 +67,7 @@ class SettingDivider extends StatelessWidget {
     return Align(
       alignment: Alignment.center,
       child: SizedBox(
-        width: 380,
+        width: 440,
         child: Divider(
           height: 3,
           color: Theme.of(context).colorScheme.primary.withAlpha(30),
