@@ -41,6 +41,7 @@ class FuncsService extends GetxController{
   FuncsService(){
     pageListener=ever(statusGet.page, (_) async {
       statusGet.selectMode.value=false;
+      statusGet.loadOk.value=false;
       await getTasks();
     });
 
@@ -122,17 +123,23 @@ class FuncsService extends GetxController{
   }
 
   Future<void> getTasks() async {
+    final targetPage = statusGet.page.value;
+    List<TaskItem> tasks = [];
     switch (storeGet.servers[statusGet.sevrerIndex.value].type) {
       case StoreType.aria:
-        statusGet.makeTasks(await ariaService.getTasks(statusGet.page.value, storeGet.servers[statusGet.sevrerIndex.value]), storeGet.servers[statusGet.sevrerIndex.value].type);
+        tasks = await ariaService.getTasks(targetPage, storeGet.servers[statusGet.sevrerIndex.value]);
         break;
       case StoreType.qbit:
-        statusGet.makeTasks(await qbitService.getTasks(statusGet.page.value, storeGet.servers[statusGet.sevrerIndex.value]), storeGet.servers[statusGet.sevrerIndex.value].type);
+        tasks = await qbitService.getTasks(targetPage, storeGet.servers[statusGet.sevrerIndex.value]);
         break;
       case StoreType.transmission:
-        statusGet.makeTasks(await transmissionService.getTasks(statusGet.page.value, storeGet.servers[statusGet.sevrerIndex.value]), storeGet.servers[statusGet.sevrerIndex.value].type);
+        tasks = await transmissionService.getTasks(targetPage, storeGet.servers[statusGet.sevrerIndex.value]);
         break;
     }
+    if (statusGet.page.value != targetPage) {
+      return;
+    }
+    statusGet.makeTasks(tasks, storeGet.servers[statusGet.sevrerIndex.value].type);
     statusGet.loadOk.value=true;
   }
 
