@@ -11,26 +11,53 @@ class QbitConfig{
   String savePath;
   // 最多下载个数【max_active_downloads】=> app/preferences
   int maxDownloadCount;
+  // 最大活动任务数【max_active_tasks】
+  int maxActiveTasks;
+  // 最大做种数【max_active_uploads】
+  int maxActiveUploads;
   // 做种时间【max_seeding_time】【需要max_seeding_time_enabled为true】=> app/preferences
   bool seedTimeEnable;
   int seedTime;
   // 做种比率【max_ratio】【需要max_ratio_enabled为true】=> app/preferences
   bool ratioEnable;
-  int seedRatio;
+  double seedRatio;
   // 下载速度限制【dl_rate_limit】=> transfer/info
   int downloadLimit;
   // 上传速度限制【up_rate_limit】=> transfer/info
   int uploadLimit;
+  // 监听端口【listen_port】
+  int listenPort;
+  // 启用DHT【dht_enabled】
+  bool dhtEnabled;
+  // 启用LPD【lpd_enabled】
+  bool lpdEnabled;
+  // 启用PEX【pex_enabled】
+  bool pexEnabled;
+  // 启用UPnP【upnp_enabled】
+  bool upnpEnabled;
+  // 最大连接数【max_conns】
+  int maxConns;
+  // 每个种子最大连接数【max_conns_per_torrent】
+  int maxConnsPerTorrent;
 
   QbitConfig({
     required this.savePath, 
     required this.maxDownloadCount,
+    required this.maxActiveTasks,
+    required this.maxActiveUploads,
     required this.seedTimeEnable,
     required this.seedTime,
     required this.ratioEnable,
     required this.seedRatio,
     required this.downloadLimit,
-    required this.uploadLimit
+    required this.uploadLimit,
+    required this.listenPort,
+    required this.dhtEnabled,
+    required this.lpdEnabled,
+    required this.pexEnabled,
+    required this.upnpEnabled,
+    required this.maxConns,
+    required this.maxConnsPerTorrent,
   });
 
   @override
@@ -39,25 +66,48 @@ class QbitConfig{
     return other is QbitConfig &&
       other.savePath==savePath &&
       other.maxDownloadCount==maxDownloadCount &&
+      other.maxActiveTasks==maxActiveTasks &&
+      other.maxActiveUploads==maxActiveUploads &&
       other.seedTimeEnable==seedTimeEnable &&
       other.seedTime==seedTime &&
       other.ratioEnable==ratioEnable &&
       other.seedRatio==seedRatio &&
       other.downloadLimit==downloadLimit &&
-      other.uploadLimit==uploadLimit;
+      other.uploadLimit==uploadLimit &&
+      other.listenPort==listenPort &&
+      other.dhtEnabled==dhtEnabled &&
+      other.lpdEnabled==lpdEnabled &&
+      other.pexEnabled==pexEnabled &&
+      other.upnpEnabled==upnpEnabled &&
+      other.maxConns==maxConns &&
+      other.maxConnsPerTorrent==maxConnsPerTorrent;
   }
   
   @override
-  int get hashCode => Object.hash(savePath, maxDownloadCount, seedTimeEnable, seedTime, ratioEnable, seedRatio, downloadLimit, uploadLimit);
+  int get hashCode => Object.hash(
+    savePath, maxDownloadCount, maxActiveTasks, maxActiveUploads,
+    seedTimeEnable, seedTime, ratioEnable, seedRatio,
+    downloadLimit, uploadLimit, listenPort, dhtEnabled,
+    lpdEnabled, pexEnabled, upnpEnabled, maxConns, maxConnsPerTorrent
+  );
 
   Map toJson(){
     return {
       "save_path": savePath,
       "max_active_downloads": maxDownloadCount,
+      "max_active_torrents": maxActiveTasks,
+      "max_active_uploads": maxActiveUploads,
       "max_seeding_time_enabled": seedTimeEnable,
       "max_seeding_time": seedTime,
       "max_ratio_enabled": ratioEnable,
       "max_ratio": seedRatio,
+      "listen_port": listenPort,
+      "dht_enabled": dhtEnabled,
+      "lpd_enabled": lpdEnabled,
+      "pex_enabled": pexEnabled,
+      "upnp_enabled": upnpEnabled,
+      "max_conns": maxConns,
+      "max_conns_per_torrent": maxConnsPerTorrent,
     };
   }
 }
@@ -395,17 +445,26 @@ class QbitService extends GetxController {
     // App配置API【/api/v2/app/preferences】【/api/v2/app/setPreferences】
     // 传输配置API【/api/v2/transfer/info】【/api/v2/transfer/setDownloadLimit】【/api/v2/transfer/setUploadLimit】
     final appConfig=await getAppConfig(item);
-    final transferConfig=await getTransferConfig(item);
+    final transferInfo = await getTransferConfig(item);
     
     return QbitConfig(
-      savePath: appConfig['save_path'], 
-      maxDownloadCount: appConfig['max_active_downloads'], 
-      seedTimeEnable: appConfig['max_seeding_time_enabled'], 
-      seedTime: appConfig['max_seeding_time'], 
-      ratioEnable: appConfig['max_ratio_enabled'], 
-      seedRatio: appConfig['max_ratio'], 
-      downloadLimit: transferConfig['dl_rate_limit'], 
-      uploadLimit: transferConfig['up_rate_limit']
+      savePath: appConfig['save_path'] ?? '', 
+      maxDownloadCount: appConfig['max_active_downloads'] ?? 3, 
+      maxActiveTasks: appConfig['max_active_torrents'] ?? 5,
+      maxActiveUploads: appConfig['max_active_uploads'] ?? 3,
+      seedTimeEnable: appConfig['max_seeding_time_enabled'] ?? false, 
+      seedTime: appConfig['max_seeding_time'] ?? 0, 
+      ratioEnable: appConfig['max_ratio_enabled'] ?? false, 
+      seedRatio: double.tryParse((appConfig['max_ratio'] ?? 1.0).toString()) ?? 1.0, 
+      downloadLimit: transferInfo['dl_rate_limit'] ?? 0, 
+      uploadLimit: transferInfo['up_rate_limit'] ?? 0,
+      listenPort: appConfig['listen_port'] ?? 6881,
+      dhtEnabled: appConfig['dht_enabled'] ?? true,
+      lpdEnabled: appConfig['lpd_enabled'] ?? false,
+      pexEnabled: appConfig['pex_enabled'] ?? true,
+      upnpEnabled: appConfig['upnp_enabled'] ?? true,
+      maxConns: appConfig['max_conns'] ?? 500,
+      maxConnsPerTorrent: appConfig['max_conns_per_torrent'] ?? 100,
     );
   }
 

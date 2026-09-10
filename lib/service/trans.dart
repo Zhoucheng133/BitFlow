@@ -17,7 +17,7 @@ class TransmissionConfig{
   // 启用做种限制【seedRatioLimited】
   bool enableSeedRatio=false;
   // 做种限制【seedRatioLimit】
-  int seedRatioLimit=0;
+  double seedRatioLimit=0.0;
   // 启用下载速度限制【speed-limit-down-enabled】
   bool enableDownloadSpeedLimit=false;
   // 下载速度限制【speed-limit-down】
@@ -26,18 +26,42 @@ class TransmissionConfig{
   bool enableUploadSpeedLimit=false;
   // 上传速度限制【speed-limit-up】
   int uploadSpeedLimit=0;
+  // 最大连接数【peer-limit-global】
+  int peerLimitGlobal=200;
+  // 单种子最大连接数【peer-limit-per-torrent】
+  int peerLimitPerTorrent=50;
+  // 监听端口【peer-port】
+  int peerPort=51413;
+  // 启用DHT【dht-enabled】
+  bool dhtEnabled=true;
+  // 启用PEX【pex-enabled】
+  bool pexEnabled=true;
+  // 启用LPD【lpd-enabled】
+  bool lpdEnabled=false;
+  // 启用UPnP【utp-enabled / port-forwarding-enabled】
+  bool portForwardingEnabled=true;
+  // 加密模式【encryption】: "preferred", "required", "despised"
+  String encryption="preferred";
 
   factory TransmissionConfig.init(Map json){
     return TransmissionConfig(
-      dir: json["download-dir"],
-      maxDownloadCount: json["download-queue-size"],
-      maxSeedCount: json["seed-queue-size"],
-      enableSeedRatio: json["seedRatioLimited"],
-      seedRatioLimit: json["seedRatioLimit"],
-      enableDownloadSpeedLimit: json["speed-limit-down-enabled"],
-      downloadSpeedLimit: json["speed-limit-down"],
-      enableUploadSpeedLimit: json["speed-limit-up-enabled"],
-      uploadSpeedLimit: json["speed-limit-up"],
+      dir: json["download-dir"] ?? "",
+      maxDownloadCount: json["download-queue-size"] ?? 5,
+      maxSeedCount: json["seed-queue-size"] ?? 10,
+      enableSeedRatio: json["seedRatioLimited"] ?? false,
+      seedRatioLimit: double.tryParse((json["seedRatioLimit"] ?? 1.0).toString()) ?? 1.0,
+      enableDownloadSpeedLimit: json["speed-limit-down-enabled"] ?? false,
+      downloadSpeedLimit: json["speed-limit-down"] ?? 100,
+      enableUploadSpeedLimit: json["speed-limit-up-enabled"] ?? false,
+      uploadSpeedLimit: json["speed-limit-up"] ?? 50,
+      peerLimitGlobal: json["peer-limit-global"] ?? 200,
+      peerLimitPerTorrent: json["peer-limit-per-torrent"] ?? 50,
+      peerPort: json["peer-port"] ?? 51413,
+      dhtEnabled: json["dht-enabled"] ?? true,
+      pexEnabled: json["pex-enabled"] ?? true,
+      lpdEnabled: json["lpd-enabled"] ?? false,
+      portForwardingEnabled: json["port-forwarding-enabled"] ?? true,
+      encryption: json["encryption"] ?? "preferred",
     );
   }
 
@@ -51,6 +75,14 @@ class TransmissionConfig{
     required this.downloadSpeedLimit,
     required this.enableUploadSpeedLimit,
     required this.uploadSpeedLimit,
+    required this.peerLimitGlobal,
+    required this.peerLimitPerTorrent,
+    required this.peerPort,
+    required this.dhtEnabled,
+    required this.pexEnabled,
+    required this.lpdEnabled,
+    required this.portForwardingEnabled,
+    required this.encryption,
   });
 
   Map toJson(){
@@ -64,6 +96,14 @@ class TransmissionConfig{
       "speed-limit-down": downloadSpeedLimit,
       "speed-limit-up-enabled": enableUploadSpeedLimit,
       "speed-limit-up": uploadSpeedLimit,
+      "peer-limit-global": peerLimitGlobal,
+      "peer-limit-per-torrent": peerLimitPerTorrent,
+      "peer-port": peerPort,
+      "dht-enabled": dhtEnabled,
+      "pex-enabled": pexEnabled,
+      "lpd-enabled": lpdEnabled,
+      "port-forwarding-enabled": portForwardingEnabled,
+      "encryption": encryption,
     };
   }
 
@@ -79,11 +119,24 @@ class TransmissionConfig{
       other.enableDownloadSpeedLimit==enableDownloadSpeedLimit &&
       other.downloadSpeedLimit==downloadSpeedLimit &&
       other.enableUploadSpeedLimit==enableUploadSpeedLimit &&
-      other.uploadSpeedLimit==uploadSpeedLimit;
+      other.uploadSpeedLimit==uploadSpeedLimit &&
+      other.peerLimitGlobal==peerLimitGlobal &&
+      other.peerLimitPerTorrent==peerLimitPerTorrent &&
+      other.peerPort==peerPort &&
+      other.dhtEnabled==dhtEnabled &&
+      other.pexEnabled==pexEnabled &&
+      other.lpdEnabled==lpdEnabled &&
+      other.portForwardingEnabled==portForwardingEnabled &&
+      other.encryption==encryption;
   }
 
   @override
-  int get hashCode => Object.hash(dir, maxDownloadCount, maxSeedCount, enableSeedRatio, seedRatioLimit, enableDownloadSpeedLimit, downloadSpeedLimit, enableUploadSpeedLimit, uploadSpeedLimit);
+  int get hashCode => Object.hash(
+    dir, maxDownloadCount, maxSeedCount, enableSeedRatio, seedRatioLimit,
+    enableDownloadSpeedLimit, downloadSpeedLimit, enableUploadSpeedLimit, uploadSpeedLimit,
+    peerLimitGlobal, peerLimitPerTorrent, peerPort, dhtEnabled, pexEnabled, lpdEnabled,
+    portForwardingEnabled, encryption
+  );
 }
 
 class TransmissionService extends GetxController {
@@ -440,17 +493,7 @@ class TransmissionService extends GetxController {
         },
         body: jsonEncode({
           "method": "session-set",
-          "arguments": {
-            "download-dir": config.dir,
-            "download-queue-size": config.maxDownloadCount,
-            "seed-queue-size": config.maxSeedCount,
-            "seedRatioLimited": config.enableSeedRatio,
-            "seedRatioLimit": config.seedRatioLimit,
-            "speed-limit-down-enabled": config.enableDownloadSpeedLimit,
-            "speed-limit-down": config.downloadSpeedLimit,
-            "speed-limit-up-enabled": config.enableUploadSpeedLimit,
-            "speed-limit-up": config.uploadSpeedLimit,
-          }
+          "arguments": config.toJson()
         })
       );
       if (response.statusCode == 409) {

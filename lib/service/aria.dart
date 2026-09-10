@@ -24,6 +24,22 @@ class AriaConfig{
   String userAgent;
   // 做种比率【seed-ratio】
   double seedRatio;
+  // 启用全局下载限速【enable-http-pipelining / max-overall-download-limit > 0】
+  bool enableDownloadLimit;
+  // 启用全局上传限速
+  bool enableUploadLimit;
+  // 最大连接数【max-connection-per-server】
+  int maxConnectionPerServer;
+  // 单种子最大连接peer数【bt-max-peers】
+  int btMaxPeers;
+  // 监听端口【listen-port】
+  int listenPort;
+  // 启用DHT【enable-dht】
+  bool enableDht;
+  // 启用IPv6 DHT【enable-dht6】
+  bool enableDht6;
+  // 种子分享率【seed-ratio】
+  bool enableSeedRatio;
 
   AriaConfig({
     required this.allowOverwrite, 
@@ -33,7 +49,15 @@ class AriaConfig{
     required this.downloadLimit,
     required this.uploadLimit,
     required this.userAgent,
-    required this.seedRatio
+    required this.seedRatio,
+    required this.enableDownloadLimit,
+    required this.enableUploadLimit,
+    required this.maxConnectionPerServer,
+    required this.btMaxPeers,
+    required this.listenPort,
+    required this.enableDht,
+    required this.enableDht6,
+    required this.enableSeedRatio,
   });
 }
 
@@ -351,15 +375,28 @@ class AriaService extends GetxController{
         "id":"bitflow",
         "params":["token:${item.password}"]
       }, item.url))['result'];
+      
+      int dlLimit = int.tryParse(data['max-overall-download-limit'] ?? '0') ?? 0;
+      int ulLimit = int.tryParse(data['max-overall-upload-limit'] ?? '0') ?? 0;
+      double sRatio = double.tryParse(data['seed-ratio'] ?? '1.0') ?? 1.0;
+
       return AriaConfig(
         allowOverwrite: data['allow-overwrite']=='true',
-        dir: data['dir'],
-        maxDownloads: int.parse(data['max-concurrent-downloads']), 
-        seedTime: int.parse(data['seed-time']), 
-        downloadLimit: int.parse(data['max-overall-download-limit']), 
-        uploadLimit: int.parse(data['max-overall-upload-limit']), 
-        userAgent: data['user-agent'], 
-        seedRatio: double.parse(data['seed-ratio'])
+        dir: data['dir'] ?? '',
+        maxDownloads: int.tryParse(data['max-concurrent-downloads'] ?? '5') ?? 5, 
+        seedTime: int.tryParse(data['seed-time'] ?? '0') ?? 0, 
+        downloadLimit: dlLimit, 
+        uploadLimit: ulLimit, 
+        userAgent: data['user-agent'] ?? '', 
+        seedRatio: sRatio,
+        enableDownloadLimit: dlLimit > 0,
+        enableUploadLimit: ulLimit > 0,
+        maxConnectionPerServer: int.tryParse(data['max-connection-per-server'] ?? '16') ?? 16,
+        btMaxPeers: int.tryParse(data['bt-max-peers'] ?? '55') ?? 55,
+        listenPort: int.tryParse(data['listen-port'] ?? '6881') ?? 6881,
+        enableDht: data['enable-dht'] != 'false',
+        enableDht6: data['enable-dht6'] != 'false',
+        enableSeedRatio: sRatio > 0,
       );
     } catch (_) {
       return null;
