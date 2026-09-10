@@ -130,6 +130,9 @@ class TaskItem{
   }
 
   String formatDuration(int seconds) {
+    if (seconds >= 86400) {
+      return "moreThanOneDay".tr;
+    }
     int hours = seconds ~/ 3600;
     int minutes = (seconds % 3600) ~/ 60;
     int remainingSeconds = seconds % 60;

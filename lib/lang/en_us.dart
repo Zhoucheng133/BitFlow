@@ -158,4 +158,5 @@ const Map<String, String> enUS = {
   'altSpeedUp': 'Alternative Upload Limit',
   'enableDiskCache': 'Enable Disk Cache',
   'diskCacheSize': 'Disk Cache Size (MB)',
+  'moreThanOneDay': '>1 day',
 };

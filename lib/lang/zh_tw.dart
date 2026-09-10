@@ -158,4 +158,5 @@ const Map<String, String> zhTW = {
   'altSpeedUp': '備用上傳限制',
   'enableDiskCache': '啟用磁碟快取',
   'diskCacheSize': '磁碟快取大小 (MB)',
+  'moreThanOneDay': '大於1天',
 };

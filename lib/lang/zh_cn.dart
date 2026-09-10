@@ -158,4 +158,5 @@ const Map<String, String> zhCN = {
   'altSpeedUp': '备用上传限制',
   'enableDiskCache': '启用磁盘缓存',
   'diskCacheSize': '磁盘缓存大小 (MB)',
+  'moreThanOneDay': '大于1天',
 };
