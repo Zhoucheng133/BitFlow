@@ -21,7 +21,7 @@ const Map<String, String> zhTW = {
   'resume': '恢復',
   'redownload': '重新下載',
 
-  'ok': '完成',
+  'ok': '好的',
   'close': '關閉',
 
   'deleteThisTask': '刪除這個任務',

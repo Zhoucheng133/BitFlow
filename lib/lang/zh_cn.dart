@@ -21,7 +21,7 @@ const Map<String, String> zhCN = {
   'resume': '恢复',
   'redownload': '重新下载',
 
-  'ok': '完成',
+  'ok': '好的',
   'close': '关闭',
 
   'deleteThisTask': '删除这个任务',
