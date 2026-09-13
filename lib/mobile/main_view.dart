@@ -34,7 +34,7 @@ class _MainViewState extends State<MainView> {
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: Text(pageToText(statusGet.page.value)),
-          backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
+          backgroundColor: Theme.of(context).colorScheme.surface,
           scrolledUnderElevation: 0.0,
           actions: [
             if(statusGet.selectMode.value) TextButton(
