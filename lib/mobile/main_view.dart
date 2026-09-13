@@ -1,5 +1,5 @@
-import 'package:bit_flow/components/header/active_buttons.dart';
 import 'package:bit_flow/getx/status_get.dart';
+import 'package:bit_flow/mobile/pages/add_task_m.dart';
 import 'package:bit_flow/mobile/pages/download_m.dart';
 import 'package:bit_flow/mobile/pages/finish_m.dart';
 import 'package:bit_flow/mobile/pages/settings_m.dart';
@@ -177,7 +177,9 @@ class _MainViewState extends State<MainView> {
           ],
         ),
         floatingActionButton: statusGet.page.value==Pages.active ? FloatingActionButton(
-          onPressed: ()=>addTaskDialogM(context),
+          onPressed: (){
+            Get.to(()=>AddTaskM());
+          },
           child: Center(
             child: Icon(Icons.add_rounded),
           ),
