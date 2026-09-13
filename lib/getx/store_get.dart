@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:bit_flow/components/add_store.dart';
 import 'package:bit_flow/components/dialogs.dart';
 import 'package:bit_flow/getx/status_get.dart';
+import 'package:bit_flow/mobile/pages/add_server_m.dart';
 import 'package:bit_flow/service/aria.dart';
+import 'package:bit_flow/service/funcs.dart';
 import 'package:bit_flow/service/qbit.dart';
 import 'package:bit_flow/types/store_item.dart';
 import 'package:flutter/material.dart';
@@ -94,57 +96,62 @@ class StoreGet extends GetxController{
   }
 
   Future<void> addStore(BuildContext context, {init=false}) async {
-    StoreItem item=StoreItem("", StoreType.aria, "", null, "");
-    bool load=false;
-    void setVal(StoreItem val){
-      item = StoreItem(val.name, val.type, val.url, val.type==StoreType.aria ? null : val.username, val.password);
-    }
 
-    await showDialog(
-      context: context, 
-      barrierDismissible: false,
-      builder: (context)=>StatefulBuilder(
-        builder: (context, setState)  {
-          return AlertDialog(
-            title: Text(
-              'addDownloader'.tr,
-            ),
-            content: SizedBox(
-              width: 400,
-              child: AddStore(valCallback: setVal,)
-            ),
-            actions: [
-              TextButton(
-                onPressed: init ? null : () => Navigator.pop(context), 
-                child: Text("cancel".tr)
+    if(isDesktop()){
+      StoreItem item=StoreItem("", StoreType.aria, "", null, "");
+      bool load=false;
+      void setVal(StoreItem val){
+        item = StoreItem(val.name, val.type, val.url, val.type==StoreType.aria ? null : val.username, val.password);
+      }
+
+      await showDialog(
+        context: context, 
+        barrierDismissible: false,
+        builder: (context)=>StatefulBuilder(
+          builder: (context, setState)  {
+            return AlertDialog(
+              title: Text(
+                'addDownloader'.tr,
               ),
-              ElevatedButton(
-                onPressed: load ? null : () async {
-                  if(servers.any((element) => element.name==item.name)){
-                    showErrWarnDialog(context, "addFailed".tr, "duplicateName".tr);
-                    return;
-                  }
-                  setState((){
-                    load=true;
-                  });
-                  bool checked=await item.checkItem();
-                  if(checked){
-                    servers.add(item);
-                    await saveStore();
-                    if(context.mounted) Navigator.pop(context);
-                  }else{
-                    if(context.mounted) showErrWarnDialog(context, "connectFailed".tr, "checkDownloader".tr);
-                  }
-                  setState((){
-                    load=false;
-                  });
-                }, 
-                child: Text("add".tr)
-              )
-            ],
-          );
-        }
-      )
-    );
+              content: SizedBox(
+                width: 400,
+                child: AddStore(valCallback: setVal,)
+              ),
+              actions: [
+                TextButton(
+                  onPressed: init ? null : () => Navigator.pop(context), 
+                  child: Text("cancel".tr)
+                ),
+                ElevatedButton(
+                  onPressed: load ? null : () async {
+                    if(servers.any((element) => element.name==item.name)){
+                      showErrWarnDialog(context, "addFailed".tr, "duplicateName".tr);
+                      return;
+                    }
+                    setState((){
+                      load=true;
+                    });
+                    bool checked=await item.checkItem();
+                    if(checked){
+                      servers.add(item);
+                      await saveStore();
+                      if(context.mounted) Navigator.pop(context);
+                    }else{
+                      if(context.mounted) showErrWarnDialog(context, "connectFailed".tr, "checkDownloader".tr);
+                    }
+                    setState((){
+                      load=false;
+                    });
+                  }, 
+                  child: Text("add".tr)
+                )
+              ],
+            );
+          }
+        )
+      );
+    }else{
+      Get.to(()=>AddServerM(init: init,));
+    }
   }
 }

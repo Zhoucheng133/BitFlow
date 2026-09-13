@@ -36,6 +36,19 @@ class _AddTaskMState extends State<AddTaskM> {
     return Scaffold(
       appBar: AppBar(
         title: Text('addTask'.tr,),
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        scrolledUnderElevation: 0.0,
+        actions: [
+          Padding(
+            padding: .only(right: 15),
+            child: FilledButton(
+              onPressed: (){
+                addTaskHandler(context, link, funcs);
+              },
+              child: Text("add".tr)
+            ),
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(15),
@@ -71,30 +84,19 @@ class _AddTaskMState extends State<AddTaskM> {
                 ),
               ),
             ),
-            Row(
-              mainAxisAlignment: .spaceBetween,
-              children: [
-                TextButton(
-                  onPressed: ()async {
-                    FilePickerResult? result = await FilePicker.platform.pickFiles(
-                      type: FileType.custom,
-                      allowedExtensions: ["torrent"]
-                    );
-                    if(result!=null){
-                      if(context.mounted) Navigator.pop(context);
-                      final filePath=result.files.single.path!;
-                      funcs.addTorrentTaskHandler(filePath);
-                    }
-                  }, 
-                  child: Text('fromTorrent'.tr)
-                ),
-                FilledButton(
-                  onPressed: (){
-                    addTaskHandler(context, link, funcs);
-                  },
-                  child: Text("add".tr)
-                ),
-              ],
+            TextButton(
+              onPressed: ()async {
+                FilePickerResult? result = await FilePicker.platform.pickFiles(
+                  type: FileType.custom,
+                  allowedExtensions: ["torrent"]
+                );
+                if(result!=null){
+                  if(context.mounted) Navigator.pop(context);
+                  final filePath=result.files.single.path!;
+                  funcs.addTorrentTaskHandler(filePath);
+                }
+              }, 
+              child: Text('fromTorrent'.tr)
             ),
           ],
         ),
