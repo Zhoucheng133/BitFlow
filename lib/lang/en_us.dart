@@ -47,7 +47,7 @@ const Map<String, String> enUS = {
   'redownloadSelected': 'Re-download Selected Tasks',
   'redownloadSelectedContent': 'These tasks will be deleted and re-added as new tasks',
   'deleteDownloader': 'Delete Download Server',
-  'addDownloader': 'Add Download Server',
+  'addDownloader': 'Add Server',
   'addFailed': 'Failed to Add Download Server',
   'duplicateName': 'Duplicate Downloader Name',
   'connectFailed': 'Connection Failed',
@@ -119,7 +119,7 @@ const Map<String, String> enUS = {
 
   'tasks': 'Tasks',
   'task': 'Task',
-  'addTask': 'Add',
+  'addTask': 'Add Task',
   'edit': 'Edit',
   'copy': 'Copy',
   'paste': 'Paste',
@@ -159,4 +159,7 @@ const Map<String, String> enUS = {
   'enableDiskCache': 'Enable Disk Cache',
   'diskCacheSize': 'Disk Cache Size (MB)',
   'moreThanOneDay': '>1 day',
+
+  'save': 'Save',
+  'configuration': 'Config',
 };

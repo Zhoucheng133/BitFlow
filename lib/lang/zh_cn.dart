@@ -47,7 +47,7 @@ const Map<String, String> zhCN = {
   'redownloadSelected': '重新下载所选任务',
   'redownloadSelectedContent': '将会删除这些任务并重新添加为新的任务',
   'deleteDownloader': '删除下载服务器',
-  'addDownloader': '添加下载服务器',
+  'addDownloader': '添加服务',
   'addFailed': '添加下载服务器失败',
   'duplicateName': '下载器名称重复',
   'connectFailed': '连接失败',
@@ -159,4 +159,7 @@ const Map<String, String> zhCN = {
   'enableDiskCache': '启用磁盘缓存',
   'diskCacheSize': '磁盘缓存大小 (MB)',
   'moreThanOneDay': '大于1天',
+
+  'save': '保存',
+  'configuration': '配置',
 };

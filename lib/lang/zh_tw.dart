@@ -47,7 +47,7 @@ const Map<String, String> zhTW = {
   'redownloadSelected': '重新下載所選任務',
   'redownloadSelectedContent': '將刪除這些任務並重新新增為新任務',
   'deleteDownloader': '刪除下載伺服器',
-  'addDownloader': '新增下載伺服器',
+  'addDownloader': '新增伺服器',
   'addFailed': '新增下載伺服器失敗',
   'duplicateName': '下載器名稱重複',
   'connectFailed': '連線失敗',
@@ -159,4 +159,7 @@ const Map<String, String> zhTW = {
   'enableDiskCache': '啟用磁碟快取',
   'diskCacheSize': '磁碟快取大小 (MB)',
   'moreThanOneDay': '大於1天',
+
+  'save': '儲存',
+  'configuration': '設定',
 };
