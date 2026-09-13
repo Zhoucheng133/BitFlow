@@ -46,39 +46,41 @@ Future<void> addTaskDialogM(BuildContext context) async {
           width: 400,
           child: StatefulBuilder(
             builder: (BuildContext context, setState){
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    'multiTaskTip'.tr,
-                  ),
-                  const SizedBox(height: 5,),
-                  ConstrainedBox(
-                    constraints: BoxConstraints(
-                      maxHeight: 350
+              return SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'multiTaskTip'.tr,
                     ),
-                    child: TextField(
-                      focusNode: inputFocus,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'http(s)://\nmagnet:?xt=urn:btih:', 
-                        hintStyle: TextStyle(
-                          color: Colors.grey,
+                    const SizedBox(height: 5,),
+                    ConstrainedBox(
+                      constraints: BoxConstraints(
+                        maxHeight: 350
+                      ),
+                      child: TextField(
+                        focusNode: inputFocus,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'http(s)://\nmagnet:?xt=urn:btih:', 
+                          hintStyle: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 13
+                          ),
+                          isCollapsed: true,
+                          contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12)
+                        ),
+                        minLines: 3,
+                        maxLines: null,
+                        controller: link,
+                        style: TextStyle(
                           fontSize: 13
                         ),
-                        isCollapsed: true,
-                        contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12)
                       ),
-                      minLines: 3,
-                      maxLines: null,
-                      controller: link,
-                      style: TextStyle(
-                        fontSize: 13
-                      ),
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               );
             }
           ),
