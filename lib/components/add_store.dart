@@ -1,3 +1,4 @@
+import 'package:bit_flow/service/funcs.dart';
 import 'package:bit_flow/types/store_item.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,8 +7,9 @@ class AddItem extends StatefulWidget {
 
   final String label;
   final Widget content;
+  final bool horizontal;
 
-  const AddItem({super.key, required this.label, required this.content});
+  const AddItem({super.key, required this.label, required this.content, this.horizontal=true});
 
   @override
   State<AddItem> createState() => _AddItemState();
@@ -16,7 +18,8 @@ class AddItem extends StatefulWidget {
 class _AddItemState extends State<AddItem> {
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return widget.horizontal ? Row(
+      spacing: 15,
       children: [
         SizedBox(
           width: 80,
@@ -24,8 +27,17 @@ class _AddItemState extends State<AddItem> {
             widget.label,
           )
         ),
-        const SizedBox(width: 15,),
         Expanded(child: widget.content)
+      ],
+    ) : Column(
+      crossAxisAlignment: .start,
+      mainAxisSize: .min,
+      spacing: 10,
+      children: [
+        Text(
+          widget.label,
+        ),
+        widget.content
       ],
     );
   }
@@ -130,6 +142,7 @@ class _AddStoreState extends State<AddStore> {
           ),
           const SizedBox(height: 10,),
           AddItem(
+            horizontal: isDesktop(),
             label: 'name'.tr, 
             content: TextField(
               decoration: InputDecoration(
@@ -156,6 +169,7 @@ class _AddStoreState extends State<AddStore> {
           const SizedBox(height: 10,),
           AddItem(
             label: 'URL'.tr, 
+            horizontal: isDesktop(),
             content: TextField(
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
@@ -180,6 +194,7 @@ class _AddStoreState extends State<AddStore> {
           ),
           if(type=='qBittorrent' || type=='Transmission') const SizedBox(height: 10,),
           if(type=='qBittorrent' || type=='Transmission') AddItem(
+            horizontal: isDesktop(),
             label: 'username'.tr, 
             content: TextField(
               decoration: InputDecoration(
@@ -205,6 +220,7 @@ class _AddStoreState extends State<AddStore> {
           const SizedBox(height: 10,),
           AddItem(
             label: 'password'.tr, 
+            horizontal: isDesktop(),
             content: TextField(
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
