@@ -26,10 +26,10 @@ Future<void> main() async {
   Get.put(QbitService());
   final store=Get.put(StoreGet());
   await store.init();
-  final FuncsService funcsService=Get.put(FuncsService());
+  Get.put(FuncsService());
   await status.initLang();
   await theme.init();
-  if(funcsService.isDesktop()){
+  if(isDesktop()){
     await windowManager.ensureInitialized();
     await hotKeyManager.unregisterAll();
     WindowOptions windowOptions = WindowOptions(
@@ -73,7 +73,6 @@ class MainTranslations extends Translations {
 
 class _MainAppState extends State<MainApp> {
   final ThemeGet themeGet=Get.find();
-  final FuncsService funcsService=Get.find();
   final StatusGet statusGet=Get.find();
 
   @override
@@ -107,7 +106,7 @@ class _MainAppState extends State<MainApp> {
             fontFamily: 'PuHui',
           ),
         ),
-        home: funcsService.isDesktop() ?  MainWindow() : MainView()
+        home: isDesktop() ?  MainWindow() : MainView()
       ),
     );
   }

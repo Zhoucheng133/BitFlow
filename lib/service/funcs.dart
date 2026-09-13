@@ -14,6 +14,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+bool isDesktop(){
+  if(Platform.isWindows || Platform.isMacOS || Platform.isLinux){
+    return true;
+  }
+  return false;
+}
+
 class FuncsService extends GetxController{
   late SharedPreferences prefs;
   late Timer interval;
@@ -363,12 +370,5 @@ class FuncsService extends GetxController{
         getTasks();
       });
     }
-  }
-
-  bool isDesktop(){
-    if(Platform.isWindows || Platform.isMacOS || Platform.isLinux){
-      return true;
-    }
-    return false;
   }
 }

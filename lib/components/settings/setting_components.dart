@@ -22,8 +22,6 @@ class ConfigItem extends StatefulWidget {
 
 class _ConfigItemState extends State<ConfigItem> {
 
-  FuncsService funcsService=Get.find();
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -31,7 +29,7 @@ class _ConfigItemState extends State<ConfigItem> {
       child: Row(
         children: [
           SizedBox(
-            width: funcsService.isDesktop() ? 150 : 100,
+            width: isDesktop() ? 150 : 100,
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(widget.label)
@@ -67,8 +65,6 @@ class ConfigItemWithTextField extends StatefulWidget {
 
 class _ConfigItemWithTextFieldState extends State<ConfigItemWithTextField> {
 
-  FuncsService funcsService=Get.find();
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -76,7 +72,7 @@ class _ConfigItemWithTextFieldState extends State<ConfigItemWithTextField> {
       child: Row(
         children: [
           SizedBox(
-            width: funcsService.isDesktop() ? 150 : 100,
+            width: isDesktop() ? 150 : 100,
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
