@@ -1,6 +1,7 @@
 import 'package:bit_flow/components/add_store.dart';
 import 'package:bit_flow/components/dialogs.dart';
 import 'package:bit_flow/getx/store_get.dart';
+import 'package:bit_flow/service/funcs.dart';
 import 'package:bit_flow/types/store_item.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,6 +21,7 @@ class _AddServerMState extends State<AddServerM> {
   StoreItem item=StoreItem("", StoreType.aria, "", null, "");
   bool load=false;
   final StoreGet storeGet=Get.find();
+  final FuncsService funcsService=Get.find();
 
   void setVal(StoreItem val){
     item = StoreItem(val.name, val.type, val.url, val.type==StoreType.aria ? null : val.username, val.password);
@@ -50,6 +52,9 @@ class _AddServerMState extends State<AddServerM> {
                 if(checked){
                   storeGet.servers.add(item);
                   await storeGet.saveStore();
+                  if(widget.init){
+                      funcsService.init(Get.context!);
+                    }
                   if(context.mounted) Navigator.pop(context);
                 }else{
                   if(context.mounted) showErrWarnDialog(context, "connectFailed".tr, "checkDownloader".tr);

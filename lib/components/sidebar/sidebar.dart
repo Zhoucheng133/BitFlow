@@ -26,7 +26,7 @@ class _SidebarState extends State<Sidebar> {
       child: Obx(
         ()=> Column(
           children: [
-            SidebarDivider(func: ()=>storeGet.addStore(context), label: 'downloadSerevr'.tr, useAdd: true, addHint: "addDownloader".tr,),
+            SidebarDivider(func: ()=>addStore(context), label: 'downloadSerevr'.tr, useAdd: true, addHint: "addDownloader".tr,),
             if(storeGet.servers.isNotEmpty) DropdownButtonHideUnderline(
               child: MouseRegion(
                 child: DropdownButton<String>(

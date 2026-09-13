@@ -80,7 +80,7 @@ class FuncsService extends GetxController{
 
   Future<void> initStore(BuildContext context) async {
     if(storeGet.servers.isEmpty){
-      await storeGet.addStore(context, init: true);
+      await addStore(context, init: true);
     }
   }
 
@@ -330,9 +330,6 @@ class FuncsService extends GetxController{
   
   Future<void> init(BuildContext context) async {
     prefs=await SharedPreferences.getInstance();
-    if(context.mounted){
-      await initStore(context);
-    }
     if(storeGet.servers.isNotEmpty){
       String? check;
       switch (storeGet.servers[statusGet.sevrerIndex.value].type) {
@@ -360,6 +357,8 @@ class FuncsService extends GetxController{
       interval= Timer.periodic(Duration(milliseconds: storeGet.freq.value), (Timer time){
         getTasks();
       });
+    }else{
+      await initStore(Get.context!);
     }
   }
 

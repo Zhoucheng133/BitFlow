@@ -121,7 +121,7 @@ class _SettingsMState extends State<SettingsM> {
           TextButton(
             onPressed: (){
               Navigator.pop(context);
-              storeGet.addStore(context);
+              addStore(context);
             }, 
             child: Text("add".tr)
           ),
