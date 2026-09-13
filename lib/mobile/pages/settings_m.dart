@@ -63,6 +63,8 @@ class _SettingsMState extends State<SettingsM> {
               children: [
                 DropdownButton<String>(
                   isExpanded: true,
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                  borderRadius: BorderRadius.circular(10),
                   value: storeGet.servers[serverIndex].name,
                   items: storeGet.servers.map((StoreItem item) {
                     final name=item.name;
@@ -78,8 +80,6 @@ class _SettingsMState extends State<SettingsM> {
                     );
                   }).toList(),
                   onChanged: (val){
-                    // int index=storeGet.servers.indexWhere((item)=>item.name==val);
-                    // statusGet.sevrerIndex.value=index;
                     int index=storeGet.servers.indexWhere((item)=>item.name==val);
                     setState((){
                       serverIndex=index;

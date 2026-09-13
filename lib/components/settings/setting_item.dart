@@ -141,7 +141,7 @@ class _DropDownContentState extends State<DropDownContent> {
   Widget build(BuildContext context) {
     return Material(
       borderRadius: BorderRadius.circular(5),
-      color: Theme.of(context).brightness==Brightness.light ? Colors.white : Colors.grey[850],
+      color: widget.mobile ? Colors.transparent : Theme.of(context).brightness==Brightness.light ? Colors.white : Colors.grey[850],
       child: InkWell(
         borderRadius: BorderRadius.circular(5),
         child: DropdownButtonHideUnderline(
