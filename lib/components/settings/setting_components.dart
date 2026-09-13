@@ -27,20 +27,19 @@ class _ConfigItemState extends State<ConfigItem> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: Row(
+        mainAxisAlignment: isDesktop() ? MainAxisAlignment.start : MainAxisAlignment.spaceBetween,
         children: [
           SizedBox(
-            width: isDesktop() ? 150 : 100,
+            width: isDesktop() ? 150 : null,
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(widget.label)
             )
           ),
-          const SizedBox(width: 10,),
-          Expanded(
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: widget.child
-            )
+          if (isDesktop()) const SizedBox(width: 10,),
+          Align(
+            alignment: Alignment.centerRight,
+            child: widget.child
           )
         ],
       ),
@@ -67,12 +66,48 @@ class _ConfigItemWithTextFieldState extends State<ConfigItemWithTextField> {
 
   @override
   Widget build(BuildContext context) {
+    if (!isDesktop()) {
+      return Padding(
+        padding: const EdgeInsets.only(bottom: 10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                widget.label,
+              ),
+            ),
+            const SizedBox(height: 6,),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: TextField(
+                enabled: widget.enabled,
+                inputFormatters: widget.useInt ? [
+                  FilteringTextInputFormatter.digitsOnly,
+                ] : widget.useDouble ? [
+                  FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,}$')),
+                ] : [],
+                controller: widget.controller,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  isCollapsed: true,
+                  contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 10)
+                ),
+                maxLines: widget.multiLine ? 3 : 1,
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: Row(
         children: [
           SizedBox(
-            width: isDesktop() ? 150 : 100,
+            width: 150,
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
