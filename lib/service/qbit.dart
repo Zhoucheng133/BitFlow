@@ -471,10 +471,19 @@ class QbitService extends GetxController {
   bool samePreference(QbitConfig config1, QbitConfig config2){
     return config1.savePath==config2.savePath &&
       config1.maxDownloadCount==config2.maxDownloadCount &&
+      config1.maxActiveTasks==config2.maxActiveTasks &&
+      config1.maxActiveUploads==config2.maxActiveUploads &&
       config1.seedTimeEnable==config2.seedTimeEnable &&
       config1.seedTime==config2.seedTime &&
       config1.ratioEnable==config2.ratioEnable &&
-      config1.seedRatio==config2.seedRatio;
+      config1.seedRatio==config2.seedRatio &&
+      config1.listenPort==config2.listenPort &&
+      config1.dhtEnabled==config2.dhtEnabled &&
+      config1.lpdEnabled==config2.lpdEnabled &&
+      config1.pexEnabled==config2.pexEnabled &&
+      config1.upnpEnabled==config2.upnpEnabled &&
+      config1.maxConns==config2.maxConns &&
+      config1.maxConnsPerTorrent==config2.maxConnsPerTorrent;
   }
 
   // 保存配置
