@@ -5,6 +5,13 @@ import 'package:bit_flow/desktop/main_window.dart';
 import 'package:bit_flow/lang/en_us.dart';
 import 'package:bit_flow/lang/zh_cn.dart';
 import 'package:bit_flow/lang/zh_tw.dart';
+import 'package:bit_flow/lang/ja_jp.dart';
+import 'package:bit_flow/lang/ko_kr.dart';
+import 'package:bit_flow/lang/de_de.dart';
+import 'package:bit_flow/lang/ru_ru.dart';
+import 'package:bit_flow/lang/es_es.dart';
+import 'package:bit_flow/lang/pt_br.dart';
+import 'package:bit_flow/lang/fr_fr.dart';
 import 'package:bit_flow/mobile/main_view.dart';
 import 'package:bit_flow/service/aria.dart';
 import 'package:bit_flow/service/funcs.dart';
@@ -67,7 +74,14 @@ class MainTranslations extends Translations {
   Map<String, Map<String, String>> get keys => {
     'en_US': enUS,
     'zh_CN': zhCN,
-    'zh_TW': zhTW
+    'zh_TW': zhTW,
+    'ja_JP': jaJP,
+    'ko_KR': koKR,
+    'de_DE': deDE,
+    'ru_RU': ruRU,
+    'es_ES': esES,
+    'pt_BR': ptBR,
+    'fr_FR': frFR,
   };
 }
 
