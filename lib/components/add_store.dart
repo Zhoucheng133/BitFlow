@@ -287,8 +287,10 @@ class _AddStoreState extends State<AddStore> {
               ),
             ),
             initiallyExpanded: false,
-            tilePadding: EdgeInsets.zero,
-            childrenPadding: EdgeInsets.zero,
+            tilePadding: .symmetric(horizontal: 10.0),
+            childrenPadding: .symmetric(horizontal: 10.0),
+            shape: const Border(),
+            collapsedShape: const Border(),
             children: [
               const SizedBox(height: 10,),
               AddItem(
