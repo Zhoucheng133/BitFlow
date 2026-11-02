@@ -162,4 +162,6 @@ const Map<String, String> jaJP = {
 
   'save': '保存',
   'configuration': '設定',
+  'advancedSettings': '詳細設定',
+  'path': 'パス',
 };

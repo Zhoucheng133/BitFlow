@@ -162,4 +162,6 @@ const Map<String, String> frFR = {
 
   'save': 'Enregistrer',
   'configuration': 'Configuration',
+  'advancedSettings': 'Paramètres avancés',
+  'path': 'Chemin',
 };

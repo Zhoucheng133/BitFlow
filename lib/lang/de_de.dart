@@ -162,4 +162,6 @@ const Map<String, String> deDE = {
 
   'save': 'Speichern',
   'configuration': 'Konfiguration',
+  'advancedSettings': 'Erweiterte Einstellungen',
+  'path': 'Pfad',
 };

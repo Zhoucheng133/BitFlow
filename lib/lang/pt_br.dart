@@ -162,4 +162,6 @@ const Map<String, String> ptBR = {
 
   'save': 'Salvar',
   'configuration': 'Configuração',
+  'advancedSettings': 'Configurações Avançadas',
+  'path': 'Caminho',
 };

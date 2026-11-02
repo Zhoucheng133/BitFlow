@@ -58,8 +58,40 @@ class _AddStoreState extends State<AddStore> {
   TextEditingController url=TextEditingController();
   TextEditingController username=TextEditingController();
   TextEditingController password=TextEditingController();
+  TextEditingController path=TextEditingController(text: "/jsonrpc");
 
   StoreItem item=StoreItem("", StoreType.aria, "", "", "");
+
+  @override
+  void initState() {
+    super.initState();
+    updateItem();
+  }
+
+  void updateItem(){
+    String baseUrl=url.text.trim();
+    String pathVal=path.text.trim();
+    if(type=='Aria' || type=='Transmission'){
+      if(baseUrl.isEmpty){
+        item.url="";
+      }else{
+        if(!pathVal.startsWith('/')){
+          pathVal='/$pathVal';
+        }
+        if(baseUrl.endsWith('/')){
+          baseUrl=baseUrl.substring(0, baseUrl.length - 1);
+        }
+        item.url=baseUrl + pathVal;
+      }
+    }else{
+      item.url=baseUrl;
+    }
+    item.name=name.text;
+    item.password=password.text;
+    item.username=username.text;
+    toEnumType(type);
+    widget.valCallback(item);
+  }
 
   String convertType(StoreType type){
     switch (type) {
@@ -89,11 +121,11 @@ class _AddStoreState extends State<AddStore> {
   String linkHintText(){
     switch (item.type) {
       case StoreType.aria:
-        return "http(s)://.../jsonrpc";
+        return "http(s)://...";
       case StoreType.qbit:
         return "http(s)://";
       case StoreType.transmission:
-        return "http(s)://.../transmission/rpc";
+        return "http(s)://...";
     }
   }
 
@@ -132,9 +164,16 @@ class _AddStoreState extends State<AddStore> {
                   onChanged: (String? val){
                     setState((){
                       type=val!;
+                      if(type=='Aria'){
+                        path.text='/jsonrpc';
+                      }else if(type=='Transmission'){
+                        path.text='/transmission/rpc';
+                      }else{
+                        path.text='';
+                      }
                     });
                     toEnumType(val);
-                    widget.valCallback(item);
+                    updateItem();
                   },
                 ),
               ),
@@ -161,8 +200,7 @@ class _AddStoreState extends State<AddStore> {
               autocorrect: false,
               enableSuggestions: false,
               onChanged: (val){
-                item.name=val;
-                widget.valCallback(item);
+                updateItem();
               },
             )
           ),
@@ -187,8 +225,7 @@ class _AddStoreState extends State<AddStore> {
               autocorrect: false,
               enableSuggestions: false,
               onChanged: (val){
-                item.url=val;
-                widget.valCallback(item);
+                updateItem();
               },
             )
           ),
@@ -212,8 +249,7 @@ class _AddStoreState extends State<AddStore> {
               autocorrect: false,
               enableSuggestions: false,
               onChanged: (val){
-                item.username=val;
-                widget.valCallback(item);
+                updateItem();
               },
             )
           ),
@@ -238,10 +274,47 @@ class _AddStoreState extends State<AddStore> {
               autocorrect: false,
               enableSuggestions: false,
               onChanged: (val){
-                item.password=val;
-                widget.valCallback(item);
+                updateItem();
               },
             )
+          ),
+          if(type=='Aria' || type=='Transmission') const SizedBox(height: 10,),
+          if(type=='Aria' || type=='Transmission') ExpansionTile(
+            title: Text(
+              'advancedSettings'.tr,
+              style: TextStyle(
+                fontSize: 14,
+              ),
+            ),
+            initiallyExpanded: false,
+            tilePadding: EdgeInsets.zero,
+            childrenPadding: EdgeInsets.zero,
+            children: [
+              const SizedBox(height: 10,),
+              AddItem(
+                horizontal: isDesktop(),
+                label: 'path'.tr, 
+                content: TextField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintStyle: TextStyle(
+                      color: Colors.grey
+                    ),
+                    isCollapsed: true,
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12)
+                  ),
+                  controller: path,
+                  style: TextStyle(
+                    fontSize: 14
+                  ),
+                  autocorrect: false,
+                  enableSuggestions: false,
+                  onChanged: (val){
+                    updateItem();
+                  },
+                )
+              ),
+            ],
           ),
         ],
       ),

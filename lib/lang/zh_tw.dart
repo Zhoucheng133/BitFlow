@@ -162,4 +162,6 @@ const Map<String, String> zhTW = {
 
   'save': '儲存',
   'configuration': '設定',
+  'advancedSettings': '進階設定',
+  'path': '路徑',
 };

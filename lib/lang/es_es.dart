@@ -162,4 +162,6 @@ const Map<String, String> esES = {
 
   'save': 'Guardar',
   'configuration': 'Configuración',
+  'advancedSettings': 'Configuración avanzada',
+  'path': 'Ruta',
 };

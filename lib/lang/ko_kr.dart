@@ -162,4 +162,6 @@ const Map<String, String> koKR = {
 
   'save': '저장',
   'configuration': '설정',
+  'advancedSettings': '고급 설정',
+  'path': '경로',
 };

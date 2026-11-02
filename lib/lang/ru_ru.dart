@@ -162,4 +162,6 @@ const Map<String, String> ruRU = {
 
   'save': 'Сохранить',
   'configuration': 'Конфигурация',
+  'advancedSettings': 'Дополнительные настройки',
+  'path': 'Путь',
 };

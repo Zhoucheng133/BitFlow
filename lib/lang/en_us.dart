@@ -162,4 +162,6 @@ const Map<String, String> enUS = {
 
   'save': 'Save',
   'configuration': 'Config',
+  'advancedSettings': 'Advanced Settings',
+  'path': 'Path',
 };

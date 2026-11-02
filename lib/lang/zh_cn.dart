@@ -162,4 +162,6 @@ const Map<String, String> zhCN = {
 
   'save': '保存',
   'configuration': '配置',
+  'advancedSettings': '高级设置',
+  'path': '路径',
 };
