@@ -119,6 +119,9 @@ class _MainAppState extends State<MainApp> {
           ) : ThemeData.light().textTheme.apply(
             fontFamily: 'PuHui',
           ),
+          listTileTheme: Theme.of(context).listTileTheme.copyWith(
+            mouseCursor: WidgetStateProperty.all(SystemMouseCursors.basic),
+          ),
         ),
         home: isDesktop() ?  MainWindow() : MainView()
       ),
