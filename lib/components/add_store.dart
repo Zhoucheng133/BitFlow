@@ -118,17 +118,6 @@ class _AddStoreState extends State<AddStore> {
     }
   }
 
-  String linkHintText(){
-    switch (item.type) {
-      case StoreType.aria:
-        return "http(s)://...";
-      case StoreType.qbit:
-        return "http(s)://";
-      case StoreType.transmission:
-        return "http(s)://...";
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -208,25 +197,41 @@ class _AddStoreState extends State<AddStore> {
           AddItem(
             label: 'URL'.tr, 
             horizontal: isDesktop(),
-            content: TextField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: linkHintText(),
-                hintStyle: TextStyle(
-                  color: Colors.grey
+            content: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: "http(s)://...",
+                    hintStyle: TextStyle(
+                      color: Colors.grey
+                    ),
+                    isCollapsed: true,
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12)
+                  ),
+                  controller: url,
+                  style: TextStyle(
+                    fontSize: 14
+                  ),
+                  autocorrect: false,
+                  enableSuggestions: false,
+                  onChanged: (val){
+                    updateItem();
+                  },
                 ),
-                isCollapsed: true,
-                contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12)
-              ),
-              controller: url,
-              style: TextStyle(
-                fontSize: 14
-              ),
-              autocorrect: false,
-              enableSuggestions: false,
-              onChanged: (val){
-                updateItem();
-              },
+                if(type=='Aria' || type=='Transmission') ...[
+                  const SizedBox(height: 5),
+                  Text(
+                    'pathTip'.tr,
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
+              ],
             )
           ),
           if(type=='qBittorrent' || type=='Transmission') const SizedBox(height: 10,),
@@ -279,44 +284,53 @@ class _AddStoreState extends State<AddStore> {
             )
           ),
           if(type=='Aria' || type=='Transmission') const SizedBox(height: 10,),
-          if(type=='Aria' || type=='Transmission') ExpansionTile(
-            title: Text(
-              'advancedSettings'.tr,
-              style: TextStyle(
-                fontSize: 14,
+          if(type=='Aria' || type=='Transmission') Card(
+            color: Colors.transparent,
+            clipBehavior: Clip.antiAlias,
+            elevation: 0,
+            child: ExpansionTile(
+              title: Text(
+                'advancedSettings'.tr,
+                style: TextStyle(
+                  fontSize: 14,
+                ),
               ),
-            ),
-            initiallyExpanded: false,
-            tilePadding: .symmetric(horizontal: 10.0),
-            childrenPadding: .symmetric(horizontal: 10.0),
-            shape: const Border(),
-            collapsedShape: const Border(),
-            children: [
-              const SizedBox(height: 10,),
-              AddItem(
-                horizontal: isDesktop(),
-                label: 'path'.tr, 
-                content: TextField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintStyle: TextStyle(
-                      color: Colors.grey
+              initiallyExpanded: false,
+              tilePadding: .symmetric(horizontal: 10.0),
+              childrenPadding: .all(10.0),
+              shape: RoundedRectangleBorder(
+                side: BorderSide.none,
+              ),
+              collapsedShape: RoundedRectangleBorder(
+                side: BorderSide.none,
+              ),
+              children: [
+                const SizedBox(height: 10,),
+                AddItem(
+                  horizontal: isDesktop(),
+                  label: 'path'.tr, 
+                  content: TextField(
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintStyle: TextStyle(
+                        color: Colors.grey
+                      ),
+                      isCollapsed: true,
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12)
                     ),
-                    isCollapsed: true,
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12)
-                  ),
-                  controller: path,
-                  style: TextStyle(
-                    fontSize: 14
-                  ),
-                  autocorrect: false,
-                  enableSuggestions: false,
-                  onChanged: (val){
-                    updateItem();
-                  },
-                )
-              ),
-            ],
+                    controller: path,
+                    style: TextStyle(
+                      fontSize: 14
+                    ),
+                    autocorrect: false,
+                    enableSuggestions: false,
+                    onChanged: (val){
+                      updateItem();
+                    },
+                  )
+                ),
+              ],
+            ),
           ),
         ],
       ),

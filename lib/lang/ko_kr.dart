@@ -164,4 +164,5 @@ const Map<String, String> koKR = {
   'configuration': '설정',
   'advancedSettings': '고급 설정',
   'path': '경로',
+  'pathTip': '주소란에 경로를 입력할 필요가 없습니다. 경로를 지정해야 하는 경우 고급 설정에서 하세요.',
 };

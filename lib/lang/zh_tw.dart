@@ -164,4 +164,5 @@ const Map<String, String> zhTW = {
   'configuration': '設定',
   'advancedSettings': '進階設定',
   'path': '路徑',
+  'pathTip': '地址欄不需要填寫路徑，如果需要指定路徑在進階設定中',
 };

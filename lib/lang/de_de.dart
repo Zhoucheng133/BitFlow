@@ -164,4 +164,5 @@ const Map<String, String> deDE = {
   'configuration': 'Konfiguration',
   'advancedSettings': 'Erweiterte Einstellungen',
   'path': 'Pfad',
+  'pathTip': 'Der Pfad muss nicht in der Adressleiste eingegeben werden. Wenn Sie einen Pfad angeben müssen, tun Sie dies in den erweiterte Einstellungen.',
 };

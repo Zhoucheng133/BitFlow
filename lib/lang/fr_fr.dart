@@ -164,4 +164,5 @@ const Map<String, String> frFR = {
   'configuration': 'Configuration',
   'advancedSettings': 'Paramètres avancés',
   'path': 'Chemin',
+  'pathTip': "Le chemin n'a pas besoin d'être renseigné dans la barre d'adresse. Si vous devez spécifier un chemin, faites-le dans les paramètres avancés.",
 };

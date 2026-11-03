@@ -164,4 +164,5 @@ const Map<String, String> jaJP = {
   'configuration': '設定',
   'advancedSettings': '詳細設定',
   'path': 'パス',
+  'pathTip': 'アドレスバーにパスを入力する必要はありません。パスを指定する必要がある場合は、詳細設定で行ってください。',
 };

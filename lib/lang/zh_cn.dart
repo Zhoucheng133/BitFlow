@@ -164,4 +164,5 @@ const Map<String, String> zhCN = {
   'configuration': '配置',
   'advancedSettings': '高级设置',
   'path': '路径',
+  'pathTip': '地址栏中不需要填写路径，如需指定路径请在高级设置中配置',
 };

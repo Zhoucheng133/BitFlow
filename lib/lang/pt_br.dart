@@ -164,4 +164,5 @@ const Map<String, String> ptBR = {
   'configuration': 'Configuração',
   'advancedSettings': 'Configurações Avançadas',
   'path': 'Caminho',
+  'pathTip': 'O caminho não precisa ser preenchido na barra de endereços. Se precisar especificar um caminho, faça isso nas configurações avançadas.',
 };

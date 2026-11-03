@@ -164,4 +164,5 @@ const Map<String, String> enUS = {
   'configuration': 'Config',
   'advancedSettings': 'Advanced Settings',
   'path': 'Path',
+  'pathTip': 'The path is not needed in the address bar. If you need to specify a path, configure it in advanced settings.',
 };

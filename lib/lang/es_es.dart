@@ -164,4 +164,5 @@ const Map<String, String> esES = {
   'configuration': 'Configuración',
   'advancedSettings': 'Configuración avanzada',
   'path': 'Ruta',
+  'pathTip': 'No es necesario especificar la ruta en la barra de direcciones. Si necesitas especificar una ruta, hazlo en la configuración avanzada.',
 };
