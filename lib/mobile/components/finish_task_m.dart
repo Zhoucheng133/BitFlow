@@ -126,7 +126,7 @@ class _FinishTaskMState extends State<FinishTaskM> {
                     ),
                     Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        padding: EdgeInsets.only(left: 10, right: MediaQuery.of(context).padding.right + 10),
                         child: Row(
                           children: [
                             Obx(()=>
