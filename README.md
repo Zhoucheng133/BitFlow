@@ -8,9 +8,8 @@ Also available in English. Click [HERE](/documents/en.md) to view the English ve
 
 ![License](https://img.shields.io/badge/License-MIT-dark_green)
 
-<a href="https://apps.microsoft.com/detail/9np0mgsll0zf?referrer=appbadge&mode=direct">
-	<img src="https://get.microsoft.com/images/en-us%20dark.svg" width="200"/>
-</a>
+<a href="https://apps.microsoft.com/detail/9np0mgsll0zf?referrer=appbadge&mode=direct"><img src="https://get.microsoft.com/images/en-us%20dark.svg" height="50" alt="Get it from Microsoft"/></a>&emsp;<a href="https://apps.apple.com/us/app/bitflow-app/id6818530251"><img src="./demo/appstore.svg" height="50" alt="Download on the App Store"/></a>
+
 
 这是一个支持多下载器的桌面端远程控制App，支持Windows，macOS，iOS（需要自行打包）和Android
 
