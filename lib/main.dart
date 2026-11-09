@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bit_flow/getx/status_get.dart';
 import 'package:bit_flow/getx/store_get.dart';
 import 'package:bit_flow/getx/theme_get.dart';
@@ -18,6 +20,7 @@ import 'package:bit_flow/service/funcs.dart';
 import 'package:bit_flow/service/qbit.dart';
 import 'package:bit_flow/service/trans.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:hotkey_manager/hotkey_manager.dart';
@@ -81,6 +84,45 @@ class MainTranslations extends Translations {
 class _MainAppState extends State<MainApp> {
   final ThemeGet themeGet=Get.find();
   final StatusGet statusGet=Get.find();
+
+  bool? phoneLike;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    if(Platform.isIOS || Platform.isAndroid){
+      final size = MediaQuery.sizeOf(context);
+      final shortestSide = size.shortestSide;
+
+      final isPhoneLike = shortestSide < 600;
+
+      if (phoneLike != isPhoneLike) {
+        phoneLike = isPhoneLike;
+        applyOrientation(isPhoneLike);
+      }
+    }
+  }
+
+  Future<void> applyOrientation(bool isPhoneLike) async {
+    if(Platform.isIOS || Platform.isAndroid){
+      try{
+        if(phoneLike==true){
+          await SystemChrome.setPreferredOrientations([
+            DeviceOrientation.portraitUp,
+            DeviceOrientation.portraitDown,
+          ]);
+        }else if(Platform.isAndroid){
+          await SystemChrome.setPreferredOrientations([
+            DeviceOrientation.portraitUp,
+            DeviceOrientation.portraitDown,
+            DeviceOrientation.landscapeLeft,
+            DeviceOrientation.landscapeRight
+          ]);
+        }
+      }catch(_){}
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
